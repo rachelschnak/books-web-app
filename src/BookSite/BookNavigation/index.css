@@ -1,0 +1,51 @@
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+body * {
+    font-family: Arial
+}
+
+.booksy-navbar{
+    background-color: darkseagreen;
+    padding-top: 0px;
+    margin-bottom: 5px;
+}
+
+.booksy-navbar a.list-group-item.false{
+    color: white;
+    background-color: darkseagreen;
+    border-width: 0px;
+    padding: 10px;
+    font-size: 0.8em;
+    text-align: center;
+}
+
+.booksy-navbar a.list-group-item.active {
+    color: darkseagreen;
+    background-color: white;
+    border-width: 0px;
+    padding: 10px;
+    font-size: 0.8em;
+    text-align: center;
+    margin: 0px;
+    bottom-margin: 5px;
+    border-radius: 0px;
+}
+
+.booksy-navbar a.list-group-item .wd-icon {
+    color: darkgreen;
+    font-size: 2em;
+    margin-bottom: 5px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+
+
+
+
+
+

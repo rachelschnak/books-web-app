@@ -1,0 +1,113 @@
+
+.wd-kanbas-home-content {
+    padding-left: 20px;
+    padding-right: 20px;
+
+}
+
+.wd-kanbas-home .wd-kanbas-home-content{
+    top: 56px;
+    position: relative;
+}
+
+.wd-kanbas-home a{
+    color: red;
+    text-decoration: none;
+}
+
+a.wd-kanbas-home-button-main {
+    color: #2b2f32;
+    background-color: #f0eded;
+    border-color: lightgray;
+    border-radius: 7px;
+    margin-right: 5px;
+    margin-bottom: 20px;
+    padding-top: 5px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 1.2em;
+    text-align: center;
+    display: inline-flex;
+    height:38px;
+}
+
+button.wd-kanbas-home-button-main {
+    color: #2b2f32;
+    background-color: #f0eded;
+    border-color: lightgray;
+    border-radius: 7px;
+    margin-right: 5px;
+    margin-bottom: 20px;
+    max-height: 38px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 1.2em;
+    display: inline-flex;
+}
+
+a.wd-kanbas-home-button {
+    color: #2b2f32;
+    background-color: #f0eded;
+    border-color: lightgray;
+    border-radius: 3px;
+    max-height: 38px;
+    margin-right: 5px;
+    margin-bottom: 20px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+}
+
+
+.wd-kanbas-home i.fa-circle-check {
+    color: forestgreen;
+    padding-right: 3px;
+}
+
+.wd-kanbas-home .wd-home-module {
+    color: gray;
+    float: end;
+}
+
+.wd-kanbas-home-todo-list a {
+    color: red;
+}
+
+.wd-kanbas-home-buttons-main{
+    text-align: right;
+}
+
+a.wd-red-button {
+    color: white;
+    background-color: red;
+}
+
+.dropdown {
+    display: inline-flex;
+}
+
+
+
+.wd-kanbas-home-main-list .list-group-item{
+    color: #2b2f32;
+    background-color: #f0eded;
+    border-color: lightgray;
+    border-radius: 3px;
+    margin-bottom: 30px;
+}
+
+li.list-group-item.wd-module-item {
+    border-radius: 3px;
+    border-width: 2px;
+}
+
+.wd-kanbas-home-todo-list-item.list-group-item {
+    color: red;
+    border: 0px;
+}
+
+.wd-todo-sub {
+    color: gray;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

@@ -1,0 +1,100 @@
+.wd-project-home-dashboard {
+    background-color: white;
+    list-style: none;
+    padding:10px;
+    margin: 10px;
+    margin-left: 30px;
+}
+
+.wd-kanbas-dashboard-title {
+    color: gray;
+    font-size: 2em;
+}
+
+.wd-project-home-dashboard nav {
+    color: grey;
+    background-color: white;
+    font-size: 2em;
+    margin-left: 80px;
+    margin-right: 280px;
+    padding-left: 20px;
+}
+
+.wd-kanbas-dashboard-sub-title {
+    color: gray;
+    font-size: 1.5em;
+    padding-top: 50px;
+    padding-left: 30px;
+}
+
+.wd-project-home-dashboard .card {
+    overflow: hidden;
+    width: 250px;
+    margin-bottom: 20px;
+    margin-left: 20px;
+}
+
+.wd-project-home-dashboard .col {
+    paddding: 0px;
+}
+
+.row .card {
+    padding: 0px;
+}
+
+.wd-kanbas-dashboard-grid .col {
+    margin-top: 30px;
+}
+
+.wd-kanbas-dashboard-grid {
+    max-width: 1300px;
+}
+
+.wd-project-home-dashboard a {
+    text-decoration: none;
+    color: gray;
+}
+
+
+.wd-project-home-dashboard .card-title {
+    color: cornflowerblue;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 0.95em;
+    margin-bottom: 3px;
+
+}
+
+.wd-project-home-dashboard .card-text {
+    color: gray;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 1px;
+    font-size: 1.15em;
+}
+
+.wd-kanbas-dashboard-card-subtext.card-text{
+    padding: 2px;
+    font-size: 0.85em;
+}
+
+.wd-carddeck-row {
+    min-width: 3000px;
+}
+
+.wd-dashboard-button {
+    margin: 10px;
+}
+
+.wd-module-list {
+    max-width: 1500px;
+}
+
+.row .wd-module-edit-buttons{
+    margin: 15px;
+    margin-top: 5px;
+}
+
+

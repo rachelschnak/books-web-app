@@ -1,0 +1,64 @@
+.list-group-item.wd-assignment-header {
+    color: black;
+    background-color: #f0eded;
+    border-color: lightgray;
+    border-radius: 3px;
+    font-size: 1.2em;
+}
+
+.list-group.wd-assignment-list {
+    margin-bottom: 15px;
+}
+
+.list-group-item.wd-assignment-list-item {
+    border-left-width: 7px;
+    border-left-color: green;
+}
+
+a.wd-kanbas-assignment-button-main {
+    color: #2b2f32;
+    background-color: #f0eded;
+    border-color: lightgray;
+    border-radius: 7px;
+    margin-right: 5px;
+    margin-bottom: 20px;
+    height: 38px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 1.2em;
+    text-align: center;
+    display: inline-flex;
+    padding:3px;
+
+}
+
+.wd-kanbas-assignment-buttons-main {
+    text-align: right;
+}
+
+.list-group-item:first-child.wd-kanbas-assignment-button-main {
+    border-radius: 7px;
+}
+
+.list-group-item:last-child.wd-kanbas-assignment-button-main {
+    border-radius: 7px;
+}
+
+.wd-assignment-content {
+    margin-right: 20px;
+    margin-bottom: 20px;
+}
+
+
+.wd-green-icon {
+    color:green;
+}
+
+a.wd-nobutton {
+    background-color: white;
+}
+
+.wd-inline-button {
+    display: inline-flex;
+}
+

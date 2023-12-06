@@ -1,0 +1,55 @@
+.wd-course-nav-bar {
+    margin-left:15px;
+    height: fit-content;
+    max-height: 30px;
+    margin-bottom: 0px;
+}
+
+.wd-course-top-nav-bar-large {
+    left:90px;
+}
+
+.wd-kanbas-home-main-nav-pagebacklink {
+    text-decoration: none;
+
+}
+
+.wd-main-nav-bar a {
+    text-decoration: none;
+    color: red;
+}
+
+
+.wd-kanbas-studentViewButton {
+    color: #2b2f32;
+    background-color: #f0eded;
+    border-color: darkgrey;
+    border-radius: 7px;
+    border-width: 5px;
+    margin-right: 5px;
+    margin-bottom: 20px;
+    padding-top: 5px;
+    font-size: 1.2em;
+    text-align: center;
+    height:38px;
+}
+
+ul.breadcrumb{
+    margin-bottom: 0px;
+}
+
+nav.navbar {
+    height: auto;
+}
+
+a.wd-kanbas-studentViewButton {
+    color: #2b2f32;
+    background-color: #f0eded;
+    text-align: right;
+    float: end;
+}
+.wd-force-float-end {
+    float:end;
+    position: absolute;
+    right: 0px;
+}

@@ -1,0 +1,92 @@
+li.list-group-item{
+    color: #2b2f32;
+    background-color: #f0eded;
+    border-color: lightgray;
+    border-radius: 3px;
+    margin-bottom: 30px;
+}
+
+a.wd-kanbas-home-button-main {
+    color: #2b2f32;
+    background-color: #f0eded;
+    border-color: black;
+    border-radius: 5px;
+    border-width: 2px;
+    margin-right: 5px;
+    margin-bottom: 20px;
+    padding-top: 5px;
+    max-height: 38px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 1.2em;
+    text-align: center;
+}
+
+button.wd-kanbas-home-button-main {
+    color: #2b2f32;
+    background-color: #f0eded;
+    margin-right: 5px;
+    margin-bottom: 20px;
+    max-height: 38px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 1.2em;
+}
+
+a.wd-kanbas-home-button {
+    color: #2b2f32;
+    background-color: #f0eded;
+    border-color: lightgray;
+    border-radius: 3px;
+
+    margin-right: 5px;
+    margin-bottom: 20px;
+    max-height: 38px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+}
+
+a.wd-red-button {
+    color: white;
+    background-color: red;
+    text-decoration: none;
+
+}
+
+.list-group-item:first-child.wd-kanbas-assignment-button-main {
+    border-radius: 7px;
+}
+
+.list-group-item:last-child.wd-kanbas-assignment-button-main {
+    border-radius: 7px;
+}
+
+.wd-module-content {
+    margin-right: 30px;
+}
+
+.list-group-item:first-child.wd-kanbas-home-button-main {border-radius: 5px;}
+.list-group-item:last-child.wd-kanbas-home-button-main {border-radius: 5px;}
+
+.list-group-item span.wd-right-icon {
+    text-align: right;
+    float:right;
+    vertical-align: center;
+}
+.wd-module-titles {
+    font-size: 1.5em;
+}
+
+.wd-dashboard-buttons {
+    float: right;
+    margin-top: 10px;
+}
+
+.wd-dashboard-button {
+    margin: 1px;
+}
+
+.wd-mod-list{
+    max-width: 1500px;
+}
