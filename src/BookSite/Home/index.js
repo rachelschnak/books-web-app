@@ -1,73 +1,124 @@
-import {React, useState} from "react";
-import { Link } from "react-router-dom";
+import {React, useEffect, useState} from "react";
+import {Link, useLocation, useNavigate, useParams} from "react-router-dom";
 //import db from "../Database";
 import "./index.css";
-function Home({courses, course, setCourse, addNewCourse,
-                        deleteCourse, updateCourse, resetCourse }) {
+import * as client from "../users/client";
+import * as likesClient from "../likes/client";
+import * as bookClient from "../client";
+import {findBookById, findFirstBookByTitle} from "../client";
+function Home() {
+
+    const [account, setAccount] = useState(null);
+    //const [best, setBest] = useState(null);
+    const [topBooks, setTopBooks] = useState([]);
+    const navigate = useNavigate();
+    const [likes, setLikes] = useState([]);
+    const [likedBooks, setLikedBooks] = useState([]);
+    const fetchAccount = async () => {
+        try {
+            const account = await client.account();
+            setAccount(account);
+            if(account) {
+                await fetchBooksUserLikes(account._id)
+            }
+
+        } catch (error) {
+            console.log(error)
+        }
+    };
+
+    const fetchNYTBest = async () => {
+        try {
+            const bestNYT = await bookClient.findNYTBestsellers();
+            //setBest(bestNYT);
+            for(const each in bestNYT) {
+                const bookTitle = bestNYT[each].title;
+                //console.log(bestNYT[each].title);
+                await fetchBookByTitle(bookTitle);
+            }
+            console.log("topbooks")
+            console.log(topBooks)
+        } catch (error) {
+            //setBest(null);
+            console.log("Error in fetchNYTBest")
+        }
+    };
+
+    const fetchBooksUserLikes = async (userId) => {
+        try {
+            const likes = await likesClient.findBooksThatUserLikes(userId);
+            for(const each in likes) {
+                const bookId = likes[each].bookId;
+                fetchBooks(bookId);
+            }
+            setLikes(likes);
+        } catch (error) {
+            setLikes(null);
+        }
+    };
+
+    const fetchBooks = async (bookId) => {
+        try {
+            const book = await findBookById(bookId)
+            setLikedBooks(likedBooks => [...likedBooks, book])
+        } catch (error) {
+            console.log("didn't fetch any liked books")
+        }
+    };
+
+    const fetchBookByTitle = async (bookTitle) => {
+        try {
+            const tBook = await findFirstBookByTitle(bookTitle)
+            setTopBooks(topBooks => [...topBooks, tBook])
+
+        } catch (error) {
+            console.log("didn't fetch top books")
+        }
+    };
+
+    useEffect(() => {
+        fetchAccount();
+        fetchNYTBest();
+        console.log("inside useEffect")
+    }, []);
 
     return (
         <div className="wd-project-home-dashboard">
-            <h1>Dashboard</h1>
+            <h1>Home</h1>
             <hr/>
-            <h2>Published Courses ({courses.length})</h2>
-            <hr/>
-            <h5>Course</h5>
-            <div className="wd-module-list">
-                <div className="wd-edit-modules row">
-
-            <input value={course.name} className="form-control"
-                   onChange={(e) => setCourse({ ...course, name: e.target.value }) } />
-            <input value={course.number} className="form-control"
-                   onChange={(e) => setCourse({ ...course, number: e.target.value }) } />
-            <input value={course.startDate} className="form-control" type="date"
-                   onChange={(e) => setCourse({ ...course, startDate: e.target.value }) }/>
-            <input value={course.endDate} className="form-control" type="date"
-                   onChange={(e) => setCourse({ ...course, endDate: e.target.value }) } />
-
-            <div className="wd-module-edit-buttons">
-                <button className="btn btn-primary float-end" onClick={() => {updateCourse(); resetCourse()}} >
-                    Update
-                </button>
-                        <button className="btn btn-success float-end" onClick={() => {addNewCourse(); resetCourse()}} >Add</button>
-            </div>
-                    </div>
+            <h2>Trending</h2>
             <div className="card-deck wd-kanbas-dashboard-grid">
                 <div className="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xxl-4" >
-                    {courses.map((course) => (
-                    <Link key={course._id}
-                          to={`/BookSite/Courses/${course._id}`}
-                          className="list-group-item" className="card">
-                        {<img src="https://informationage-production.s3.amazonaws.com/uploads/2022/10/forget-digital-transformation-data-transformation-is-what-you-need.jpg" className="card-img-top" />}
-                        {course.name}
+                    {topBooks &&
+                     topBooks.map((book, index) => (
 
-                    <p className="card-title">{course.number} {course.name} </p>
-                        <p className="card-text">{course.number}.{course._id}.{course.startDate}</p>
-                        <p className="card-text wd-kanbas-dashboard-card-subtext">{course.startDate} Fall 2023 Semester Full Term</p>
-
-
-
-                        <div className="wd-dashboard-button d-inline-block float-end">
-                        <button className="btn btn-warning"
-                                onClick={(event) => {
-                                    event.preventDefault();
-                                    setCourse(course);
-                                }}>
-                            Edit
-                        </button>
-
-                        <button className="btn btn-danger"
-                            onClick={(event) => {
-                            event.preventDefault();
-                            deleteCourse(course._id);
-                            }}>
-                            Delete
-                        </button>
-
-                        </div>
-
-
-                    </Link> ))}
+                         <Link to={`/BookSite/book/${(book.id)}`}
+                               className="list-group-item" className="card">
+                             {<img className={"card-image-top"}
+                                   src={`http://books.google.com/books/content?id=${book.id}&printsec=frontcover&img=1&zoom=1&source=gbs_api`}
+                                   alt={``}
+                             />}
+                         </Link>
+                     ))}
                 </div>
+            </div>
+
+
+            <hr/>
+            <h2>Your Liked Books ({likedBooks.length})</h2>
+            <div className="card-deck wd-kanbas-dashboard-grid">
+                <div className="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xxl-4" >
+                    {likedBooks &&
+                     likedBooks.map((book, index) => (
+
+                             <Link to={`/BookSite/book/${(book.id)}`}
+                                   className="list-group-item" className="card">
+                                 {<img className={"card-image-top"}
+                                       src={`http://books.google.com/books/content?id=${book.id}&printsec=frontcover&img=1&zoom=1&source=gbs_api`}
+                                       alt={``}
+                                 />}
+                             </Link>
+                     ))}
             </div>
             </div>
         </div>

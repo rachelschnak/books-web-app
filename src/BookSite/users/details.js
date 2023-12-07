@@ -21,7 +21,7 @@ function UserDetails() {
         fetchUser();
     }, []);
 
-    const links = ["Account", "Signin", "Signup", "Search"];
+    const links = ["Account", "Signin", "Register"];
     const { pathname } = useLocation();
 
     return (
@@ -36,7 +36,7 @@ function UserDetails() {
                     </Link>
                 ))}
             </div>
-        <div className={"col wd-kanbas-user-content d-block"}>
+        <div className={"col d-block"}>
 
             <h2>User Details</h2>
 

@@ -8,10 +8,10 @@ import {useState} from "react";
 
 
 function BookNavigation() {
-    const links = ["Home", "Account", "Courses", "Calendar", "Inbox"];
+    const links = ["Home", "Profile", "Courses", "Calendar", "Inbox"];
     const linkToIconMap = {
         Home: <FaHome className="wd-icon" />,
-        Account: <BiSolidUserCircle className="wd-icon wd-account-icon" />,
+        Profile: <BiSolidUserCircle className="wd-icon wd-account-icon" />,
         Courses: <LuBookMinus className="wd-icon" />,
         Calendar : <FaRegCalendarAlt className="wd-icon" />,
         Inbox: <SlEnvolopeLetter className="wd-icon" />,
@@ -42,7 +42,7 @@ function BookNavigation() {
                 </Link>
             ))}
                     </ul>
-                    <form class="d-flex" role="search">
+                    <form className="d-flex" role="search">
                         <input
                             type="text"
                             className="form-control me-2"

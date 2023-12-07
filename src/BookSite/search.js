@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { API_KEY } from "./client";
+
 import * as client from "./client";
 import { Link, useParams, useNavigate } from "react-router-dom";
 
 function Search() {
     const { search } = useParams();
-    const [searchTerm, setSearchTerm] = useState( search);
+    const [searchTerm, setSearchTerm] = useState(search);
     const [results, setResults] = useState(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
@@ -59,15 +59,17 @@ function Search() {
             />
 
             <h2>Results</h2>
+
+
             <ul className="list-group">
                 {results &&
                  results.map((book, index) => (
                      <li key={index} className="list-group-item">
-                         <Link to={`/BookSite/details/${(book.key).replace("/works/","")}`}>
-                             <h3>{book.title}</h3>
-                             {book.author_name}
+                         <Link to={`/BookSite/book/${(book.id)}`}>
+                             <h3>{book.volumeInfo.title}</h3>
+                             {book.volumeInfo.authors}
                              <img
-                                 src={`https://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg`}
+                                 src={`http://books.google.com/books/content?id=${book.id}&printsec=frontcover&img=1&zoom=1&source=gbs_api`}
                                  alt={``}
                              />
                          </Link>

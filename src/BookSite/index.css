@@ -1,3 +1,35 @@
 .wd-booksite-main {
     margin-top: 65px;
+    font-family: Georgia, serif;
+    margin-left: 50px;
+    margin-right: 50px;
+}
+
+.wd-book-detail {
+    padding: 20px;
+}
+
+.like-icon {
+  font-size: 3em;
+}
+
+.wd-book-authTit {
+    text-align: center;
+
+}
+
+.wd-book-authTit h1 {
+    font-family: Georgia, serif;
+}
+
+.wd-book-authTit h4 {
+    font-family: Georgia, serif;
+}
+
+.book-cover {
+    background-color: #282c34;
+}
+.book-info-pane {
+    height: 100vh;
+
 }

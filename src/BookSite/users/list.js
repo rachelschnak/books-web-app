@@ -17,7 +17,7 @@ function UserList() {
         fetchUser();
     }, []);
 
-    const links = ["Account", "Signin", "Signup", "Search"];
+    const links = ["Account", "Signin", "Register"];
     const { pathname } = useLocation();
 
     return (

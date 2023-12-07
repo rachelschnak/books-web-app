@@ -1,14 +1,16 @@
 import ModuleList from "../Modules/ModuleList";
 import CourseStatus from "./CourseStatus";
 import "./index.css"
-import {BiDotsVerticalRounded, BiTargetLock} from "react-icons/bi";
-import {AiOutlineBell, AiOutlineCheckCircle, AiOutlinePlus} from "react-icons/ai";
 import db from "../../Database";
-import {Link} from "react-router-dom";
+import {Link, useNavigate, useParams} from "react-router-dom";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import Modules from "../Modules";
 
+
+
+
 function Home() {
+
     const assignments = db.assignments;
     return (
         <div className="row">

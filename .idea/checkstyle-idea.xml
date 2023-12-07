@@ -11,7 +11,7 @@
       <list>
         <ConfigurationLocation id="bundled-sun-checks" type="BUNDLED" scope="All" description="Sun Checks">(bundled)</ConfigurationLocation>
         <ConfigurationLocation id="bundled-google-checks" type="BUNDLED" scope="All" description="Google Checks">(bundled)</ConfigurationLocation>
-        <ConfigurationLocation id="52094756-6bb3-4122-aef6-4213bd4ccd74" type="PROJECT_RELATIVE" scope="All" description="CS5004 Style Check">$USER_HOME$/Downloads/cs5004-checkstyle-edited-google-checks.xml</ConfigurationLocation>
+        <ConfigurationLocation id="52094756-6bb3-4122-aef6-4213bd4ccd74" type="PROJECT_RELATIVE" scope="All" description="CS5004 Style Check">$PROJECT_DIR$/../../Downloads/cs5004-checkstyle-edited-google-checks.xml</ConfigurationLocation>
       </list>
     </option>
   </component>

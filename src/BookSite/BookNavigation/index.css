@@ -11,7 +11,8 @@ body * {
 .booksy-navbar{
     background-color: darkseagreen;
     padding-top: 0px;
-    margin-bottom: 5px;
+    padding-bottom: 10px;
+
 }
 
 .booksy-navbar a.list-group-item.false{
