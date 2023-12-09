@@ -15,6 +15,7 @@ import Home from "./Home";
 import Book from "./book";
 import AccountEdit from "./users/accountEdit";
 import Signin from "./users/signin";
+import Author from "./Author";
 
 
 function BookSite() {
@@ -33,12 +34,14 @@ function BookSite() {
                     <Route path="/users" element={<UserList />} />
                     <Route path="/users/:id" element={<UserDetails />} />
                     <Route path="/profile" element={<Account />} />
+                    <Route path="/profile/:id" element={<Account />} />
                     <Route path="/account" element={<Account />} />
                     <Route path="/account/:id" element={<AccountEdit />} />
                     <Route path="/register" element={<Register />} />
                     <Route path="/search" element={<Search />} />
                     <Route path="/search/:search" element={<Search />} />
                     <Route path="/book/:bookId" element={<Book />}/>
+                    <Route path="/Author/:author" element={<Author />}/>
                 </Routes>
             </div>
         </div>

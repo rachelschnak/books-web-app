@@ -6,6 +6,7 @@ import * as client from "../users/client";
 import * as likesClient from "../likes/client";
 import * as bookClient from "../client";
 import {findBookById, findFirstBookByTitle} from "../client";
+import {MdChevronLeft, MdChevronRight} from "react-icons/md";
 function Home() {
 
     const [account, setAccount] = useState(null);
@@ -76,6 +77,27 @@ function Home() {
         }
     };
 
+    const slideLeft =  () => {
+        const slider = document.getElementById('slider1')
+        slider.scrollLeft = slider.scrollLeft - 500
+    }
+
+    const slideRight = () => {
+        const slider = document.getElementById('slider1')
+        slider.scrollLeft = slider.scrollLeft + 500
+    }
+
+    const slideLeft2 =  () => {
+        const slider = document.getElementById('slider2')
+        slider.scrollLeft = slider.scrollLeft - 500
+    }
+
+    const slideRight2 = () => {
+        const slider = document.getElementById('slider2')
+        slider.scrollLeft = slider.scrollLeft + 500
+    }
+
+
     useEffect(() => {
         fetchAccount();
         fetchNYTBest();
@@ -87,40 +109,49 @@ function Home() {
             <h1>Home</h1>
             <hr/>
             <h2>Trending</h2>
-            <div className="card-deck wd-kanbas-dashboard-grid">
-                <div className="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xxl-4" >
+
+                    <div className={'tw-relative tw-items-center tw-flex book-h-list'}>
+                        <MdChevronLeft onClick={slideLeft} size={100} className={'tw-opacity-50 tw-cursor-pointer hover:tw-opacity-100 book-scroll '} />
+                        <div id={"slider1"} className={'tw-w-auto tw-h-full tw-overflow-scroll tw-scroll tw-whitespace-nowrap tw-scroll-smooth tw-scrollbar-hide'}>
+
                     {topBooks &&
                      topBooks.map((book, index) => (
 
-                         <Link to={`/BookSite/book/${(book.id)}`}
-                               className="list-group-item" className="card">
-                             {<img className={"card-image-top"}
+                         <Link to={`/BookSite/book/${(book.id)}`}>
+                             {<img className={'tw-inline-block tw-cursor-pointer hover:tw-scale-105 tw-ease-in-out tw-duration-300 book-h-list-item'}
                                    src={`http://books.google.com/books/content?id=${book.id}&printsec=frontcover&img=1&zoom=1&source=gbs_api`}
                                    alt={``}
                              />}
                          </Link>
                      ))}
                 </div>
+                        <MdChevronRight size={100} onClick={slideRight} className={'tw-opacity-50 tw-cursor-pointer hover:tw-opacity-100 '} />
             </div>
 
 
             <hr/>
-            <h2>Your Liked Books ({likedBooks.length})</h2>
-            <div className="card-deck wd-kanbas-dashboard-grid">
-                <div className="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xxl-4" >
-                    {likedBooks &&
-                     likedBooks.map((book, index) => (
+            <h2>Your Liked Books </h2>
 
-                             <Link to={`/BookSite/book/${(book.id)}`}
-                                   className="list-group-item" className="card">
-                                 {<img className={"card-image-top"}
-                                       src={`http://books.google.com/books/content?id=${book.id}&printsec=frontcover&img=1&zoom=1&source=gbs_api`}
-                                       alt={``}
-                                 />}
-                             </Link>
-                     ))}
-            </div>
-            </div>
+
+                    <div className={'tw-relative tw-items-center tw-flex book-h-list'}>
+                        <MdChevronLeft onClick={slideLeft2} size={100} className={'tw-opacity-50 tw-cursor-pointer hover:tw-opacity-100 book-scroll '} />
+                        <div id={"slider2"} className={'tw-w-auto tw-h-full tw-overflow-scroll tw-scroll tw-whitespace-nowrap tw-scroll-smooth tw-scrollbar-hide'}>
+                            {likedBooks &&
+                             likedBooks.map((book, index) => (
+
+                                 <Link to={`/BookSite/book/${(book.id)}`}>
+                                     <img className={'tw-inline-block tw-cursor-pointer hover:tw-scale-105 tw-ease-in-out tw-duration-300 book-h-list-item'}
+                                          src={`http://books.google.com/books/content?id=${book.id}&printsec=frontcover&img=1&zoom=1&source=gbs_api`}
+                                          alt={``}
+                                     />
+                                 </Link>
+
+                             ))}
+
+                        </div>
+                        <MdChevronRight size={100} onClick={slideRight2} className={'tw-opacity-50 tw-cursor-pointer hover:tw-opacity-100 '} />
+                    </div>
+
         </div>
     ); }
 export default Home;

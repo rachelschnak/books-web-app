@@ -23,9 +23,9 @@ export const findBookById = async (bookId) => {
 
 export const findBooksByAuthor = async (author) => {
     const response = await axios.get(
-        `${GOOGLEBBOOKS_API}?q=inauthor:"${author}"`
+        `${GOOGLEBBOOKS_API}?q=inauthor:"${author}"&maxResults=40`
     );
-    return response.data;
+    return response.data.items;
 };
 
 export const findNYTBestsellers = async() => {
@@ -41,3 +41,5 @@ export const findFirstBookByTitle = async(bookTitle) => {
     )
     return response.data.items[0];
 };
+
+

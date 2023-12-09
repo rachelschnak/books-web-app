@@ -1,8 +1,8 @@
 .wd-booksite-main {
-    margin-top: 65px;
+    margin-top: 100px;
     font-family: Georgia, serif;
-    margin-left: 50px;
-    margin-right: 50px;
+    margin-left: 100px;
+    margin-right: 100px;
 }
 
 .wd-book-detail {
@@ -20,16 +20,56 @@
 
 .wd-book-authTit h1 {
     font-family: Georgia, serif;
+
 }
 
 .wd-book-authTit h4 {
     font-family: Georgia, serif;
+    text-decoration: none;
+}
+
+.wd-book-authTit a{
+    font-family: Georgia, serif;
+    text-decoration: none;
+    color: black;
 }
 
 .book-cover {
     background-color: #282c34;
 }
 .book-info-pane {
-    height: 100vh;
 
+}
+
+.books-search-list .list-group-item{
+    border-width: 0px;
+    border-bottom-width: 1px;
+    text-decoration: none;
+
+}
+
+.books-search-list .list-group-item a{
+    text-decoration: none;
+    color: black;
+}
+
+.like-icon {
+padding: 10px;
+}
+
+.unlike-icon {
+    padding: 10px;
+}
+
+.book-details h6 {
+    font-style: oblique;
+    font-weight: bold;
+}
+
+.book-details.list-group .list-group-item{
+    border-bottom-width: 1px;
+    border-color: darkseagreen;
+    border-left-width: 0;
+    border-right-width: 0;
+    border-radius: 0;
 }

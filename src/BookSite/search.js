@@ -61,17 +61,24 @@ function Search() {
             <h2>Results</h2>
 
 
-            <ul className="list-group">
+            <ul className="list-group books-search-list">
                 {results &&
                  results.map((book, index) => (
                      <li key={index} className="list-group-item">
                          <Link to={`/BookSite/book/${(book.id)}`}>
-                             <h3>{book.volumeInfo.title}</h3>
-                             {book.volumeInfo.authors}
+                             <div className={"row"}>
+                                 <div className={"col-auto"}>
                              <img
                                  src={`http://books.google.com/books/content?id=${book.id}&printsec=frontcover&img=1&zoom=1&source=gbs_api`}
                                  alt={``}
                              />
+                                 </div>
+                                 <div className={"col"}>
+                             <h3>{book.volumeInfo.title}</h3>
+                             {book.volumeInfo.authors}
+                                 </div>
+                             </div>
+
                          </Link>
                      </li>
                  ))}

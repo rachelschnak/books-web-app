@@ -1,3 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
 .wd-kanbas-user-navigation {
     background-color: white;
     color: black;
@@ -33,6 +38,18 @@
 .wd-kanbas-user-content{
     padding: 10px;
     padding-top: 25px;
+}
+
+.book-h-list {
+    max-width: 80%;
+}
+
+.book-h-list-item {
+    padding: 5px;
+}
+
+.book-scroll {
+    color: darkgreen;
 }
 
 

@@ -8,6 +8,7 @@ import "./index.css"
 import {CgProfile} from "react-icons/cg";
 import * as likesClient from "../likes/client";
 import {findBookById} from "../client";
+import {MdChevronLeft, MdChevronRight} from "react-icons/md";
 
 function Account() {
     const [account, setAccount] = useState(null);
@@ -19,9 +20,9 @@ function Account() {
             const account = await client.account();
             setAccount(account);
             if (!account) {
-               navigate("/BookSite/signin")
+                navigate("/BookSite/signin")
             } else {
-            fetchBooksUserLikes(account._id) }
+                fetchBooksUserLikes(account._id) }
         } catch (error) {
             console.log(error)
         }
@@ -44,7 +45,7 @@ function Account() {
         try {
             const likes = await likesClient.findBooksThatUserLikes(userId);
             for(const each in likes) {
-               const bookId = likes[each].bookId;
+                const bookId = likes[each].bookId;
                 fetchBooks(bookId);
             }
             setLikes(likes);
@@ -63,8 +64,18 @@ function Account() {
         }
     };
 
+    const slideLeft =  () => {
+        const slider = document.getElementById('slider')
+        slider.scrollLeft = slider.scrollLeft - 500
+    }
+
+    const slideRight = () => {
+        const slider = document.getElementById('slider')
+        slider.scrollLeft = slider.scrollLeft + 500
+    }
+
     useEffect(() => {
-            fetchAccount();
+        fetchAccount();
     }, []);
 
     const links = ["Account", "Signin", "Register"];
@@ -84,51 +95,55 @@ function Account() {
                 ))}
             </div>
 
-        <div className=" col-3 w-50 wd-kanbas-user-content d-block">
+            <div className=" col-3 w-50 wd-kanbas-user-content d-block">
 
 
-            {account && (
+                {account && (
 
-                <div>
-                    <h1>{account.username}'s Profile
-                        <button className={"btn btn-warning float-end"} onClick={signout}>
-                            Signout
-                        </button>
-                        <button className={"btn btn-primary float-end"} onClick={() => navigate(`/BookSite/account/${account._id}`)}>
-                        Edit Account
-                    </button>
+                    <div>
+                        <h1>{account.username}'s Profile
+                            <button className={"btn btn-warning float-end"} onClick={signout}>
+                                Signout
+                            </button>
+                            <button className={"btn btn-primary float-end"} onClick={() => navigate(`/BookSite/account/${account._id}`)}>
+                                Edit Account
+                            </button>
 
-                    </h1>
+                        </h1>
 
-                    <h5>Username: {account.username}</h5>
-                    <h5>Email: {account.email}</h5>
-                    <h5>Role: {account.role}</h5>
-                    <h3>Liked Books</h3>
-                    <ul className="list-group">
-                        {likedBooks &&
-                         likedBooks.map((book, index) => (
-                             <li key={index} className="list-group-item">
-                                 <Link to={`/BookSite/book/${(book.id)}`}>
-                                     <h3>{book.volumeInfo.title}</h3>
-                                     {book.volumeInfo.authors}
-                                     <img
-                                         src={`http://books.google.com/books/content?id=${book.id}&printsec=frontcover&img=1&zoom=1&source=gbs_api`}
-                                         alt={``}
-                                     />
-                                 </Link>
-                             </li>
-                         ))}
-                    </ul>
+                        <h5>Username: {account.username}</h5>
+                        <h5>Email: {account.email}</h5>
+                        <h5>Role: {account.role}</h5>
+                        <h3>Liked Books</h3>
+                        <div className={'tw-relative tw-items-center tw-flex book-h-list'}>
+                            <MdChevronLeft onClick={slideLeft} size={100} className={'tw-opacity-50 tw-cursor-pointer hover:tw-opacity-100 book-scroll '} />
+                            <div id={"slider"} className={'tw-w-auto tw-h-full tw-overflow-scroll tw-scroll tw-whitespace-nowrap tw-scroll-smooth tw-scrollbar-hide'}>
+                                {likedBooks &&
+                                 likedBooks.map((book, index) => (
 
-                    <h3>Book Lists</h3>
-                    <h3> friends </h3>
+                                     <Link to={`/BookSite/book/${(book.id)}`}>
+                                         <img className={'tw-inline-block tw-cursor-pointer hover:tw-scale-105 tw-ease-in-out tw-duration-300 book-h-list-item'}
+                                              src={`http://books.google.com/books/content?id=${book.id}&printsec=frontcover&img=1&zoom=1&source=gbs_api`}
+                                              alt={``}
+                                         />
+                                     </Link>
 
-                    {account.role === "ADMIN" && (
-                    <Link to="/BookSite/admin/users" className="btn btn-warning w-100">
-                        Users
-                    </Link>
-                               )}
-                </div>
-            )} </div></div>
+                                 ))}
+
+                            </div>
+                            <MdChevronRight size={100} onClick={slideRight} className={'tw-opacity-50 tw-cursor-pointer hover:tw-opacity-100 '} />
+                        </div>
+
+
+                        <h3>Book Lists</h3>
+                        <h3> friends </h3>
+
+                        {account.role === "ADMIN" && (
+                            <Link to="/BookSite/admin/users" className="btn btn-warning w-100">
+                                Users
+                            </Link>
+                        )}
+                    </div>
+                )} </div></div>
     ); }
 export default Account;

@@ -63,9 +63,9 @@ function Register() {
                     onChange={(e) => setCredentials({...credentials,
                                                         role: e.target.value })}>
                 <option value="USER">User</option>
-                <option value="ADMIN">Author</option>
-                <option value="FACULTY">Publisher</option>
-                <option value="STUDENT">Admin</option>
+                <option value="AUTHOR">Author</option>
+                <option value="PUBLISHER">Publisher</option>
+                <option value="ADMIN">Admin</option>
             </select>
 
 

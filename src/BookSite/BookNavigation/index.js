@@ -1,24 +1,41 @@
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import {Link, useLocation, useNavigate, useParams} from "react-router-dom";
 import {BiSolidUserCircle} from "react-icons/bi";
 import {LuBookMinus} from "react-icons/lu";
 import {FaHome, FaRegCalendarAlt} from "react-icons/fa";
 import {SlEnvolopeLetter} from "react-icons/sl";
 import "./index.css";
-import {useState} from "react";
+import {useEffect, useState} from "react";
+import * as userClient from "../users/client";
 
 
 function BookNavigation() {
-    const links = ["Home", "Profile", "Courses", "Calendar", "Inbox"];
+    const links = ["Home", "Courses", "Inbox", "Profile",];
     const linkToIconMap = {
         Home: <FaHome className="wd-icon" />,
-        Profile: <BiSolidUserCircle className="wd-icon wd-account-icon" />,
         Courses: <LuBookMinus className="wd-icon" />,
         Calendar : <FaRegCalendarAlt className="wd-icon" />,
         Inbox: <SlEnvolopeLetter className="wd-icon" />,
+        Profile: <BiSolidUserCircle className="wd-icon wd-account-icon" />,
     };
     const { pathname } = useLocation();
     const navigate = useNavigate();
-    const [searchTerm, setSearchTerm] = useState( "Dracula");
+    const [searchTerm, setSearchTerm] = useState( "");
+
+    const [currentUser, setCurrentUser] = useState(null);
+
+    const fetchUser = async () => {
+        try {
+            const user = await userClient.account();
+            setCurrentUser(user);
+        } catch (error) {
+            setCurrentUser(null);
+        }
+    };
+
+
+useEffect(() => {fetchUser()},[])
+
+
     return (
         <nav className="navbar navbar-expand-lg bg-light fixed-top booksy-navbar">
             <div className="container-fluid booksy-navbar">
@@ -41,6 +58,11 @@ function BookNavigation() {
                     {link}
                 </Link>
             ))}
+                        {currentUser && (
+                            <>
+                        <Link to={`/BookSite/Profile/${currentUser._id}`} > {currentUser.username} </Link>
+                            </>  )}
+
                     </ul>
                     <form className="d-flex" role="search">
                         <input
