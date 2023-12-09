@@ -1,7 +1,5 @@
 import "./index.css";
 import { Routes, Route, Navigate } from "react-router-dom";
-import axios from "axios";
-import {useEffect, useState} from "react";
 import store from "./store";
 import { Provider } from "react-redux";
 import Register from "./users/register";
@@ -16,13 +14,14 @@ import Book from "./book";
 import AccountEdit from "./users/accountEdit";
 import Signin from "./users/signin";
 import Author from "./Author";
+import Profile from "./users/profile";
 
 
 function BookSite() {
 
     return (
         <Provider store={store}>
-        <div className="d-flex">
+        <div className="d-flex wd-booksite-whole">
             <BookNavigation />
             <div className="container-fluid wd-booksite-main">
                 <Routes>
@@ -34,7 +33,7 @@ function BookSite() {
                     <Route path="/users" element={<UserList />} />
                     <Route path="/users/:id" element={<UserDetails />} />
                     <Route path="/profile" element={<Account />} />
-                    <Route path="/profile/:id" element={<Account />} />
+                    <Route path="/profile/:id" element={<Profile />} />
                     <Route path="/account" element={<Account />} />
                     <Route path="/account/:id" element={<AccountEdit />} />
                     <Route path="/register" element={<Register />} />

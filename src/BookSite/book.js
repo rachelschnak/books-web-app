@@ -119,7 +119,7 @@ function Book() {
             {book && (
                 <div className={"row"}>
 
-                    <div className={"col col-auto wd-book-authTit book-info-pane "}>
+                    <div className={"d-none d-md-block col col-auto wd-book-authTit book-info-pane "}>
                     <img className={"book-cover"}
                         src={`http://books.google.com/books/content?id=${book.id}&printsec=frontcover&img=1&zoom=2&source=gbs_api`}
                         alt={book.volumeInfo.title}
@@ -137,7 +137,26 @@ function Book() {
                                 )}
                         </div>
                     </div>
+                    <div className={"d-block d-md-none col col-auto wd-book-title-sm  wd-book-authTit "}>
+                        <img className={"book-cover"}
+                             src={`http://books.google.com/books/content?id=${book.id}&printsec=frontcover&img=1&zoom=2&source=gbs_api`}
+                             alt={book.volumeInfo.title}
+                        />
+                        <h1>{book.volumeInfo.title}</h1>
+                        <Link to={`/BookSite/Author/${book.volumeInfo.authors}`}><h4>{book.volumeInfo.authors}</h4></Link>
 
+                        <div className={"like-icons"}>
+                            {currentUser && (
+                                <div>
+                                    <FaHeart id={"likeButton"} style={{color: userLikesBook ? '#FF0000' : '#808080'}} size={50} className={"like-icon tw-cursor-pointer hover:tw-scale-105 tw-ease-in-out"} onClick={currentUserLikesBook} />
+
+                                    <IoHeartDislike id={"unlikeButton"} size={50} className={"unlike-icon likebuttongray tw-cursor-pointer hover:tw-scale-105 tw-ease-in-out"} onClick={currentUserUnLikesBook}/>
+                                </div>
+                            )}
+                        </div>
+                    </div>
+
+                    <div className={"d-none d-md-block book-spacer-lg"}></div>
                     <div className={"col wd-book-detail"}>
                         <div className={"book-details list-group"}>
                             <li className={"list-group-item"}>

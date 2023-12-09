@@ -1,6 +1,5 @@
-import {React, useEffect, useState} from "react";
+import {React, useEffect, useRef, useState} from "react";
 import {Link, useLocation, useNavigate, useParams} from "react-router-dom";
-//import db from "../Database";
 import "./index.css";
 import * as client from "../users/client";
 import * as likesClient from "../likes/client";
@@ -15,6 +14,8 @@ function Home() {
     const navigate = useNavigate();
     const [likes, setLikes] = useState([]);
     const [likedBooks, setLikedBooks] = useState([]);
+    const count = useRef(null);
+
     const fetchAccount = async () => {
         try {
             const account = await client.account();
@@ -77,16 +78,6 @@ function Home() {
         }
     };
 
-    const slideLeft =  () => {
-        const slider = document.getElementById('slider1')
-        slider.scrollLeft = slider.scrollLeft - 500
-    }
-
-    const slideRight = () => {
-        const slider = document.getElementById('slider1')
-        slider.scrollLeft = slider.scrollLeft + 500
-    }
-
     const slideLeft2 =  () => {
         const slider = document.getElementById('slider2')
         slider.scrollLeft = slider.scrollLeft - 500
@@ -97,12 +88,15 @@ function Home() {
         slider.scrollLeft = slider.scrollLeft + 500
     }
 
-
     useEffect(() => {
         fetchAccount();
-        fetchNYTBest();
+        if(count.current == null) {
+            fetchNYTBest();
+            return () => {count.current = 1;}
+        }
         console.log("inside useEffect")
     }, []);
+
 
     return (
         <div className="wd-project-home-dashboard">
@@ -110,26 +104,24 @@ function Home() {
             <hr/>
             <h2>Trending</h2>
 
-                    <div className={'tw-relative tw-items-center tw-flex book-h-list'}>
-                        <MdChevronLeft onClick={slideLeft} size={100} className={'tw-opacity-50 tw-cursor-pointer hover:tw-opacity-100 book-scroll '} />
-                        <div id={"slider1"} className={'tw-w-auto tw-h-full tw-overflow-scroll tw-scroll tw-whitespace-nowrap tw-scroll-smooth tw-scrollbar-hide'}>
-
+            <div className="card-deck wd-kanbas-dashboard-grid">
+                <div className="row row-cols-3 row-cols-sm-5 row-cols-lg-5 row-cols-xxl-5" >
                     {topBooks &&
                      topBooks.map((book, index) => (
 
                          <Link to={`/BookSite/book/${(book.id)}`}>
-                             {<img className={'tw-inline-block tw-cursor-pointer hover:tw-scale-105 tw-ease-in-out tw-duration-300 book-h-list-item'}
+                             {<img className={'tw-cursor-pointer hover:tw-scale-105 tw-ease-in-out tw-duration-300 book-h-list-item card-img-top'}
                                    src={`http://books.google.com/books/content?id=${book.id}&printsec=frontcover&img=1&zoom=1&source=gbs_api`}
                                    alt={``}
                              />}
                          </Link>
                      ))}
                 </div>
-                        <MdChevronRight size={100} onClick={slideRight} className={'tw-opacity-50 tw-cursor-pointer hover:tw-opacity-100 '} />
             </div>
 
-
             <hr/>
+            {account && (
+                <>
             <h2>Your Liked Books </h2>
 
 
@@ -151,6 +143,8 @@ function Home() {
                         </div>
                         <MdChevronRight size={100} onClick={slideRight2} className={'tw-opacity-50 tw-cursor-pointer hover:tw-opacity-100 '} />
                     </div>
+                    </>
+                )}
 
         </div>
     ); }

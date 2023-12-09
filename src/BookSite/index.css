@@ -1,8 +1,17 @@
+.wd-booksite-whole {
+    font-family: Georgia, serif;
+    margin-left: auto;
+    margin-right: auto;
+
+}
+
 .wd-booksite-main {
     margin-top: 100px;
     font-family: Georgia, serif;
-    margin-left: 100px;
-    margin-right: 100px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+
 }
 
 .wd-book-detail {
@@ -38,6 +47,7 @@
     background-color: #282c34;
 }
 .book-info-pane {
+    position: fixed;
 
 }
 
@@ -73,3 +83,15 @@ padding: 10px;
     border-right-width: 0;
     border-radius: 0;
 }
+
+.book-spacer-lg {
+    width: 350px;
+}
+
+.wd-book-title-sm {
+    margin-left: auto;
+    margin-right: auto;
+    width: 70%;
+}
+
+
