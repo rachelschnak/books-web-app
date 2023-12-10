@@ -10,6 +10,7 @@ import * as likesClient from "../likes/client";
 import {findBookById} from "../client";
 import {MdChevronLeft, MdChevronRight} from "react-icons/md";
 import * as reviewsClient from "../reviews/client";
+import {createUserReviewsBook} from "../reviews/client";
 
 function Profile() {
     const {id} = useParams();
@@ -84,6 +85,9 @@ function Profile() {
     const fetchReviews = async(userId) => {
         try{
             const reviews = await reviewsClient.findReviewsByUser(userId);
+            for (const each in reviews) {
+                reviews[each].book = await findBookById(reviews[each].bookId)
+            }
             setUsersReviews(reviews);
         } catch(error){
             console.log('hit a snag fetching user reviews')
@@ -150,7 +154,7 @@ function Profile() {
             <div className=" col wd-kanbas-user-content d-block">
 
                     <div className={'row'}>
-                        <div className={'col-2'}>
+                        <div className={'col-3'}>
                             <div className={'profile-header'}>Book Lists</div>
                             <div className={'profile-header'}>Reviews</div>
                             <div className={'list-group'}>
@@ -158,12 +162,11 @@ function Profile() {
                                  usersReviews.map((review, index) => (
 
                                      <Link to={`/BookSite/book/${(review.bookId)}`} className={'profile-list'}>
-                                         {review.bookId} : "{review.review}"
+                                         {review.book.volumeInfo.title} : "{review.review}"
                                      </Link>
 
                                  ))}
                             </div>
-                            {JSON.stringify(usersReviews,null,0)}
                         </div>
                         <div className={'col-7'}>
                         <div className={'profile-header'}>{profile.username}'s Profile
