@@ -1,6 +1,6 @@
 import * as client from "./client";
 import * as bookClient from "../client";
-import React, { useState, useEffect } from "react";
+import React, {useState, useEffect, useRef} from "react";
 import {Link, useLocation, useNavigate, useParams} from "react-router-dom";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -15,6 +15,7 @@ function Account() {
     const navigate = useNavigate();
     const [likes, setLikes] = useState([]);
     const [likedBooks, setLikedBooks] = useState([]);
+    const count = useRef(null);
     const fetchAccount = async () => {
         try {
             const account = await client.account();
@@ -75,7 +76,11 @@ function Account() {
     }
 
     useEffect(() => {
-        fetchAccount();
+
+        if(count.current == null) {
+            fetchAccount();
+            return () => {count.current = 1;}
+        }
     }, []);
 
     const links = ["Account", "Signin", "Register"];

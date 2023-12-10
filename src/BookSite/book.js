@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, {useState, useEffect, useRef} from "react";
 import { Link, useParams } from "react-router-dom";
 import * as client from "./client";
 import * as userClient from "./users/client";
@@ -22,6 +22,7 @@ function Book() {
     const [userReviewedBook, setUserReviewedBook] = useState(false);
     const [usersBookReview, setUsersBookReview] = useState(null);
     const [reviewUsername, setReviewUsername] = useState();
+    const count = useRef(null);
 
     const fetchUser = async () => {
         try {
@@ -151,12 +152,14 @@ function Book() {
     }
 
 
-
     useEffect(() => {
-        fetchBook(bookId);
-        fetchUser();
-        fetchLikes();
-        fetchReviews(bookId);
+        if(count.current == null) {
+            fetchBook(bookId);
+            fetchUser();
+            fetchLikes();
+            fetchReviews(bookId);
+            return () => {count.current = 1;}
+        }
 
     }, []);
 

@@ -33,13 +33,16 @@ function Home() {
         try {
             const bestNYT = await bookClient.findNYTBestsellers();
             //setBest(bestNYT);
+            //for(const each in bestNYT) {
+            //    const bookTitle = bestNYT[each].title;
+            //    await fetchBookByTitle(bookTitle);
+            //}
             for(const each in bestNYT) {
-                const bookTitle = bestNYT[each].title;
-                //console.log(bestNYT[each].title);
-                await fetchBookByTitle(bookTitle);
+                if (each < 10) {
+                    const bookTitle = bestNYT[each].title;
+                    await fetchBookByTitle(bookTitle);
+                }
             }
-            console.log("topbooks")
-            console.log(topBooks)
         } catch (error) {
             //setBest(null);
             console.log("Error in fetchNYTBest")
@@ -68,6 +71,7 @@ function Home() {
         }
     };
 
+
     const fetchBookByTitle = async (bookTitle) => {
         try {
             const tBook = await findFirstBookByTitle(bookTitle)
@@ -89,8 +93,8 @@ function Home() {
     }
 
     useEffect(() => {
-        fetchAccount();
         if(count.current == null) {
+            fetchAccount();
             fetchNYTBest();
             return () => {count.current = 1;}
         }
@@ -105,7 +109,7 @@ function Home() {
             <h2>Trending</h2>
 
             <div className="card-deck wd-kanbas-dashboard-grid">
-                <div className="row row-cols-3 row-cols-sm-5 row-cols-lg-5 row-cols-xxl-5" >
+                <div className="book-deck row row-cols-3 row-cols-sm-5 row-cols-lg-5 row-cols-xxl-5" >
                     {topBooks &&
                      topBooks.map((book, index) => (
 
@@ -124,7 +128,7 @@ function Home() {
                 <>
             <h2>Your Liked Books </h2>
 
-
+                    <div  className={'liked-book-slider'}>
                     <div className={'tw-relative tw-items-center tw-flex book-h-list'}>
                         <MdChevronLeft onClick={slideLeft2} size={100} className={'tw-opacity-50 tw-cursor-pointer hover:tw-opacity-100 book-scroll '} />
                         <div id={"slider2"} className={'tw-w-auto tw-h-full tw-overflow-scroll tw-scroll tw-whitespace-nowrap tw-scroll-smooth tw-scrollbar-hide'}>
@@ -142,6 +146,7 @@ function Home() {
 
                         </div>
                         <MdChevronRight size={100} onClick={slideRight2} className={'tw-opacity-50 tw-cursor-pointer hover:tw-opacity-100 '} />
+                    </div>
                     </div>
                     </>
                 )}

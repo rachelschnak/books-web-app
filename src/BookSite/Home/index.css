@@ -4,6 +4,7 @@
     padding:10px;
     margin: 10px;
     margin-left: 30px;
+
 }
 
 .wd-kanbas-dashboard-title {
@@ -47,7 +48,9 @@
 }
 
 .wd-kanbas-dashboard-grid {
+    display: flex;
     max-width: 1300px;
+    justify-content: center;
 }
 
 .wd-project-home-dashboard a {
@@ -73,6 +76,7 @@
     text-overflow: ellipsis;
     margin-bottom: 1px;
     font-size: 1.15em;
+
 }
 
 .wd-kanbas-dashboard-card-subtext.card-text{
@@ -97,4 +101,18 @@
     margin-top: 5px;
 }
 
+.book-h-list-item{
+    max-width: 120px;
+    min-width: 80px;
+}
 
+
+.book-deck {
+    max-width: 800px;
+    align-content: center;
+}
+
+.liked-book-slider {
+    display: flex;
+    justify-content: center;
+}
