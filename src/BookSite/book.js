@@ -7,6 +7,7 @@ import * as reviewsClient from "./reviews/client";
 import {FaHeart, FaRegHeart} from "react-icons/fa";
 import {IoHeartDislike} from "react-icons/io5";
 import {SlSpeech} from "react-icons/sl";
+import {current} from "@reduxjs/toolkit";
 
 function Book() {
     const { bookId } = useParams();
@@ -136,7 +137,7 @@ function Book() {
     };
 
     const edit = async () => {
-        await reviewsClient.updateReview(account._id, account);
+        await reviewsClient.updateReview(currentUser._id, currentUser);
     };
 
     function filterDescription(description) {

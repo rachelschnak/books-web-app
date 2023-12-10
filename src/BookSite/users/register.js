@@ -58,36 +58,36 @@ function Register() {
                 </>)}
         </div>
 
-        <div className={"col wd-kanbas-user-content d-block"}>
-            <h1>Register</h1>
+        <div className={"col book-user-fields book-signin-block"}>
+            <div className={'book-signin-title'}>Register</div>
             {error && <div>{error}</div>}
             <input className={"form-control"}
                 value={credentials.username} placeholder={"username"}
                 onChange={(e) => setCredentials({
                                                     ...credentials,
                                                     username: e.target.value })} />
-            <input className={"form-control"}
+            <input className={"book-user-fields form-control"}
                 value={credentials.password} placeholder={"password"}
                 onChange={(e) => setCredentials({
                                                     ...credentials,
                                                     password: e.target.value })} />
-            <input className={"form-control"}  placeholder={"first name"}
+            <input className={"book-user-fields form-control"}  placeholder={"first name"}
                    onChange={(e) =>setCredentials({
                                                       ...credentials,
                                                    firstName: e.target.value })}/>
-            <input className={"form-control"}   placeholder={"last name"}
+            <input className={"book-user-fields form-control"}   placeholder={"last name"}
                    onChange={(e) => setCredentials({
                                                        ...credentials,
                                                    lastName: e.target.value })}/>
-            <input className={"form-control"}  placeholder={"Date of Birth"}
+            <input className={"book-user-fields form-control"}  placeholder={"Date of Birth"}
                    onChange={(e) => setCredentials({
                                                        ...credentials,
                                                    dob: e.target.value })}/>
-            <input className={"form-control"}  placeholder={"email"}
+            <input className={"book-user-fields form-control"}  placeholder={"email"}
                    onChange={(e) => setCredentials({
                                                        ...credentials,
                                                    email: e.target.value })}/>
-            <select className={"form-control"}
+            <select className={"book-user-fields form-control"}
                     onChange={(e) => setCredentials({...credentials,
                                                         role: e.target.value })}>
                 <option value="USER">User</option>
@@ -98,8 +98,8 @@ function Register() {
 
 
 
-            <button onClick={signup}>
-                Signup
+            <button className={'btn btn-success'} onClick={signup}>
+                signup
             </button>
         </div>
         </div>

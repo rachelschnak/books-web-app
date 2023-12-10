@@ -68,7 +68,7 @@ function UserTable() {
     },[])
 
     return (
-<div className={"row"}>
+<div className={''}>
     <div className="list-group wd-kanbas-user-navigation col-auto d-none d-lg-block">
         {account && (
             <>
@@ -89,9 +89,10 @@ function UserTable() {
             Users
         </Link>
     </div>
-        <div className={"col wd-kanbas-user-content d-block"}>
-            <h1>User List</h1>
-            <table className="table">
+        <div className={""}>
+            <div className={'book-user-list-header'}>User List</div>
+            <div className={'book-users-table-all'}>
+            <table className="book-users-table table table-striped table-hover table-sm">
                 <thead> <tr>
                     <th>Username</th>
                     <th>First Name</th>
@@ -118,18 +119,18 @@ function UserTable() {
                     </td>
                     <td className="text-nowrap">
                         <BsPlusCircleFill onClick={createUser}
-                                          className="text-primary fs-1 text" />
+                                          className="text-primary fs-1 text tw-cursor-pointer hover:tw-scale-105 tw-ease-in-out " />
                         <BsFillCheckCircleFill onClick={updateUser}
-                                               className="text-success fs-1 text" />
+                                               className="text-success fs-1 text tw-cursor-pointer hover:tw-scale-105 tw-ease-in-out " />
                     </td>
                 </tr>
                 </thead>
-                <tbody>
+                <tbody className={''}>
                 {users.map((user) => (
                     <tr key={user._id}>
-                        <Link to={`/BookSite/account/${user._id}`}>
-                        <td>{user.username}</td>
-                        </Link>
+                        <td><Link to={`/BookSite/account/${user._id}`}>
+                        {user.username}
+                        </Link></td>
                         <td>{user.firstName}</td>
                         <td>{user.lastName}</td>
                         <td className="text-nowrap">
@@ -143,6 +144,7 @@ function UserTable() {
                     </tr>))}
                 </tbody>
             </table>
+            </div>
         </div>
 </div>
     ); }

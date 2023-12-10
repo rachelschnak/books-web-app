@@ -131,7 +131,12 @@
     margin: 10px;
 }
 
-.book-signin-block .btn-primary{
+.book-signin-block select {
+    padding: 5px;
+    margin: 10px;
+}
+
+.book-signin-block .btn-success{
     align-content: center;
     margin-right: auto;
     margin-left:auto;
@@ -146,4 +151,42 @@
     padding: 5px;
 
 }
+
+div.book-user-list-header {
+    align-content: center;
+    text-align: center;
+    margin-right: auto;
+    margin-left:auto;
+    font-family: Georgia;
+    font-size: 3em;
+    padding: 5px;
+    background-color: darkseagreen;
+    border-radius: 10px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+
+}
+
+.book-users-table{
+    border-radius: 10px;
+    align-content: center;
+    margin-right: auto;
+    margin-left:auto;
+    text-align: center;
+    text-decoration: none;
+    vertical-align: middle;
+}
+
+
+.book-users-table a{
+    text-decoration: none;
+    color: black;
+}
+
+.book-users-table-all{
+    overflow-y: scroll;
+    height: 550px;
+    overflow-x: scroll;
+}
+
 
