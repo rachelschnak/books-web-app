@@ -9,6 +9,7 @@ import {CgProfile} from "react-icons/cg";
 import * as likesClient from "../likes/client";
 import {findBookById} from "../client";
 import {MdChevronLeft, MdChevronRight} from "react-icons/md";
+import * as reviewsClient from "../reviews/client";
 
 function Profile() {
     const {id} = useParams();
@@ -17,6 +18,7 @@ function Profile() {
     const navigate = useNavigate();
     const [likes, setLikes] = useState([]);
     const [likedBooks, setLikedBooks] = useState([]);
+    const [usersReviews, setUsersReviews] = useState(null)
     const fetchAccount = async () => {
         try {
             const account = await client.account();
@@ -40,6 +42,7 @@ function Profile() {
             console.log(error)
         }
     };
+
 
     const save = async () => {
         await client.updateUser(account._id, account);
@@ -68,7 +71,6 @@ function Profile() {
         }
     };
 
-
     const fetchBooks = async (bookId) => {
         try {
             const book = await findBookById(bookId)
@@ -77,6 +79,15 @@ function Profile() {
             console.log("didn't fetch any liked books")
         }
     };
+
+    const fetchReviews = async(userId) => {
+        try{
+            const reviews = await reviewsClient.findReviewsByUser(userId);
+            setUsersReviews(reviews);
+        } catch(error){
+            console.log('hit a snag fetching user reviews')
+        }
+    }
 
     const slideLeft =  () => {
         const slider = document.getElementById('slider')
@@ -92,6 +103,7 @@ function Profile() {
     useEffect(() => {
         fetchProfile(id);
         fetchAccount();
+        fetchReviews(id)
     }, []);
 
     const links = ["Account", "Signin", "Register"];
@@ -136,6 +148,17 @@ function Profile() {
                         <div className={'col-2'}>
                             <div className={'profile-header'}>Book Lists</div>
                             <div className={'profile-header'}>Reviews</div>
+                            <div className={'list-group'}>
+                                {usersReviews &&
+                                 usersReviews.map((review, index) => (
+
+                                     <Link to={`/BookSite/book/${(review.bookId)}`} className={'profile-list'}>
+                                         {review.bookId} : "{review.review}"
+                                     </Link>
+
+                                 ))}
+                            </div>
+                            {JSON.stringify(usersReviews,null,0)}
                         </div>
                         <div className={'col-7'}>
                         <div className={'profile-header'}>{profile.username}'s Profile
