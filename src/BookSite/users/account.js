@@ -84,7 +84,6 @@ function Account() {
 
     return (
         <div className={"row wd-account-whole"}>
-
             <div className="list-group wd-kanbas-user-navigation col-auto d-none d-sm-block">
                 {account && (
                     <>
@@ -110,9 +109,14 @@ function Account() {
                 </>)}
             </div>
 
-            <div className=" col w-50 d-block book-account-info">
 
+            <div className=" d-block book-account-info">
 
+                <div className={'col'}>
+                    <h3>Book Lists</h3>
+                </div>
+
+                <div className={'col'}>
                 {account && (
 
                     <div>
@@ -148,12 +152,16 @@ function Account() {
                             </div>
                             <MdChevronRight size={100} onClick={slideRight} className={'tw-opacity-50 tw-cursor-pointer hover:tw-opacity-100 '} />
                         </div>
-
-
-                        <h3>Book Lists</h3>
-                        <h3> friends </h3>
-
                     </div>
-                )} </div></div>
+
+                )}
+                </div>
+
+                    <div className={'col'}>
+
+                        <h3> friends </h3>
+                    </div>
+
+            </div></div>
     ); }
 export default Account;

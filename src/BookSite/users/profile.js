@@ -130,24 +130,17 @@ function Profile() {
             {profile && (
                 <>
 
-            <div className=" col-3 w-50 wd-kanbas-user-content d-block">
+            <div className=" col wd-kanbas-user-content d-block">
 
                     <div className={'row'}>
-                        <div className={'col'}>
-                        <h1>{profile.username}'s Profile
+                        <div className={'col-2'}>
+                            <div className={'profile-header'}>Book Lists</div>
+                            <div className={'profile-header'}>Reviews</div>
+                        </div>
+                        <div className={'col-7'}>
+                        <div className={'profile-header'}>{profile.username}'s Profile
 
-                            {account && id === account._id && (
-                                <>
-                            <button className={"btn btn-warning float-end"} onClick={signout}>
-                                Signout
-                            </button>
-                            <button className={"btn btn-primary float-end"} onClick={() => navigate(`/BookSite/account/${account._id}`)}>
-                                Edit Account
-                            </button>
-
-                                </>  )}
-
-                        </h1>
+                        </div>
 
                         <h5>Username: {profile.username}</h5>
                         <h5>Email: {profile.email}</h5>
@@ -171,17 +164,22 @@ function Profile() {
                             </div>
                             <MdChevronRight size={100} onClick={slideRight} className={'tw-opacity-50 tw-cursor-pointer hover:tw-opacity-100 '} />
                         </div>
+                            {account && id === account._id && (
+                                <>
+                                    <button className={"btn btn-warning float-end"} onClick={signout}>
+                                        Signout
+                                    </button>
+                                    <button className={"btn btn-primary float-end"} onClick={() => navigate(`/BookSite/account/${account._id}`)}>
+                                        Edit Account
+                                    </button>
+
+                                </>  )}
                     </div>
 
-                        <h3>Book Lists</h3>
-                        <div className={'col'}>
-                        <h3> friends </h3>
-                        {account && account.role === "ADMIN" && (
-                            <Link to="/BookSite/admin/users" className="btn btn-warning w-100">
-                                Users
-                            </Link>
 
-                        )}
+                        <div className={'col-2'}>
+                        <div className={'profile-header'}> Friends </div>
+
                     </div>
                     </div>
                  </div>

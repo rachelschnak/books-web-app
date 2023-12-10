@@ -1,5 +1,5 @@
 import * as client from "./client";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import {Link, useLocation, useNavigate, useParams} from "react-router-dom";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -35,6 +35,7 @@ function AccountEdit() {
         setAccount(user);
     };
 
+
     useEffect(() => {
         if (id) {
             findUserById(id);
@@ -49,6 +50,15 @@ function AccountEdit() {
     return (
         <div className={"row"}>
             <div className="list-group wd-kanbas-user-navigation col-auto d-none d-lg-block">
+
+                {account && (
+                    <>
+                        <Link to={`/BookSite/Profile/${account._id}`} className="list-group-item books-profile-link">
+                            Profile
+                        </Link>
+                    </>
+                )}
+
                 {links.map((link, index) => (
                     <Link
                         key={index}
@@ -59,35 +69,30 @@ function AccountEdit() {
                 ))}
             </div>
 
-            <div className=" col-3 w-50 wd-kanbas-user-content d-block">
-                <h1>Account</h1>
+            <div className=" w-50 book-account-block book-user-fields book-signin-block ">
+                <div className={'book-signin-title'}>Edit Account</div>
 
                 {account && (
                     <div>
-                        <div>
-                            <label htmlFor="formFileLg" className="form-label">Large file input
-                                example</label>
-                            <input className="form-control form-control-lg" id="formFileLg" type="file" />
-                        </div>
-                        <input className={"form-control"} value={account.username} placeholder="username"
+                        <input className={"book-user-fields form-control"} value={account.username} placeholder="username"
                                onChange={(e) => setAccount({ ...account,
                                                                username: e.target.value })}/>
-                        <input className={"form-control"} value={account.password} placeholder="password"
+                        <input className={"book-user-fields form-control"} value={account.password} placeholder="password"
                                onChange={(e) => setAccount({ ...account,
                                                                password: e.target.value })}/>
-                        <input className={"form-control"}  value={account.firstName} placeholder={"first name"}
+                        <input className={"book-user-fields form-control"}  value={account.firstName} placeholder={"first name"}
                                onChange={(e) => setAccount({ ...account,
                                                                firstName: e.target.value })}/>
-                        <input className={"form-control"}  value={account.lastName} placeholder={"last name"}
+                        <input className={"book-user-fields form-control"}  value={account.lastName} placeholder={"last name"}
                                onChange={(e) => setAccount({ ...account,
                                                                lastName: e.target.value })}/>
-                        <input className={"form-control"}  value={account.dob} placeholder={"Date of Birth"}
+                        <input className={"book-user-fields form-control"}  value={account.dob} placeholder={"Date of Birth"}
                                onChange={(e) => setAccount({ ...account,
                                                                dob: e.target.value })}/>
-                        <input className={"form-control"}  value={account.email} placeholder={"email"}
+                        <input className={"book-user-fields form-control"}  value={account.email} placeholder={"email"}
                                onChange={(e) => setAccount({ ...account,
                                                                email: e.target.value })}/>
-                        <select className={"form-control"}  value={account.role} onChange={(e) => setAccount({ ...account,
+                        <select className={"book-user-fields form-control"}  value={account.role} onChange={(e) => setAccount({ ...account,
                                                                                                                  role: e.target.value })}>
                             <option value="USER">User</option>
                             <option value="ADMIN">Author</option>
@@ -95,14 +100,15 @@ function AccountEdit() {
                             <option value="STUDENT">Admin</option>
                         </select>
 
-                        <button className={"btn btn-success"} onClick={save}>
-                            Save
-                        </button>
-                        <button className={"btn btn-warning"} onClick={signout}>
+
+                        <button className={"btn btn-warning tw-inline edit-acc-btn"} onClick={signout}>
                             Signout
                         </button>
+                        <button className={"btn btn-success tw-inline edit-acc-btn float-end w-50"} onClick={save}>
+                            Save
+                        </button>
                         {account.role === "ADMIN" && (
-                            <Link to="/BookSite/admin/users" className="btn btn-warning w-100">
+                            <Link to="/BookSite/admin/users" className="btn btn-primary edit-acc-btn w-100">
                                 Users
                             </Link>
                         )}

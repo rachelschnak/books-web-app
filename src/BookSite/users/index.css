@@ -141,7 +141,6 @@
     margin-right: auto;
     margin-left:auto;
     display: flow;
-    font-family: Georgia;
     margin-top: 10px;
 }
 
@@ -164,6 +163,7 @@ div.book-user-list-header {
     border-radius: 10px;
     border-bottom-left-radius: 0px;
     border-bottom-right-radius: 0px;
+    color:white;
 
 }
 
@@ -189,4 +189,17 @@ div.book-user-list-header {
     overflow-x: scroll;
 }
 
+.book-account-block .book-signin-block .book-user-fields{
+width: 500px;
+}
 
+.edit-acc-btn{
+    margin: 10px;
+}
+
+.profile-header {
+    background-color: darkseagreen;
+    font-size: 2em;
+    text-align: center;
+    font-family: Georgia;
+}
