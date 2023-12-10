@@ -104,9 +104,7 @@ function Home() {
 
     return (
         <div className="wd-project-home-dashboard">
-            <h1>Home</h1>
-            <hr/>
-            <h2>Trending</h2>
+            <div className={'home-header'}>Trending</div>
 
             <div className="card-deck wd-kanbas-dashboard-grid">
                 <div className="book-deck row row-cols-3 row-cols-sm-5 row-cols-lg-5 row-cols-xxl-5" >
@@ -126,7 +124,7 @@ function Home() {
             <hr/>
             {account && (
                 <>
-            <h2>Your Liked Books </h2>
+            <div className={'home-header'}>Your Liked Books </div>
 
                     <div  className={'liked-book-slider'}>
                     <div className={'tw-relative tw-items-center tw-flex book-h-list'}>
