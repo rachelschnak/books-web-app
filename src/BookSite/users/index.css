@@ -202,4 +202,11 @@ width: 500px;
     font-size: 2em;
     text-align: center;
     font-family: Georgia;
+    border-radius: 5px;
+    margin:5px;
+}
+
+.profile-list {
+    text-decoration: none;
+    color: black;
 }
