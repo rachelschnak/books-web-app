@@ -122,12 +122,11 @@
     border-bottom-width: 10px;
     border-bottom-right-radius: 0px;
     border-bottom-left-radius: 0px;
-    border-style: double;
+    border-style: ridge;
     border-color: darkseagreen;
-    color: black;
-    font-size: 2vw;
+    color: darkgreen;
+    font-size: 2.5vw;
     text-align: center;
     font-family: Georgia;
-    border-radius: 5px;
     margin:5px;
 }
