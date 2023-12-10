@@ -134,3 +134,8 @@
 .book-top-grid {
     margin-bottom: 20px;
 }
+
+.top-loading{
+    display: flex;
+    justify-content: center;
+}

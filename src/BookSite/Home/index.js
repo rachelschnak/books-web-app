@@ -6,6 +6,7 @@ import * as likesClient from "../likes/client";
 import * as bookClient from "../client";
 import {findBookById, findFirstBookByTitle} from "../client";
 import {MdChevronLeft, MdChevronRight} from "react-icons/md";
+import {Audio, RotatingLines} from 'react-loader-spinner'
 
 function Loader() {
     return <h1>Loading...</h1>
@@ -109,8 +110,15 @@ function Home() {
             <div className={'home-header'}>Trending</div>
 <>
     {loading && (
-        <>
-        New York Times Bestsellers Loading...</>
+        <div className={'top-loading'}>
+            <RotatingLines
+                strokeWidth="5"
+                animationDuration="2"
+                width="96"
+                visible={true}
+            />
+        </div>
+
     )}
             <div className="card-deck wd-kanbas-dashboard-grid book-top-grid">
                 <div className="book-deck row row-cols-3 row-cols-sm-5 row-cols-lg-5 row-cols-xxl-5" >
