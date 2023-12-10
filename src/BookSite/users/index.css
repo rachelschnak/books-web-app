@@ -207,6 +207,41 @@ width: 500px;
 }
 
 .profile-list {
+    display: flow;
     text-decoration: none;
     color: black;
+    align-content: center;
+    justify-content: center;
+
 }
+
+.profile-list .list-group-item{
+
+    text-decoration: none;
+    color: black;
+    align-content: center;
+    justify-content: center;
+    margin-bottom: 5px;
+    background-color: #f3fff1;
+    align-content: center;
+    margin-right: auto;
+    margin-left:auto;
+    border-radius:10px;
+    border-width: 3px;
+    border-style: double;
+    border-color: darkgreen;
+}
+
+
+.profile-list .list-group-item h4{
+color: #062409;
+}
+
+.list-group.profile-list{
+    align-content: center;
+    justify-content: center;
+    align-content: center;
+    margin-right: auto;
+    margin-left:auto;
+}
+

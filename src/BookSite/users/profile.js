@@ -154,21 +154,22 @@ function Profile() {
             <div className=" col wd-kanbas-user-content d-block">
 
                     <div className={'row'}>
-                        <div className={'col-3'}>
+                        <div className={'col-auto'}>
                             <div className={'profile-header'}>Book Lists</div>
                             <div className={'profile-header'}>Reviews</div>
-                            <div className={'list-group'}>
+                            <div className={'list-group profile-list'}>
                                 {usersReviews &&
                                  usersReviews.map((review, index) => (
 
-                                     <Link to={`/BookSite/book/${(review.bookId)}`} className={'profile-list'}>
-                                         {review.book.volumeInfo.title} : "{review.review}"
+                                     <Link to={`/BookSite/book/${(review.bookId)}`} className={'profile-list list-group-item'}>
+                                        <h4>{review.book.volumeInfo.title} </h4>
+                                          "{review.review}"
                                      </Link>
 
                                  ))}
                             </div>
                         </div>
-                        <div className={'col-7'}>
+                        <div className={'col-auto'}>
                         <div className={'profile-header'}>{profile.username}'s Profile
 
                         </div>
@@ -208,7 +209,7 @@ function Profile() {
                     </div>
 
 
-                        <div className={'col-2'}>
+                        <div className={'col-auto'}>
                         <div className={'profile-header'}> Friends </div>
 
                     </div>
