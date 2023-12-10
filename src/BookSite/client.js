@@ -32,7 +32,15 @@ export const findNYTBestsellers = async() => {
     const response = await axios.get(
         `${NYTBOOKS_API}`
     )
-    return response.data.results.books;
+    const convertResponse = [];
+    //just get top 10
+        for ( let each = 0; each < 10; each++) {
+            const book = await findFirstBookByTitle(response.data.results.books[each].title)
+            const boook = await findBookById(book.id)
+            convertResponse[each] = boook;
+        }
+    //return response.data.results.books;
+    return convertResponse;
 }
 
 export const findFirstBookByTitle = async(bookTitle) => {

@@ -6,6 +6,11 @@ import * as likesClient from "../likes/client";
 import * as bookClient from "../client";
 import {findBookById, findFirstBookByTitle} from "../client";
 import {MdChevronLeft, MdChevronRight} from "react-icons/md";
+
+function Loader() {
+    return <h1>Loading...</h1>
+}
+
 function Home() {
 
     const [account, setAccount] = useState(null);
@@ -13,8 +18,11 @@ function Home() {
     const [topBooks, setTopBooks] = useState([]);
     const navigate = useNavigate();
     const [likes, setLikes] = useState([]);
+    const [bestNYT, setBestNYT] = useState([]);
     const [likedBooks, setLikedBooks] = useState([]);
     const count = useRef(null);
+    const topCount = useRef(0);
+    const [loading, setLoading] = useState(false);
 
     const fetchAccount = async () => {
         try {
@@ -31,18 +39,17 @@ function Home() {
 
     const fetchNYTBest = async () => {
         try {
+            setLoading(true);
             const bestNYT = await bookClient.findNYTBestsellers();
-            //setBest(bestNYT);
+            setBestNYT(bestNYT);
+            setLoading(false);
             //for(const each in bestNYT) {
-            //    const bookTitle = bestNYT[each].title;
-            //    await fetchBookByTitle(bookTitle);
+            //    if (each < 10) {
+            //        const bookTitle = bestNYT[each].title;
+            //        await fetchBookByTitle(bookTitle);
+             //   }
+             //   topCount.current = 1;
             //}
-            for(const each in bestNYT) {
-                if (each < 10) {
-                    const bookTitle = bestNYT[each].title;
-                    await fetchBookByTitle(bookTitle);
-                }
-            }
         } catch (error) {
             //setBest(null);
             console.log("Error in fetchNYTBest")
@@ -95,21 +102,25 @@ function Home() {
     useEffect(() => {
         if(count.current == null) {
             fetchAccount();
-            fetchNYTBest();
+            fetchNYTBest()
+
             return () => {count.current = 1;}
         }
         console.log("inside useEffect")
     }, []);
 
 
+
     return (
         <div className="wd-project-home-dashboard">
             <div className={'home-header'}>Trending</div>
-
-            <div className="card-deck wd-kanbas-dashboard-grid">
+<>
+    {loading}
+            <div className="card-deck wd-kanbas-dashboard-grid book-top-grid">
                 <div className="book-deck row row-cols-3 row-cols-sm-5 row-cols-lg-5 row-cols-xxl-5" >
-                    {topBooks &&
-                     topBooks.map((book, index) => (
+
+                    {bestNYT &&
+                     bestNYT.map((book, index) => (
 
                          <Link to={`/BookSite/book/${(book.id)}`}>
                              {<img className={'tw-cursor-pointer hover:tw-scale-105 tw-ease-in-out tw-duration-300 book-h-list-item card-img-top'}
@@ -119,9 +130,9 @@ function Home() {
                          </Link>
                      ))}
                 </div>
-            </div>
 
-            <hr/>
+            </div>
+</>
             {account && (
                 <>
             <div className={'home-header'}>Your Liked Books </div>
