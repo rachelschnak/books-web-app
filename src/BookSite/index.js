@@ -15,6 +15,7 @@ import AccountEdit from "./users/accountEdit";
 import Signin from "./users/signin";
 import Author from "./Author";
 import Profile from "./users/profile";
+import FollowList from "./users/followList";
 
 
 function BookSite() {
@@ -40,6 +41,7 @@ function BookSite() {
                     <Route path="/search/:search" element={<Search />} />
                     <Route path="/book/:bookId" element={<Book />}/>
                     <Route path="/Author/:author" element={<Author />}/>
+                    <Route path="/profile/:id/followList" element={<FollowList />} />
                 </Routes>
             </div>
         </div>

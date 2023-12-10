@@ -115,6 +115,7 @@
 .liked-book-slider {
     display: flex;
     justify-content: center;
+    margin-bottom: 20px;
 }
 
 .home-header {

@@ -206,6 +206,18 @@ width: 500px;
     margin:5px;
 }
 
+.profile-subheader{
+    border: 0px;
+    text-align: center;
+    font-size: 1.5em;
+    border-bottom-width: 5px;
+    border-style: double;
+    border-color: darkseagreen;
+    max-width: 850px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .profile-list {
     display: flow;
     text-decoration: none;
@@ -240,9 +252,10 @@ color: #062409;
 .list-group.profile-list{
     align-content: center;
     justify-content: center;
-    align-content: center;
     margin-right: auto;
     margin-left:auto;
+    overflow-y: scroll;
+    max-height: 250px;
 }
 
 .profile-button-1 {
@@ -256,9 +269,13 @@ color: #062409;
     background-color: darkgreen;
     border-color: darkgreen;
     position: fixed;
-    right:110px;
+    right:105px;
     top: 80px;
     max-width: 120px;
 }
 
-
+.btn-followers {
+    background-color: white;
+    border-color: #062409;
+    color: #062409;
+}
