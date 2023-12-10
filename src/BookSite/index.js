@@ -23,7 +23,7 @@ function BookSite() {
         <Provider store={store}>
         <div className="d-flex wd-booksite-whole">
             <BookNavigation />
-            <div className="container-fluid wd-booksite-main">
+            <div className="wd-booksite-main container-fluid ">
                 <Routes>
                     <Route path="/" element={<Navigate to="Home" />} />
                     <Route path="Home" element={<Home />} />
@@ -32,7 +32,6 @@ function BookSite() {
                     <Route path="/admin/users" element={<UserTable />} />
                     <Route path="/users" element={<UserList />} />
                     <Route path="/users/:id" element={<UserDetails />} />
-                    <Route path="/profile" element={<Account />} />
                     <Route path="/profile/:id" element={<Profile />} />
                     <Route path="/account" element={<Account />} />
                     <Route path="/account/:id" element={<AccountEdit />} />

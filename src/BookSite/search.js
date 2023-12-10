@@ -13,7 +13,6 @@ function Search() {
 
     const fetchBooks = async (search) => {
         try {
-            //search = search.split(' ').join('+')
             const results = await client.findBooks(searchTerm)
             setResults(results);
             setSearchTerm(search);

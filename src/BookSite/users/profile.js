@@ -104,6 +104,13 @@ function Profile() {
 
         <div className={"row"}>
             <div className="list-group wd-kanbas-user-navigation col-auto d-none d-lg-block">
+                {account && (
+                    <>
+                        <Link to={`/BookSite/Profile/${account._id}`} className="list-group-item books-profile-link-active">
+                            Profile
+                        </Link>
+                    </>
+                )}
                 {links.map((link, index) => (
                     <Link
                         key={index}
@@ -112,6 +119,12 @@ function Profile() {
                         {link}
                     </Link>
                 ))}
+                {account && account.role === "ADMIN" && (
+                    <>
+                        <Link to="/BookSite/admin/users" className="list-group-item books-users-link">
+                            Users
+                        </Link>
+                    </>)}
             </div>
 
             {profile && (

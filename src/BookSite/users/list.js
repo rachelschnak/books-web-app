@@ -1,5 +1,5 @@
 import * as client from "./client";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {Link, Navigate, useLocation} from "react-router-dom";
 function UserList() {
     const [users, setUsers] = useState([]);
@@ -31,6 +31,10 @@ function UserList() {
                     {link}
                 </Link>
             ))}
+            <Link to="/BookSite/admin/users" className="list-group-item">
+                        Users
+            </Link>
+
         </div>
 
         <div className={"col wd-kanbas-user-content d-block"}>
@@ -49,9 +53,6 @@ function UserList() {
                         ))}
                     </div>
                 </>
-            )}
-            {currentUser && currentUser.role !== "ADMIN" && (
-                <Navigate to="/BookSite/signin" />
             )}
         </div>
 </div>

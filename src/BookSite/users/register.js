@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import {Link, useLocation, useNavigate} from "react-router-dom";
 import * as client from "./client";
 function Register() {
@@ -6,6 +6,7 @@ function Register() {
     const [credentials, setCredentials] = useState({
                                                        username: "", password: "" });
     const navigate = useNavigate();
+    const [account, setAccount] = useState(null);
     const signup = async () => {
         try {
             await client.signup(credentials);
@@ -17,9 +18,30 @@ function Register() {
     const links = ["Account", "Signin", "Register"];
     const { pathname } = useLocation();
 
+    const fetchAccount = async () => {
+        try {
+            const account = await client.account();
+            setAccount(account);
+
+        } catch (error) {
+            console.log(error)
+        }
+    };
+
+    useEffect(() => {
+        fetchAccount();
+    },[])
+
     return (
         <div className={"row"}>
         <div className="list-group wd-kanbas-user-navigation col-auto d-none d-lg-block">
+            {account && (
+                <>
+                    <Link to={`/BookSite/Profile/${account._id}`} className="list-group-item books-profile-link">
+                        Profile
+                    </Link>
+                </>
+            )}
             {links.map((link, index) => (
                 <Link
                     key={index}
@@ -28,6 +50,12 @@ function Register() {
                     {link}
                 </Link>
             ))}
+            {account && account.role === "ADMIN" && (
+                <>
+                    <Link to="/BookSite/admin/users" className="list-group-item books-users-link ">
+                        Users
+                    </Link>
+                </>)}
         </div>
 
         <div className={"col wd-kanbas-user-content d-block"}>

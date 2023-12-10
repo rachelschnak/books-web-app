@@ -3,17 +3,24 @@ import { Link, useParams } from "react-router-dom";
 import * as client from "./client";
 import * as userClient from "./users/client";
 import * as likesClient from "./likes/client";
+import * as reviewsClient from "./reviews/client";
 import {FaHeart, FaRegHeart} from "react-icons/fa";
 import {IoHeartDislike} from "react-icons/io5";
+import {SlSpeech} from "react-icons/sl";
 
 function Book() {
     const { bookId } = useParams();
     const [currentUser, setCurrentUser] = useState(null);
     const [book, setBook] = useState(null);
     const [author, setAuthor] = useState(null);
+    const [reviews, setReviews] = useState(null);
+    const [review, setReview] = useState("");
     const [likes, setLikes] = useState([]);
     const [userLikes, setUserLikes] = useState();
     const [userLikesBook, setUserLikesBook] = useState(false);
+    const [userReviewedBook, setUserReviewedBook] = useState(false);
+    const [usersBookReview, setUsersBookReview] = useState(null);
+    const [reviewUsername, setReviewUsername] = useState();
 
     const fetchUser = async () => {
         try {
@@ -36,10 +43,35 @@ function Book() {
         }
     };
 
+    const fetchReviews = async (bookId) => {
+        try {
+            const bookReviews = await reviewsClient.findBookReviews(bookId);
+            setReviews(bookReviews);
+
+        } catch (error) {
+            console.log("didnt fetch reviews")
+            console.log(error)
+        }
+    };
+
     const fetchLikes = async () => {
         try {
             const likes = await likesClient.findUsersThatLikeBook(bookId);
             setLikes(likes);
+        } catch (error) {
+            setLikes(null);
+        }
+    };
+
+    const fetchUserReview = async () => {
+        try {
+            const userReviewed = await reviewsClient.findReviewsByUser(currentUser._id);
+            if (userReviewed) {
+                setUserReviewedBook(true);
+                setUsersBookReview(userReviewed);
+            } else {
+                setUserReviewedBook(false);
+            }
         } catch (error) {
             setLikes(null);
         }
@@ -61,16 +93,20 @@ function Book() {
         }
     };
 
+    const findUserById = async (id) => {
+        const user = await userClient.findUserById(id);
+        const  username = user.username.toString();
+        setReviewUsername(username);
+    };
+
+
     const BookLikedByUser = async () => {
         if (currentUser) {
             const userLikes = await likesClient.findBooksThatUserLikes(currentUser._id)
             setUserLikes(userLikes)
             let likeBookTrue = userLikes.find(o => o.bookId === bookId);
             if (likeBookTrue) {
-                console.log("should be setting to true")
                 setUserLikesBook( true);
-                console.log(userLikesBook)
-                console.log("WHAT THE FUZZ?")
             } else {
                 setUserLikesBook(false);
             }
@@ -80,8 +116,6 @@ function Book() {
 
     const currentUserUnLikesBook = async () => {
         try {
-            console.log('checking if user likes book')
-            console.log(userLikesBook)
             if (currentUser) { //&& userLikesBook) {
                 const _likes = await likesClient.deleteUserLikesBook(
                     currentUser._id,
@@ -95,23 +129,36 @@ function Book() {
         }
     };
 
+    const save = async () => {
+        if (review) {
+            await reviewsClient.createUserReviewsBook(currentUser._id, bookId, review);
+        }
+    };
+
+    const edit = async () => {
+        await reviewsClient.updateReview(account._id, account);
+    };
+
     function filterDescription(description) {
-        description = description.replace('<b>','')
-        description = description.replace('</b>','')
-        description = description.replace('<i>','')
-        description = description.replace('</i>','')
-        description = description.replace('<br>','')
-        description = description.replace('</br>','')
+       // description = description.replace('<b>','')
+        //description = description.replace('</b>','')
+       // description = description.replace('<i>','')
+        //description = description.replace('</i>','')
+        //description = description.replace('<br>','')
+        //description = description.replace('</br>','')
         return(description)
     }
+
 
 
     useEffect(() => {
         fetchBook(bookId);
         fetchUser();
         fetchLikes();
+        fetchReviews(bookId);
 
     }, []);
+
 
     return (
         <div>
@@ -196,33 +243,44 @@ function Book() {
                         </div>
                         <div className={"row "}>
                             <h4>User Ratings & Reviews </h4>
-                            Data model complexity requirements
-                            The following are requirements about the number of tables, classes, and relationships between the various data entities
-                            1. At least two domain object models - create a schema to capture information about your particular domain. For instance, if your domain is movies, then the schema might have properties such as title, rating, date, directors, actors, etc (3 domains for graduate students)
-                            2. At least two user models - each user type or role should have its own distinct set of attributes. They can have some common attributes, but they have to have at least one attribute that is distinct to the user type or role. (3 user models for graduate students)
-                            3. At least one one to many relationship between domain objects, or between users, or between users and domain objects - for instance, a movie has a one to many relation with actors, e.g., one movie has many actors. You can decide whether the schemas are embedded or not. (2 one to many relations for graduate students)
-                            4. At least one many to many relationship between domain objects, or between users, or between users and domain objects - create a schema that can map several records in different tables or collections. (2 many to many for graduate students)
-                            Data model complexity requirements
-                            The following are requirements about the number of tables, classes, and relationships between the various data entities
-                            1. At least two domain object models - create a schema to capture information about your particular domain. For instance, if your domain is movies, then the schema might have properties such as title, rating, date, directors, actors, etc (3 domains for graduate students)
-                            2. At least two user models - each user type or role should have its own distinct set of attributes. They can have some common attributes, but they have to have at least one attribute that is distinct to the user type or role. (3 user models for graduate students)
-                            3. At least one one to many relationship between domain objects, or between users, or between users and domain objects - for instance, a movie has a one to many relation with actors, e.g., one movie has many actors. You can decide whether the schemas are embedded or not. (2 one to many relations for graduate students)
-                            4. At least one many to many relationship between domain objects, or between users, or between users and domain objects - create a schema that can map several records in different tables or collections. (2 many to many for graduate students)
-                            Data model complexity requirements
-                            The following are requirements about the number of tables, classes, and relationships between the various data entities
-                            1. At least two domain object models - create a schema to capture information about your particular domain. For instance, if your domain is movies, then the schema might have properties such as title, rating, date, directors, actors, etc (3 domains for graduate students)
-                            2. At least two user models - each user type or role should have its own distinct set of attributes. They can have some common attributes, but they have to have at least one attribute that is distinct to the user type or role. (3 user models for graduate students)
-                            3. At least one one to many relationship between domain objects, or between users, or between users and domain objects - for instance, a movie has a one to many relation with actors, e.g., one movie has many actors. You can decide whether the schemas are embedded or not. (2 one to many relations for graduate students)
-                            4. At least one many to many relationship between domain objects, or between users, or between users and domain objects - create a schema that can map several records in different tables or collections. (2 many to many for graduate students)
-                            Data model complexity requirements
-                            The following are requirements about the number of tables, classes, and relationships between the various data entities
-                            1. At least two domain object models - create a schema to capture information about your particular domain. For instance, if your domain is movies, then the schema might have properties such as title, rating, date, directors, actors, etc (3 domains for graduate students)
-                            2. At least two user models - each user type or role should have its own distinct set of attributes. They can have some common attributes, but they have to have at least one attribute that is distinct to the user type or role. (3 user models for graduate students)
-                            3. At least one one to many relationship between domain objects, or between users, or between users and domain objects - for instance, a movie has a one to many relation with actors, e.g., one movie has many actors. You can decide whether the schemas are embedded or not. (2 one to many relations for graduate students)
-                            4. At least one many to many relationship between domain objects, or between users, or between users and domain objects - create a schema that can map several records in different tables or collections. (2 many to many for graduate students)
+                            {currentUser && !userReviewedBook &&(
+                                <>
+                                    <input className={"form-control"} value={review} placeholder="Enter a review..."
+                                           onChange={(e) => setReview(e.target.value)}/>
+                                <button className={"btn btn-success"} onClick={save}>
+                                Submit
+                                </button>
+                                    {review}
+                                </>
+                            )}
+                            {currentUser && userReviewedBook &&(
+                                <>
+                                    <input className={"form-control"} value={usersBookReview}
+                                           onChange={(e) => setUsersBookReview(e.target.value)}/>
+                                    <button className={"btn btn-success"} onClick={edit}>
+                                        Submit
+                                    </button>
+                                    {review}
+                                </>
+                            )}
+                            <div className={"book-review-container list-group"}>
+                                <div className={"list-group-item one-book-review"}>
+                                    {reviews &&
+                                     reviews.map((aReview, index) => (
+                                         <>
+                                             <Link to={`/Profile/${(aReview.user)}`} className={"review-user"}>{reviewUsername}</Link>
+                                             <SlSpeech/>
+                                             <div className={"review-body speech-bubble"}>{aReview.review}</div>
+                                             <div className={"speech-bubble:after"}></div>
 
+                                         </>
+                                     ))}
+
+                                </div>
+                            </div>
                         </div>
                     </div>
+
 
                 </div>
             )}

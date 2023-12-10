@@ -83,8 +83,16 @@ function Account() {
 
 
     return (
-        <div className={"row"}>
-            <div className="list-group wd-kanbas-user-navigation col-auto d-none d-lg-block">
+        <div className={"row wd-account-whole"}>
+
+            <div className="list-group wd-kanbas-user-navigation col-auto d-none d-sm-block">
+                {account && (
+                    <>
+                        <Link to={`/BookSite/Profile/${account._id}`} className="list-group-item books-profile-link">
+                            Profile
+                        </Link>
+                    </>
+                )}
                 {links.map((link, index) => (
                     <Link
                         key={index}
@@ -93,15 +101,22 @@ function Account() {
                         {link}
                     </Link>
                 ))}
+
+                {account && account.role === "ADMIN" && (
+                    <>
+                        <Link to="/BookSite/admin/users" className="list-group-item books-users-link">
+                            Users
+                        </Link>
+                </>)}
             </div>
 
-            <div className=" col-3 w-50 wd-kanbas-user-content d-block">
+            <div className=" col w-50 d-block book-account-info">
 
 
                 {account && (
 
                     <div>
-                        <h1>{account.username}'s Profile
+                        <h1>Account Information
                             <button className={"btn btn-warning float-end"} onClick={signout}>
                                 Signout
                             </button>
@@ -138,11 +153,6 @@ function Account() {
                         <h3>Book Lists</h3>
                         <h3> friends </h3>
 
-                        {account.role === "ADMIN" && (
-                            <Link to="/BookSite/admin/users" className="btn btn-warning w-100">
-                                Users
-                            </Link>
-                        )}
                     </div>
                 )} </div></div>
     ); }

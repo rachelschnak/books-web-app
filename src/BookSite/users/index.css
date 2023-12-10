@@ -11,14 +11,15 @@
     width: 100px;
     margin: 0px;
     height: 100vh;
-    margin-left: 10px;
-    padding-top: 85px;
+    position: fixed;
+    left:0px;
+    top: 70px;
 }
 
 .list-group-item.false {
     padding-left: 16px;
     border: 0px;
-    color: black;
+    color: darkseagreen;
     text-decoration: none;
     border-top-left-radius: 0px;
     border-bottom-left-radius: 0px;
@@ -26,18 +27,20 @@
 
 .wd-kanbas-user-navigation .list-group-item.active {
     border: 0px;
-    border-left: 1px solid black;
     padding-top: 10px;
     padding-bottom: 10px;
-    background-color: white;
-    color: red;
-    border-top-left-radius: 0px;
-    border-bottom-left-radius: 0px;
+    background-color: darkseagreen;
+    color: white;
+    border-radius: 0px;
+
 }
 
 .wd-kanbas-user-content{
     padding: 10px;
     padding-top: 25px;
+    margin-left:auto;
+    margin-right: auto;
+    width: 80%;
 }
 
 .book-h-list {
@@ -52,6 +55,95 @@
     color: darkgreen;
 }
 
+.book-account-info {}
+.wd-book-title-sm {
+    margin-left: auto;
+    margin-right: auto;
+    width: 70%;
+}
 
+.books-users-link{
+    padding-left: 16px;
+    border: 0px;
+    color: darkseagreen;
+    text-decoration: none;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+}
 
+.books-users-link-active.list-group-item{
+    border: 0px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: darkseagreen;
+    color: white;
+    border-radius: 0px;
+}
+
+.books-profile-link-active.list-group-item {
+    border: 0px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: darkseagreen;
+    color: white;
+    border-radius: 0px;
+}
+
+.books-profile-link {
+    padding-left: 16px;
+    border: 0px;
+    color: darkseagreen;
+    text-decoration: none;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+}
+
+.wd-account-whole{
+    align-content: center;
+}
+
+.book-user-fields{
+    max-width: 300px;
+    margin-right: auto;
+    margin-left:auto;
+    align-content: center;
+    border-radius: 10px;
+}
+
+.book-signin-block{
+    background-color: darkseagreen;
+    padding: 30px;
+    color: white;
+
+}
+
+.book-signin-block .book-signin-title{
+    align-content: center;
+    justify-content: center;
+    margin-right: auto;
+    margin-left:auto;
+    display: flow;
+    display: flex;
+}
+
+.book-signin-block input {
+    padding: 5px;
+    margin: 10px;
+}
+
+.book-signin-block .btn-primary{
+    align-content: center;
+    margin-right: auto;
+    margin-left:auto;
+    display: flow;
+    font-family: Georgia;
+    margin-top: 10px;
+}
+
+.book-signin-title {
+    font-family: Georgia;
+    font-size: 2em;
+    padding: 5px;
+
+}
 

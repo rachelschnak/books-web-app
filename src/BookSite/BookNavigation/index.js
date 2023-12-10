@@ -9,13 +9,13 @@ import * as userClient from "../users/client";
 
 
 function BookNavigation() {
-    const links = ["Home", "Courses", "Inbox", "Profile",];
+    const links = ["Home", "Courses", "Inbox", "Account",];
     const linkToIconMap = {
         Home: <FaHome className="wd-icon" />,
         Courses: <LuBookMinus className="wd-icon" />,
         Calendar : <FaRegCalendarAlt className="wd-icon" />,
         Inbox: <SlEnvolopeLetter className="wd-icon" />,
-        Profile: <BiSolidUserCircle className="wd-icon wd-account-icon" />,
+        Account: <BiSolidUserCircle className="wd-icon wd-account-icon" />,
     };
     const { pathname } = useLocation();
     const navigate = useNavigate();
@@ -58,17 +58,13 @@ useEffect(() => {fetchUser()},[])
                     {link}
                 </Link>
             ))}
-                        {currentUser && (
-                            <>
-                        <Link to={`/BookSite/Profile/${currentUser._id}`} > {currentUser.username} </Link>
-                            </>  )}
 
                     </ul>
                     <form className="d-flex" role="search">
                         <input
                             type="text"
                             className="form-control me-2"
-                            placeholder="search"
+                            placeholder="search books"
                             value={searchTerm}
                             onChange={(event) => {
                                 setSearchTerm(event.target.value);
