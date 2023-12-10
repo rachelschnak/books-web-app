@@ -150,10 +150,48 @@ function Profile() {
 
             {profile && (
                 <>
+                    {account && id === account._id && (
+                        <>
+                            <button className={"btn btn-warning profile-button-1"} onClick={signout}>
+                                Signout
+                            </button>
+                            <button className={"btn btn-primary profile-button-2"} onClick={() => navigate(`/BookSite/account/${account._id}`)}>
+                                Edit Account
+                            </button>
 
+                        </>  )}
             <div className=" col wd-kanbas-user-content d-block">
 
                     <div className={'row'}>
+                        <div className={'col-auto'}>
+                            <div className={'profile-header'}>{profile.username}'s Profile
+
+                            </div>
+
+                            <h5>Username: {profile.username}</h5>
+                            <h5>Email: {profile.email}</h5>
+                            <h5>Role: {profile.role}</h5>
+                            <h3>Liked Books</h3>
+                            <div className={'tw-relative tw-items-center tw-flex book-h-list'}>
+                                <MdChevronLeft onClick={slideLeft} size={100} className={'tw-opacity-50 tw-cursor-pointer hover:tw-opacity-100 book-scroll '} />
+                                <div id={"slider"} className={'tw-w-auto tw-h-full tw-overflow-scroll tw-scroll tw-whitespace-nowrap tw-scroll-smooth tw-scrollbar-hide'}>
+                                    {likedBooks &&
+                                     likedBooks.map((book, index) => (
+
+                                         <Link to={`/BookSite/book/${(book.id)}`}>
+                                             <img className={'tw-inline-block tw-cursor-pointer hover:tw-scale-105 tw-ease-in-out tw-duration-300 book-h-list-item'}
+                                                  src={`http://books.google.com/books/content?id=${book.id}&printsec=frontcover&img=1&zoom=1&source=gbs_api`}
+                                                  alt={``}
+                                             />
+                                         </Link>
+
+                                     ))}
+
+                                </div>
+                                <MdChevronRight size={100} onClick={slideRight} className={'tw-opacity-50 tw-cursor-pointer hover:tw-opacity-100 '} />
+                            </div>
+
+                        </div>
                         <div className={'col-auto'}>
                             <div className={'profile-header'}>Book Lists</div>
                             <div className={'profile-header'}>Reviews</div>
@@ -169,44 +207,7 @@ function Profile() {
                                  ))}
                             </div>
                         </div>
-                        <div className={'col-auto'}>
-                        <div className={'profile-header'}>{profile.username}'s Profile
 
-                        </div>
-
-                        <h5>Username: {profile.username}</h5>
-                        <h5>Email: {profile.email}</h5>
-                        <h5>Role: {profile.role}</h5>
-                        <h3>Liked Books</h3>
-                        <div className={'tw-relative tw-items-center tw-flex book-h-list'}>
-                            <MdChevronLeft onClick={slideLeft} size={100} className={'tw-opacity-50 tw-cursor-pointer hover:tw-opacity-100 book-scroll '} />
-                            <div id={"slider"} className={'tw-w-auto tw-h-full tw-overflow-scroll tw-scroll tw-whitespace-nowrap tw-scroll-smooth tw-scrollbar-hide'}>
-                                {likedBooks &&
-                                 likedBooks.map((book, index) => (
-
-                                     <Link to={`/BookSite/book/${(book.id)}`}>
-                                         <img className={'tw-inline-block tw-cursor-pointer hover:tw-scale-105 tw-ease-in-out tw-duration-300 book-h-list-item'}
-                                              src={`http://books.google.com/books/content?id=${book.id}&printsec=frontcover&img=1&zoom=1&source=gbs_api`}
-                                              alt={``}
-                                         />
-                                     </Link>
-
-                                 ))}
-
-                            </div>
-                            <MdChevronRight size={100} onClick={slideRight} className={'tw-opacity-50 tw-cursor-pointer hover:tw-opacity-100 '} />
-                        </div>
-                            {account && id === account._id && (
-                                <>
-                                    <button className={"btn btn-warning float-end"} onClick={signout}>
-                                        Signout
-                                    </button>
-                                    <button className={"btn btn-primary float-end"} onClick={() => navigate(`/BookSite/account/${account._id}`)}>
-                                        Edit Account
-                                    </button>
-
-                                </>  )}
-                    </div>
 
 
                         <div className={'col-auto'}>
