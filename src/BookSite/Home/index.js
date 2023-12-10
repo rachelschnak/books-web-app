@@ -43,13 +43,6 @@ function Home() {
             const bestNYT = await bookClient.findNYTBestsellers();
             setBestNYT(bestNYT);
             setLoading(false);
-            //for(const each in bestNYT) {
-            //    if (each < 10) {
-            //        const bookTitle = bestNYT[each].title;
-            //        await fetchBookByTitle(bookTitle);
-             //   }
-             //   topCount.current = 1;
-            //}
         } catch (error) {
             //setBest(null);
             console.log("Error in fetchNYTBest")
@@ -115,7 +108,10 @@ function Home() {
         <div className="wd-project-home-dashboard">
             <div className={'home-header'}>Trending</div>
 <>
-    {loading}
+    {loading && (
+        <>
+        New York Times Bestsellers Loading...</>
+    )}
             <div className="card-deck wd-kanbas-dashboard-grid book-top-grid">
                 <div className="book-deck row row-cols-3 row-cols-sm-5 row-cols-lg-5 row-cols-xxl-5" >
 
