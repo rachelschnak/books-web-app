@@ -14,7 +14,6 @@ function Book() {
     const { bookId } = useParams();
     const [currentUser, setCurrentUser] = useState(null);
     const [book, setBook] = useState(null);
-    const [author, setAuthor] = useState(null);
     const [reviews, setReviews] = useState(null);
     const [review, setReview] = useState("");
     const [likes, setLikes] = useState([]);
@@ -40,9 +39,8 @@ function Book() {
 
     const fetchBook = async (bookId) => {
         try {
-            const thisBook = await client.findBookById(bookId);
+            const thisBook = await client.findBookById(bookId)
             setBook(thisBook);
-            setAuthor(book.volumeInfo.authors);
         } catch (error) {
             console.log("didnt fetch a book")
             console.log(error)
@@ -150,13 +148,16 @@ function Book() {
     };
 
     function filterDescription(description) {
+        console.log('in filter');
+        var desc_str = description;
+        document.getElementById('desc-html').innerHTML = desc_str
         // description = description.replace('<b>','')
         //description = description.replace('</b>','')
         // description = description.replace('<i>','')
         //description = description.replace('</i>','')
         //description = description.replace('<br>','')
         //description = description.replace('</br>','')
-        return(description)
+
     }
 
 
@@ -166,8 +167,10 @@ function Book() {
             fetchBook(bookId);
             fetchUser();
             fetchLikes();
-
             return () => {count.current = 1;}
+        }
+        if (book) {
+            filterDescription(book.volumeInfo.description);
         }
 
     }, [bookId, fetchBook, fetchLikes, fetchReviews, fetchUser]);
@@ -240,15 +243,17 @@ function Book() {
                             </li>
                             <li className={"list-group-item book-description-box"}>
                                 <h6>Description</h6>
-                                {filterDescription(book.volumeInfo.description)}
+                                <div id={"desc-html"}>
+                                    hi
+                                </div>
                             </li>
                         </div>
 
                         <div className={"row "}>
-                            <h4>User Ratings & Reviews </h4>
+                            <h4>User Reviews </h4>
                             {currentUser && !userReviewedBook &&(
                                 <>
-                                    <input className={"form-control"} value={review} placeholder="Enter a review..."
+                                    <textarea className={"form-control"} value={review} placeholder="Enter a review..."
                                            onChange={(e) => setReview(e.target.value)}/>
                                     <button className={"btn btn-success"} onClick={save}>
                                         Submit
