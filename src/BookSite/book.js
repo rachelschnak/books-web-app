@@ -8,6 +8,7 @@ import {FaHeart, FaRegHeart} from "react-icons/fa";
 import {IoHeartDislike} from "react-icons/io5";
 import {SlSpeech} from "react-icons/sl";
 import {current} from "@reduxjs/toolkit";
+import {findBookById} from "./client";
 
 function Book() {
     const { bookId } = useParams();
@@ -23,12 +24,15 @@ function Book() {
     const [usersBookReview, setUsersBookReview] = useState(null);
     const [reviewUsername, setReviewUsername] = useState();
     const count = useRef(null);
+    const [userReviews, setUsersReviews] = useState(null);
+
 
     const fetchUser = async () => {
         try {
             const user = await userClient.account();
             setCurrentUser(user);
             BookLikedByUser();
+            fetchUserReview(user._id)
         } catch (error) {
             setCurrentUser(null);
         }
@@ -56,24 +60,25 @@ function Book() {
         }
     };
 
-    const fetchLikes = async () => {
+    const fetchUserReview = async (id) => {
         try {
-            const likes = await likesClient.findUsersThatLikeBook(bookId);
-            setLikes(likes);
+            const userReviewed = await reviewsClient.findReviewsByUser(id);
+            if (userReviewed.some(e => e.bookId === bookId)) {
+                setUserReviewedBook(true);
+                setUsersBookReview((userReviewed.find(e => e.bookId === bookId)));
+
+            } else {
+                setUserReviewedBook(false);
+            }
         } catch (error) {
             setLikes(null);
         }
     };
 
-    const fetchUserReview = async () => {
+    const fetchLikes = async () => {
         try {
-            const userReviewed = await reviewsClient.findReviewsByUser(currentUser._id);
-            if (userReviewed) {
-                setUserReviewedBook(true);
-                setUsersBookReview(userReviewed);
-            } else {
-                setUserReviewedBook(false);
-            }
+            const likes = await likesClient.findUsersThatLikeBook(bookId);
+            setLikes(likes);
         } catch (error) {
             setLikes(null);
         }
@@ -138,7 +143,7 @@ function Book() {
     };
 
     const edit = async () => {
-        await reviewsClient.updateReview(currentUser._id, currentUser);
+        await reviewsClient.updateReview(bookId, currentUser._id, usersBookReview);
     };
 
     function filterDescription(description) {
@@ -236,6 +241,7 @@ function Book() {
                             </li>
                         </div>
                         <div className={"row"}>
+
                             <h4> Author's Comment</h4>
                             {currentUser && author && currentUser.role === "AUTHOR" &&  author.includes(currentUser.firstName) && author.includes(currentUser.lastName) && (
                                 <>
@@ -246,6 +252,9 @@ function Book() {
 
                         </div>
                         <div className={"row "}>
+                            {JSON.stringify(usersBookReview,null,2)}
+                            {JSON.stringify(userReviewedBook,null,2)}
+
                             <h4>User Ratings & Reviews </h4>
                             {currentUser && !userReviewedBook &&(
                                 <>
@@ -259,10 +268,10 @@ function Book() {
                             )}
                             {currentUser && userReviewedBook &&(
                                 <>
-                                    <input className={"form-control"} value={usersBookReview}
+                                    <input className={"form-control"} value={usersBookReview.review}
                                            onChange={(e) => setUsersBookReview(e.target.value)}/>
                                     <button className={"btn btn-success"} onClick={edit}>
-                                        Submit
+                                        Edit Review
                                     </button>
                                     {review}
                                 </>

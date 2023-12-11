@@ -48,16 +48,6 @@ function Profile() {
         }
     };
 
-    const fetchFollowers = async (id) => {
-        const followers = await followsClient.findFollowersOfUser(id)
-        setFollowers(followers);
-    }
-
-    const fetchFollowing = async (id) => {
-        const following = await followsClient.findFollowedUsersByUser(id)
-        setFollowing(following);
-    }
-
     const save = async () => {
         await client.updateUser(account._id, account);
     };
@@ -181,7 +171,7 @@ function Profile() {
 
                     <div className={'row'}>
                         <div className={'col-auto'}>
-                            <div className={'profile-header'}>{profile.username}'s Profile
+                            <div className={'profile-header profile-header-main'}>{profile.username}'s Profile
 
                             </div>
                             <button className={'btn btn-success btn-followers inline float-end'} onClick={() => navigate(`/BookSite/Profile/${profile._id}/followList`)}>

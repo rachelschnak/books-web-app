@@ -124,16 +124,15 @@ function FollowList() {
     useEffect(() => {
         fetchProfile(id);
         fetchAccount();
-        fetchFollowers(id);
         if(count.current == null) {
 
-            fetchReviews(id);
+            fetchFollowers(id);
+            fetchFollowing(id)
+
             return () => {count.current = 1;}
         }
 
-        if (account) {
-            fetchFollowing(account._id)
-        }
+
     }, []);
 
     const links = ["Account", "Signin", "Register"];
@@ -181,82 +180,47 @@ function FollowList() {
                             </button>
 
                         </>  )}
-                    <div className=" col wd-kanbas-user-content d-block">
 
-                        <div className={'row'}>
-                            <div className={'col-auto'}>
-                                <div className={'profile-header'}>{profile.username}'s Following List</div>
+            <div className=" col wd-kanbas-user-content d-block">
 
+                <div className={'row'}>
 
+                        <div className={'profile-header follow-list'}>{profile.username}'s Following List</div>
+                        <div className={'follow-list-groups'}>
+                            <div className={'col-5 follow-list-group'}>
+                                <div className={'profile-header'}>
+                                    Following </div>
+                                        <div className={'list-group profile-list'}>
+                                            {following &&
+                                             following.map((follow, index) => (
 
-                                {account && id != account._id && (
-                                    <>
-                                        <button className={"btn btn-warning profile-button-3"} onClick={follow}>
-                                            Follow
-                                        </button>
-                                    </>  )}
-
-
-
-                                <div className={'profile-subheader'}>Liked Books</div>
-                                <div className={'liked-book-slider'}>
-
-                                    <div className={'tw-relative tw-items-center tw-flex book-h-list'}>
-                                        <MdChevronLeft onClick={slideLeft} size={100} className={'tw-opacity-50 tw-cursor-pointer hover:tw-opacity-100 book-scroll '} />
-                                        <div id={"slider"} className={'tw-w-auto tw-h-full tw-overflow-scroll tw-scroll tw-whitespace-nowrap tw-scroll-smooth tw-scrollbar-hide'}>
-                                            {likedBooks &&
-                                             likedBooks.map((book, index) => (
-
-                                                 <Link to={`/BookSite/book/${(book.id)}`}>
-                                                     <img className={'tw-inline-block tw-cursor-pointer hover:tw-scale-105 tw-ease-in-out tw-duration-300 book-h-list-item'}
-                                                          src={`http://books.google.com/books/content?id=${book.id}&printsec=frontcover&img=1&zoom=1&source=gbs_api`}
-                                                          alt={``}
-                                                     />
+                                                 <Link to={`/BookSite/Profile/${(follow.followed._id)}`}>
+                                                    <div className={'list-group-item'}>{follow.followed.username}</div>
                                                  </Link>
 
                                              ))}
-
                                         </div>
-                                        <MdChevronRight size={100} onClick={slideRight} className={'tw-opacity-50 tw-cursor-pointer hover:tw-opacity-100 '} />
+                                </div>
+
+
+                                <div className={'col-5 follow-list-group'}>
+                                    <div className={'profile-header'}>Followers</div>
+                                    <div className={'list-group profile-list'}>
+                                    {followers &&
+                                     followers.map((follower, index) => (
+                                         <Link to={`/BookSite/Profile/${(follower.follower._id)}`}>
+                                             <div className={'list-group-item'}>{follower.follower.username}</div>
+                                         </Link>
+                                     ))}
                                     </div>
                                 </div>
-                            </div>
-                            <div className={'col-auto'}>
-                                <div className={'profile-header'}> Following </div>
-                                {following &&
-                                 following.map((follow, index) => (
-
-                                     <Link to={`/BookSite/Profile/${(follow.followed._id)}`}>
-                                         {follow.followed.username}
-                                     </Link>
-
-                                 ))}
-
-                                {JSON.stringify(followers,null,2)}
-                                {JSON.stringify(following,null,2)}
-                                <div className={'profile-header'}>Book Lists</div>
-
-                            </div>
-                            <div className={'col-auto'}>
-                                <div className={'profile-header'}>Reviews</div>
-                                <div className={'list-group profile-list'}>
-                                    {usersReviews &&
-                                     usersReviews.map((review, index) => (
-
-                                         <Link to={`/BookSite/book/${(review.bookId)}`} className={'profile-list list-group-item'}>
-                                             <h4>{review.book.volumeInfo.title} </h4>
-                                             "{review.review}"
-                                         </Link>
-
-                                     ))}
-                                </div>
-                            </div>
-
-
-
-
                         </div>
-                    </div>
+                </div>
+            </div>
+
+
+
+
                 </>
             )}
         </div>

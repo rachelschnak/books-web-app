@@ -279,3 +279,30 @@ color: #062409;
     border-color: #062409;
     color: #062409;
 }
+
+.profile-header.follow-list {
+    max-width: 900px;
+    margin-right: auto;
+    margin-left:auto;
+    align-content: center;
+    justify-content: center;
+    color: white;
+}
+
+.follow-list-groups {
+    display: flex;
+    max-width: 900px;
+    margin-right: auto;
+    margin-left:auto;
+    align-content: center;
+    justify-content: center;
+    padding: 10px;
+}
+
+.follow-list-group {
+    padding: 20px;
+}
+
+.profile-header-main {
+    color:white;
+}
