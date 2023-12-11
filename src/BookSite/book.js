@@ -162,7 +162,7 @@ function Book() {
             filterDescription(book.volumeInfo.description);
         }
 
-    }, [book]);
+    }, [book, usersBookReview]);
 
 
     return (
