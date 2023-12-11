@@ -1,7 +1,10 @@
 import * as client from "../client";
 import * as usersClient  from "../users/client"
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {Link, useParams} from "react-router-dom";
+import {MdChevronLeft, MdChevronRight} from "react-icons/md";
+import * as likesClient from "../likes/client";
+import {findBookById} from "../client";
 
 
 function Author() {
@@ -9,11 +12,20 @@ function Author() {
     const [thisAuthor, setAuthor] = useState(author)
     const [booksByAuthor, setBooksByAuthor] = useState()
     const [currentUser, setCurrentUser] = useState(null);
+    const [likedBooks, setLikedBooks] = useState([]);
+    const [likedBooksByAuthor, setLikedBooksByAuthor] = useState([]);
+    const count = useRef(null);
 
     const fetchUser = async () => {
-        const user = await usersClient.account();
-        setCurrentUser(user);
-        console.log(currentUser)
+        try {
+            const user = await usersClient.account();
+            setCurrentUser(user);
+            if (user) {
+                fetchBooksUserLikes(user._id);
+            }
+        } catch (error) {
+
+        }
     };
 
     const fetchAuthor = async () => {
@@ -25,10 +37,51 @@ function Author() {
         }
     };
 
+    const fetchBooksUserLikes = async (userId) => {
+        try {
+            const likes = await likesClient.findBooksThatUserLikes(userId);
+            for(const each in likes) {
+                const bookId = likes[each].bookId;
+                fetchBooks(bookId);
+            }
+        } catch (error) {
+
+        }
+    };
+
+    const fetchBooks = async (bookId) => {
+        try {
+            const book = await findBookById(bookId)
+            setLikedBooks(likedBooks => [...likedBooks, book])
+            if (book.volumeInfo.authors[0] === author) {
+                setLikedBooksByAuthor(likedBooksByAuthor => [...likedBooksByAuthor, book])
+            }
+        } catch (error) {
+            console.log("didn't fetch any liked books")
+        }
+    };
+
+
+
+    const slideLeft2 =  () => {
+        const slider = document.getElementById('slider2')
+        slider.scrollLeft = slider.scrollLeft - 500
+    }
+
+    const slideRight2 = () => {
+        const slider = document.getElementById('slider2')
+        slider.scrollLeft = slider.scrollLeft + 500
+    }
+
     useEffect(() => {
-                fetchUser();
-                  fetchAuthor();
-              }, [])
+        if(count.current == null) {
+            fetchUser();
+            fetchAuthor();
+
+            return () => {count.current = 1;}
+        }
+
+        }, [])
 
 
 
@@ -41,7 +94,32 @@ function Author() {
 
             )}
 
-            <h2>Books By {author}</h2>
+            <h2>{author}</h2>
+                {currentUser && (<>
+                    <h3>Books you like by {author}</h3>
+                        <div  className={'liked-book-slider'}>
+                            <div className={'tw-relative tw-items-center tw-flex book-h-list'}>
+                            <MdChevronLeft onClick={slideLeft2} size={100} className={'tw-opacity-50 tw-cursor-pointer hover:tw-opacity-100 book-scroll '} />
+                                <div id={"slider2"} className={'tw-w-auto tw-h-full tw-overflow-scroll tw-scroll tw-whitespace-nowrap tw-scroll-smooth tw-scrollbar-hide'}>
+                                    {likedBooksByAuthor &&
+                                    likedBooksByAuthor.map((book, index) => (
+
+                                     <Link to={`/BookSite/book/${(book.id)}`}>
+                                         <img className={'tw-inline-block tw-cursor-pointer hover:tw-scale-105 tw-ease-in-out tw-duration-300 book-h-list-item'}
+                                              src={`http://books.google.com/books/content?id=${book.id}&printsec=frontcover&img=1&zoom=1&source=gbs_api`}
+                                              alt={``}
+                                         />
+                                     </Link>
+
+                                    ))}
+
+                                </div>
+                            <MdChevronRight size={100} onClick={slideRight2} className={'tw-opacity-50 tw-cursor-pointer hover:tw-opacity-100 '} />
+                            </div>
+                        </div>
+                </>)}
+
+            <h3>All books</h3>
             <div className={"tw-scroll"}>
             <ul className="list-group books-search-list tw-h-[70%] tw-overflow-y-scroll">
                 {booksByAuthor &&
