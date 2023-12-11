@@ -1,14 +1,12 @@
-import React, {useState, useEffect, useRef} from "react";
-import { Link, useParams } from "react-router-dom";
+import React, {useEffect, useRef, useState} from "react";
+import {Link, useParams} from "react-router-dom";
 import * as client from "./client";
 import * as userClient from "./users/client";
 import * as likesClient from "./likes/client";
 import * as reviewsClient from "./reviews/client";
-import {FaHeart, FaRegHeart} from "react-icons/fa";
+import {FaHeart} from "react-icons/fa";
 import {IoHeartDislike} from "react-icons/io5";
 import {SlSpeech} from "react-icons/sl";
-import {current} from "@reduxjs/toolkit";
-import {findBookById} from "./client";
 
 function Book() {
     const { bookId } = useParams();
@@ -148,16 +146,7 @@ function Book() {
     };
 
     function filterDescription(description) {
-        console.log('in filter');
-        var desc_str = description;
-        document.getElementById('desc-html').innerHTML = desc_str
-        // description = description.replace('<b>','')
-        //description = description.replace('</b>','')
-        // description = description.replace('<i>','')
-        //description = description.replace('</i>','')
-        //description = description.replace('<br>','')
-        //description = description.replace('</br>','')
-
+        document.getElementById('desc-html').innerHTML = description;
     }
 
 
@@ -173,7 +162,7 @@ function Book() {
             filterDescription(book.volumeInfo.description);
         }
 
-    }, [bookId, fetchBook, fetchLikes, fetchReviews, fetchUser]);
+    }, [book]);
 
 
     return (
