@@ -85,7 +85,7 @@ padding: 10px;
 }
 
 .book-spacer-lg {
-    width: 350px;
+    width: 450px;
 }
 
 .wd-book-title-sm {
@@ -98,4 +98,8 @@ padding: 10px;
     margin-left: auto;
     margin-right: auto;
     width: 70%;
+}
+
+.book-title{
+    font-size: 2vw;
 }
