@@ -52,6 +52,9 @@ function Book() {
     const fetchReviews = async (bookId) => {
         try {
             const bookReviews = await reviewsClient.findBookReviews(bookId);
+            for (const each in bookReviews) {
+                bookReviews[each].fullUser = await findUserById(bookReviews[each].user)
+            }
             setReviews(bookReviews);
 
         } catch (error) {
@@ -102,8 +105,8 @@ function Book() {
 
     const findUserById = async (id) => {
         const user = await userClient.findUserById(id);
-        const  username = user.username.toString();
-        setReviewUsername(username);
+       return user;
+
     };
 
 
@@ -147,9 +150,9 @@ function Book() {
     };
 
     function filterDescription(description) {
-       // description = description.replace('<b>','')
+        // description = description.replace('<b>','')
         //description = description.replace('</b>','')
-       // description = description.replace('<i>','')
+        // description = description.replace('<i>','')
         //description = description.replace('</i>','')
         //description = description.replace('<br>','')
         //description = description.replace('</br>','')
@@ -158,15 +161,16 @@ function Book() {
 
 
     useEffect(() => {
+        fetchReviews(bookId);
         if(count.current == null) {
             fetchBook(bookId);
             fetchUser();
             fetchLikes();
-            fetchReviews(bookId);
+
             return () => {count.current = 1;}
         }
 
-    }, []);
+    }, [bookId, fetchBook, fetchLikes, fetchReviews, fetchUser]);
 
 
     return (
@@ -176,21 +180,21 @@ function Book() {
                 <div className={"row"}>
 
                     <div className={"d-none d-lg-block col col-auto wd-book-authTit book-info-pane "}>
-                    <img className={"book-cover"}
-                        src={`http://books.google.com/books/content?id=${book.id}&printsec=frontcover&img=1&zoom=2&source=gbs_api`}
-                        alt={book.volumeInfo.title}
-                    />
+                        <img className={"book-cover"}
+                             src={`http://books.google.com/books/content?id=${book.id}&printsec=frontcover&img=1&zoom=2&source=gbs_api`}
+                             alt={book.volumeInfo.title}
+                        />
                         <div className={'book-title'}>{book.volumeInfo.title}</div>
                         <Link to={`/BookSite/Author/${book.volumeInfo.authors}`}><h4>{book.volumeInfo.authors}</h4></Link>
 
                         <div className={"like-icons"}>
                             {currentUser && (
                                 <div>
-                                <FaHeart id={"likeButton"} style={{color: userLikesBook ? '#FF0000' : '#808080'}} size={50} className={"like-icon tw-cursor-pointer hover:tw-scale-105 tw-ease-in-out"} onClick={currentUserLikesBook} />
+                                    <FaHeart id={"likeButton"} style={{color: userLikesBook ? '#FF0000' : '#808080'}} size={50} className={"like-icon tw-cursor-pointer hover:tw-scale-105 tw-ease-in-out"} onClick={currentUserLikesBook} />
 
-                        <IoHeartDislike id={"unlikeButton"} size={50} className={"unlike-icon likebuttongray tw-cursor-pointer hover:tw-scale-105 tw-ease-in-out"} onClick={currentUserUnLikesBook}/>
-                            </div>
-                                )}
+                                    <IoHeartDislike id={"unlikeButton"} size={50} className={"unlike-icon likebuttongray tw-cursor-pointer hover:tw-scale-105 tw-ease-in-out"} onClick={currentUserUnLikesBook}/>
+                                </div>
+                            )}
                         </div>
                     </div>
                     <div className={"d-block d-lg-none col col-auto wd-book-title-sm  wd-book-authTit "}>
@@ -216,26 +220,25 @@ function Book() {
                     <div className={"col wd-book-detail"}>
                         <div className={"book-details list-group"}>
                             <li className={"list-group-item"}>
+                                <div className={'row'}>
+                                <div className={'col'}>
                                 <h6>Number of pages</h6>
                                 {book.volumeInfo.pageCount}
+                                </div>
+                                <div className={'col'}>
+                                    <h6>Publish Date</h6>
+                                    {book.volumeInfo.publishedDate}
+                                    <h6>Publisher</h6>
+                                    {book.volumeInfo.publisher}
+
+                                </div>
+                                </div>
                             </li>
                             <li className={"list-group-item tw-inline"}>
                                 <h6>Categories</h6>
                                 {book.volumeInfo.categories}
                             </li>
-                            <li className={"list-group-item tw-inline"}>
-                                <div className={"tw-inline"}>
-                                    <h6>Publish Date</h6>
-                                    {book.volumeInfo.publishedDate}
-                                </div>
-                                <div className={"tw-inline"}>
-                                    <h6>Publisher</h6>
-                                    {book.volumeInfo.publisher}
-                                </div>
-
-                            </li>
-
-                            <li className={"list-group-item"}>
+                            <li className={"list-group-item book-description-box"}>
                                 <h6>Description</h6>
                                 {filterDescription(book.volumeInfo.description)}
                             </li>
@@ -247,36 +250,48 @@ function Book() {
                                 <>
                                     <input className={"form-control"} value={review} placeholder="Enter a review..."
                                            onChange={(e) => setReview(e.target.value)}/>
-                                <button className={"btn btn-success"} onClick={save}>
-                                Submit
-                                </button>
+                                    <button className={"btn btn-success"} onClick={save}>
+                                        Submit
+                                    </button>
                                     {review}
                                 </>
                             )}
                             {currentUser && userReviewedBook &&(
                                 <>
-                                    <input className={"form-control"} value={usersBookReview.review}
+                                    <div className={'row'}>
+                                        <div className={'col-10'}>
+                                    <textarea className={"form-control tw-inline-flex"} value={usersBookReview.review}
                                            onChange={(e) => setUsersBookReview(e.target.value)}/>
-                                    <button className={"btn btn-success"} onClick={edit}>
-                                        Edit Review
+                                        </div>
+                                        <div className={'col'}>
+                                    <button className={"btn btn-success tw-inline-flex"} onClick={edit}>
+                                        Edit
                                     </button>
-                                    {review}
+                                    <button className={"btn btn-danger tw-inline-flex"} onClick={edit}>
+                                        Delete
+                                    </button>
+                                        {review}
+                                        </div>
+                                    </div>
                                 </>
                             )}
                             <div className={"book-review-container list-group"}>
-                                <div className={"list-group-item one-book-review"}>
+
                                     {reviews &&
                                      reviews.map((aReview, index) => (
+                                         <div className={"list-group-item one-book-review"}>
                                          <>
-                                             <Link to={`/Profile/${(aReview.user)}`} className={"review-user"}>{reviewUsername}</Link>
+                                             <Link to={`/BookSite/Profile/${(aReview.user)}`} className={"review-user"}>{aReview.fullUser.username}</Link>
                                              <SlSpeech/>
+
                                              <div className={"review-body speech-bubble"}>{aReview.review}</div>
                                              <div className={"speech-bubble:after"}></div>
 
                                          </>
+                                         </div>
                                      ))}
 
-                                </div>
+
                             </div>
                         </div>
                     </div>

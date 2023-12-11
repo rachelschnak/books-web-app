@@ -106,7 +106,11 @@ function Home() {
 
 
     return (
-        <div className="wd-project-home-dashboard">
+        <div className="wd-project-home-dashboard container">
+            <div className={'row'}>
+            <div className={'col home-side-content'}><div className={'home-side-header'}>Recent Likes</div></div>
+            <div className={'col-9'}>
+
             <div className={'home-header'}>Trending</div>
 <>
     {loading && (
@@ -137,6 +141,8 @@ function Home() {
 
             </div>
 </>
+
+
             {account && (
                 <>
             <div className={'home-header'}>Your Liked Books </div>
@@ -164,6 +170,9 @@ function Home() {
                     </>
                 )}
 
+            </div>
+                <div className={'col home-side-content'}> <div className={'home-side-header'}>Recent Reviews</div></div>
+            </div>
         </div>
     ); }
 export default Home;

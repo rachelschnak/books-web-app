@@ -140,3 +140,31 @@
     display: flex;
     justify-content: center;
 }
+
+.home-side-header {
+    border-width: 0px;
+    border-style: ridge;
+    border-color: #062409;
+    color: white;
+    font-size: 1em;
+    text-align: center;
+    font-family: Georgia;
+    margin:5px;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+
+}
+
+.home-side-content {
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+    background-color: darkgreen;
+    display: flex;
+    border-width: 10px;
+    color: darkgreen;
+    font-size: 1.5vw;
+    text-align: center;
+    font-family: Georgia;
+    margin:5px;
+    height: 87vh;
+}
