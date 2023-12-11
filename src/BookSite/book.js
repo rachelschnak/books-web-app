@@ -138,15 +138,18 @@ function Book() {
     const save = async () => {
         if (review) {
             await reviewsClient.createUserReviewsBook(currentUser._id, bookId, review);
+            fetchReviews(bookId);
         }
     };
 
     const edit = async () => {
         await reviewsClient.updateReview(bookId, currentUser._id, usersBookReview);
+        fetchReviews(bookId);
     };
 
     const deleteReview = async () => {
         await reviewsClient.deleteUserReviewsBook(currentUser._id, bookId);
+        fetchReviews(bookId);
     };
 
     function filterDescription(description) {
@@ -168,8 +171,8 @@ function Book() {
         if(likes) {
             BookLikedByUser();
         }
+    }, [book, review]);
 
-    }, [book]);
 
 
     return (
