@@ -161,8 +161,11 @@ function Book() {
         if (book) {
             filterDescription(book.volumeInfo.description);
         }
+        if(likes) {
+            BookLikedByUser();
+        }
 
-    }, [book, usersBookReview]);
+    }, [book]);
 
 
     return (
