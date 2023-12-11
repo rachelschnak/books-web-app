@@ -9,12 +9,9 @@ import * as userClient from "../users/client";
 
 
 function BookNavigation() {
-    const links = ["Home", "Courses", "Inbox", "Account",];
+    const links = ["Home", "Account",];
     const linkToIconMap = {
         Home: <FaHome className="wd-icon" />,
-        Courses: <LuBookMinus className="wd-icon" />,
-        Calendar : <FaRegCalendarAlt className="wd-icon" />,
-        Inbox: <SlEnvolopeLetter className="wd-icon" />,
         Account: <BiSolidUserCircle className="wd-icon wd-account-icon" />,
     };
     const { pathname } = useLocation();

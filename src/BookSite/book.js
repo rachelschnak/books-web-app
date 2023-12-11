@@ -4,7 +4,8 @@ import * as client from "./client";
 import * as userClient from "./users/client";
 import * as likesClient from "./likes/client";
 import * as reviewsClient from "./reviews/client";
-import {FaHeart} from "react-icons/fa";
+import * as statusClient from "./BookStatus/client";
+import {FaHeart, FaRegTrashAlt} from "react-icons/fa";
 import {IoHeartDislike} from "react-icons/io5";
 import {SlSpeech} from "react-icons/sl";
 
@@ -20,16 +21,21 @@ function Book() {
     const [userReviewedBook, setUserReviewedBook] = useState(false);
     const [usersBookReview, setUsersBookReview] = useState(null);
     const [reviewUsername, setReviewUsername] = useState();
+    const [bookStatus, setBookStatus] = useState();
     const count = useRef(null);
     const [userReviews, setUsersReviews] = useState(null);
+    const [statusExists, setStatusExists] = useState(false);
+
 
 
     const fetchUser = async () => {
         try {
             const user = await userClient.account();
             setCurrentUser(user);
-            BookLikedByUser();
-            fetchUserReview(user._id)
+            await BookLikedByUser();
+            await fetchUserReview(user._id)
+            await fetchBookStatus(user._id)
+
         } catch (error) {
             setCurrentUser(null);
         }
@@ -44,6 +50,24 @@ function Book() {
             console.log(error)
         }
     };
+
+    const fetchBookStatus = async(userId) => {
+        try{
+            const bookStat = await statusClient.getBookStatusOfUser(userId, bookId);
+            setBookStatus(bookStat);
+            console.log(bookStat)
+            if (bookStat.length > 0 ) {
+                console.log('in if')
+                setStatusExists(true)
+                console.log('setting to treu')
+                console.log(statusExists)
+            }
+        } catch (error) {
+            console.log("Error getting book status")
+        }
+    }
+
+
 
     const fetchReviews = async (bookId) => {
         try {
@@ -85,7 +109,6 @@ function Book() {
 
     const currentUserLikesBook = async () => {
         try {
-            //await BookLikedByUser();
             if (currentUser && !userLikesBook) {
                 const _likes = await likesClient.createUserLikesBook(
                     currentUser._id,
@@ -135,6 +158,30 @@ function Book() {
         }
     };
 
+    const currentUserSetsBookStatus = async() => {
+        console.log(statusExists)
+        if (currentUser && statusExists) {
+            console.log('updating status')
+            await statusClient.updateBookStatus(currentUser._id, bookId, bookStatus)
+        } else if (currentUser && !statusExists) {
+            console.log('creating status')
+            await statusClient.createUserBookStatus(currentUser._id, bookId, bookStatus)
+        setStatusExists(true)
+        }
+
+    }
+
+    const currentUserRemovesBookStatus = async() => {
+        try {
+            if (currentUser) {
+               statusClient.deleteUserBookStatus(currentUser._id, bookId)
+                setStatusExists(false)
+            }
+        } catch (error) {
+            console.log('Error deleting read status')
+        }
+    }
+
     const save = async () => {
         if (review) {
             await reviewsClient.createUserReviewsBook(currentUser._id, bookId, review);
@@ -171,7 +218,7 @@ function Book() {
         if(likes) {
             BookLikedByUser();
         }
-    }, [book, review]);
+    }, [book, review, statusExists]);
 
 
 
@@ -188,6 +235,14 @@ function Book() {
                         />
                         <div className={'book-title'}>{book.volumeInfo.title}</div>
                         <Link to={`/BookSite/Author/${book.volumeInfo.authors}`}><h4>{book.volumeInfo.authors}</h4></Link>
+                        {currentUser &&(
+                            <div className={'readerBookStatus'}>
+
+                                <h1>Need to add</h1>
+
+                            </div>
+                        )}
+
 
                         <div className={"like-icons"}>
                             {currentUser && (
@@ -205,7 +260,48 @@ function Book() {
                              alt={book.volumeInfo.title}
                         />
                         <h1>{book.volumeInfo.title}</h1>
-                        <Link to={`/BookSite/Author/${book.volumeInfo.authors}`}><h4>{book.volumeInfo.authors}</h4></Link>
+                        <Link  to={`/BookSite/Author/${book.volumeInfo.authors}`}><h4>{book.volumeInfo.authors}</h4></Link>
+
+                        {currentUser &&(
+                            <div className={'readerBookStatus'}>
+
+                                <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">
+                                    Add to Bookshelf
+                                </button>
+
+                                <div className="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                    <div className="modal-dialog modal-dialog-centered" role="document">
+                                        <div className="modal-content">
+                                            <div className="modal-header">
+                                                <h5 className="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                                                <button type="button" className="close" data-bs-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div className="modal-body">
+                                                <select className={"book-status-fields form-control"}
+                                                        onChange={(e) => setBookStatus({...bookStatus,
+                                                                                           bookStatus: e.target.value })}>
+                                                    <option value="READ">Read</option>
+                                                    <option value="WANT TO READ">Want to Read</option>
+                                                    <option value="READING">Reading</option>
+                                                    <option value="DNF">DNF</option>
+                                                </select>
+
+                                                <button type="button" className="btn btn-danger" onClick={currentUserRemovesBookStatus}> <FaRegTrashAlt /> Remove from Bookshelf</button>
+
+                                            </div>
+                                            <div className="modal-footer">
+                                                <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                <button type="button" className="btn btn-primary" onClick={currentUserSetsBookStatus} data-bs-dismiss="modal">Save changes</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        )}
+
 
                         <div className={"like-icons"}>
                             {currentUser && (
@@ -218,7 +314,7 @@ function Book() {
                         </div>
                     </div>
 
-                    <div className={"d-none d-md-block book-spacer-lg"}></div>
+                    <div className={"d-none d-lg-block book-spacer-lg"}></div>
                     <div className={"col wd-book-detail"}>
                         <div className={"book-details list-group"}>
                             <li className={"list-group-item"}>

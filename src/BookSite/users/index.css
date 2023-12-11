@@ -13,13 +13,14 @@
     height: 100vh;
     position: fixed;
     left:0px;
-    top: 70px;
+    top: 60px;
+
 }
 
 .list-group-item.false {
     padding-left: 16px;
     border: 0px;
-    color: darkseagreen;
+    color: darkgreen;
     text-decoration: none;
     border-top-left-radius: 0px;
     border-bottom-left-radius: 0px;
@@ -29,7 +30,7 @@
     border: 0px;
     padding-top: 10px;
     padding-bottom: 10px;
-    background-color: darkseagreen;
+    background-color: darkgreen;
     color: white;
     border-radius: 0px;
 

@@ -7,6 +7,7 @@ import * as bookClient from "../client";
 import {findBookById, findFirstBookByTitle} from "../client";
 import {MdChevronLeft, MdChevronRight} from "react-icons/md";
 import {Audio, RotatingLines} from 'react-loader-spinner'
+import * as statusClient from "../BookStatus/client";
 
 function Loader() {
     return <h1>Loading...</h1>
@@ -24,6 +25,8 @@ function Home() {
     const count = useRef(null);
     const topCount = useRef(0);
     const [loading, setLoading] = useState(false);
+    const [booksStatus, setBooksStatus] = useState([])
+
 
     const fetchAccount = async () => {
         try {
@@ -31,6 +34,7 @@ function Home() {
             setAccount(account);
             if(account) {
                 await fetchBooksUserLikes(account._id)
+                await fetchBooksStatus(account._id)
             }
 
         } catch (error) {
@@ -73,6 +77,28 @@ function Home() {
     };
 
 
+
+    const fetchBooksStatus = async(userId) => {
+        try{
+            const bookStat = await statusClient.findBookStatusesOfUser(userId);
+            for (const each in bookStat) {
+                bookStat[each].book = await fetchBookById(bookStat[each].bookId)
+            }
+            setBooksStatus(bookStat);
+        } catch (error) {
+            console.log("Error getting book status")
+        }
+    }
+
+    const fetchBookById = async (bookId) => {
+        try {
+            const book = await findBookById(bookId)
+            return book
+        } catch (error) {
+            console.log("didn't fetch any liked books")
+        }
+    };
+
     const fetchBookByTitle = async (bookTitle) => {
         try {
             const tBook = await findFirstBookByTitle(bookTitle)
@@ -108,8 +134,21 @@ function Home() {
     return (
         <div className="wd-project-home-dashboard container">
             <div className={'row'}>
-            <div className={'col home-side-content'}><div className={'home-side-header'}>Recent Likes</div></div>
-            <div className={'col-9'}>
+            <div className={'col-md-2 home-side-content'}>
+                <div className={'home-side-header'}>Book Shelf</div>
+                {booksStatus &&
+                 booksStatus.map((book, index) => (
+
+                     <Link to={`/BookSite/book/${(book.bookId)}`}>
+                         <h1>{book.book.volumeInfo.title}</h1>
+                         <h1>{book.bookStatus}</h1>
+                     </Link>
+
+                 ))}
+
+
+            </div>
+            <div className={'col-md-8'}>
 
             <div className={'home-header'}>Trending</div>
 <>
@@ -171,7 +210,7 @@ function Home() {
                 )}
 
             </div>
-                <div className={'col home-side-content'}> <div className={'home-side-header'}>Recent Reviews</div></div>
+                <div className={'col-md-2 home-side-content'}> <div className={'home-side-header'}>Recent Reviews</div></div>
             </div>
         </div>
     ); }

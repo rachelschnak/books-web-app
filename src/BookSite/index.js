@@ -1,3 +1,7 @@
+import 'bootstrap';
+import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap/dist/js/bootstrap.js';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import "./index.css";
 import { Routes, Route, Navigate } from "react-router-dom";
 import store from "./store";
