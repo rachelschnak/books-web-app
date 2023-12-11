@@ -185,7 +185,7 @@ function FollowList() {
 
                 <div className={'row'}>
 
-                        <div className={'profile-header follow-list'}>{profile.username}'s Following List</div>
+                        <div className={'profile-header follow-list'}><Link to={`/Booksite/Profile/${profile._id}`}>{profile.username}'s</Link> Following List</div>
                         <div className={'follow-list-groups'}>
                             <div className={'col-5 follow-list-group'}>
                                 <div className={'profile-header'}>

@@ -240,21 +240,8 @@ function Book() {
                                 {filterDescription(book.volumeInfo.description)}
                             </li>
                         </div>
-                        <div className={"row"}>
 
-                            <h4> Author's Comment</h4>
-                            {currentUser && author && currentUser.role === "AUTHOR" &&  author.includes(currentUser.firstName) && author.includes(currentUser.lastName) && (
-                                <>
-                                    <h1>Hi Author, this is your page</h1>
-                                </>
-
-                            )}
-
-                        </div>
                         <div className={"row "}>
-                            {JSON.stringify(usersBookReview,null,2)}
-                            {JSON.stringify(userReviewedBook,null,2)}
-
                             <h4>User Ratings & Reviews </h4>
                             {currentUser && !userReviewedBook &&(
                                 <>

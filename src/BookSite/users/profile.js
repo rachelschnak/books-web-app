@@ -175,7 +175,7 @@ function Profile() {
 
                             </div>
                             <button className={'btn btn-success btn-followers inline float-end'} onClick={() => navigate(`/BookSite/Profile/${profile._id}/followList`)}>
-                                Following
+                                Follows
                             </button>
                             <h5>Username: {profile.username}</h5>
                             <h5>Email: {profile.email}</h5>
