@@ -106,3 +106,19 @@ padding: 10px;
 
 .book-description-box{
 }
+
+.review-box-and-buttons {
+    background-color: darkseagreen;
+    border-style: double;
+    border-color: #062409;
+    margin:5px;
+    border-radius: 20px;
+}
+.review-text{
+    margin: 5px;
+}
+
+.review-buttons {
+    margin: 5px;
+    width: 90px;
+}

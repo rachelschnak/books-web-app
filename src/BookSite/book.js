@@ -145,6 +145,10 @@ function Book() {
         await reviewsClient.updateReview(bookId, currentUser._id, usersBookReview);
     };
 
+    const deleteReview = async () => {
+        await reviewsClient.deleteUserReviewsBook(currentUser._id, bookId);
+    };
+
     function filterDescription(description) {
         document.getElementById('desc-html').innerHTML = description;
     }
@@ -245,30 +249,32 @@ function Book() {
                             <h4>User Reviews </h4>
                             {currentUser && !userReviewedBook &&(
                                 <>
-                                    <textarea className={"form-control"} value={review} placeholder="Enter a review..."
+                                    <div className={'review-box-and-buttons'}>
+                                    <textarea className={"form-control review-text"} value={review} placeholder="Enter a review..."
                                            onChange={(e) => setReview(e.target.value)}/>
-                                    <button className={"btn btn-success"} onClick={save}>
+                                    <button className={"btn btn-success review-buttons float-end"} onClick={save}>
                                         Submit
                                     </button>
-                                    {review}
+
+                                    </div>
                                 </>
                             )}
                             {currentUser && userReviewedBook &&(
                                 <>
-                                    <div className={'row'}>
-                                        <div className={'col-10'}>
-                                    <textarea className={"form-control tw-inline-flex"} value={usersBookReview.review}
+                                    <div className={'review-box-and-buttons'}>
+
+                                    <textarea className={"form-control review-text"} value={usersBookReview.review}
                                            onChange={(e) => setUsersBookReview(e.target.value)}/>
-                                        </div>
-                                        <div className={'col'}>
-                                    <button className={"btn btn-success tw-inline-flex"} onClick={edit}>
+
+
+                                    <button className={"btn btn-success review-buttons float-end"} onClick={edit}>
                                         Edit
                                     </button>
-                                    <button className={"btn btn-danger tw-inline-flex"} onClick={edit}>
+                                    <button className={"btn btn-danger review-buttons float-end "} onClick={deleteReview}>
                                         Delete
                                     </button>
-                                        {review}
-                                        </div>
+
+
                                     </div>
                                 </>
                             )}
