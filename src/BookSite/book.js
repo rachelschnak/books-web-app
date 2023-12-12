@@ -36,6 +36,7 @@ function Book() {
             await fetchUserReview(user._id)
             await fetchBookStatus(user._id)
 
+
         } catch (error) {
             setCurrentUser(null);
         }
@@ -57,10 +58,7 @@ function Book() {
             setBookStatus(bookStat);
             console.log(bookStat)
             if (bookStat.length > 0 ) {
-                console.log('in if')
                 setStatusExists(true)
-                console.log('setting to treu')
-                console.log(statusExists)
             }
         } catch (error) {
             console.log("Error getting book status")
@@ -163,6 +161,7 @@ function Book() {
         if (currentUser && statusExists) {
             console.log('updating status')
             await statusClient.updateBookStatus(currentUser._id, bookId, bookStatus)
+
         } else if (currentUser && !statusExists) {
             console.log('creating status')
             await statusClient.createUserBookStatus(currentUser._id, bookId, bookStatus)
@@ -203,6 +202,18 @@ function Book() {
         document.getElementById('desc-html').innerHTML = description;
     }
 
+    const updateBtn = () => {
+        const button = document.getElementById('bookStatusBtn')
+        if (button) {
+            if (bookStatus.length > 0) {
+                console.log(bookStatus)
+                button.textContent = bookStatus[0].bookStatus
+            } else {
+                button.textContent = "add to bookshelf"
+            }
+        }
+        updateBtn()
+    }
 
     useEffect(() => {
         fetchReviews(bookId);
@@ -218,7 +229,7 @@ function Book() {
         if(likes) {
             BookLikedByUser();
         }
-    }, [book, review, statusExists]);
+    }, [book, review, statusExists, bookStatus]);
 
 
 
@@ -265,9 +276,8 @@ function Book() {
                         {currentUser &&(
                             <div className={'readerBookStatus'}>
 
-                                <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">
-                                    Add to Bookshelf
-                                </button>
+                                <button id={"bookStatusBtn"} type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModalCenter"></button>
+
 
                                 <div className="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                     <div className="modal-dialog modal-dialog-centered" role="document">
