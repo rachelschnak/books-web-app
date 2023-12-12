@@ -5,7 +5,7 @@ import * as userClient from "./users/client";
 import * as likesClient from "./likes/client";
 import * as reviewsClient from "./reviews/client";
 import * as statusClient from "./BookStatus/client";
-import {FaHeart, FaRegTrashAlt} from "react-icons/fa";
+import {FaHeart, FaPencilAlt, FaRegTrashAlt} from "react-icons/fa";
 import {IoHeartDislike} from "react-icons/io5";
 import {SlSpeech} from "react-icons/sl";
 import backdrop from "bootstrap/js/src/util/backdrop";
@@ -242,7 +242,8 @@ function Book() {
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <div className="modal-body">
+                        <div className="modal-body ">
+                            <div className={'row'}>
                             <select className={"book-status-fields form-control"}
                                     onChange={(e) => setBookStatus({...bookStatus,
                                                                        bookStatus: e.target.value })}>
@@ -251,13 +252,14 @@ function Book() {
                                 <option value="READING">Reading</option>
                                 <option value="DNF">DNF</option>
                             </select>
-
-                            <button type="button" className="btn btn-danger" onClick={currentUserRemovesBookStatus} data-bs-dismiss="modal"> <FaRegTrashAlt /> Remove from Bookshelf</button>
-
+                            </div>
+                            <div className={'row'}>
+                            <button type="button" className="btn btn-danger rmv-btn" onClick={currentUserRemovesBookStatus} data-bs-dismiss="modal"> <FaRegTrashAlt /> Remove from Bookshelf</button>
+                            </div>
                         </div>
                         <div className="modal-footer">
                             <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" onClick={fetchStatusTransfer}>Close</button>
-                            <button type="button" className="btn btn-primary" onClick={currentUserSetsBookStatus} data-bs-dismiss="modal">Save changes</button>
+                            <button type="button" className="btn btn-primary review-edit-btn" onClick={currentUserSetsBookStatus} data-bs-dismiss="modal">Save changes</button>
                         </div>
                     </div>
                 </div>
@@ -279,10 +281,10 @@ function Book() {
 
                                 <button id={"bookStatusBtn"} type="button" className="btn btn-primary bookStatusBtn" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">
                                     {bookStatus &&(
-                                        <>{bookStatus.bookStatus}</>
+                                        <> <FaPencilAlt /> {bookStatus.bookStatus}</>
                                     )}
                                     {!bookStatus &&(
-                                        <>Add to Bookshelf</>
+                                        <> Add to Bookshelf</>
                                     )}
                                 </button>
 
@@ -388,10 +390,10 @@ function Book() {
                                            onChange={(e) => setUsersBookReview(e.target.value)}/>
 
 
-                                    <button className={"btn btn-success review-buttons float-end"} onClick={edit}>
+                                    <button className={"btn btn-success review-buttons review-edit-btn float-end"} onClick={edit}>
                                         Edit
                                     </button>
-                                    <button className={"btn btn-danger review-buttons float-end "} onClick={deleteReview}>
+                                    <button className={"btn btn-danger review-buttons review-delete-btn float-end "} onClick={deleteReview}>
                                         Delete
                                     </button>
 
@@ -404,14 +406,12 @@ function Book() {
                                     {reviews &&
                                      reviews.map((aReview, index) => (
                                          <div className={"list-group-item one-book-review"}>
-                                         <>
-                                             <Link to={`/BookSite/Profile/${(aReview.user)}`} className={"review-user"}>{aReview.fullUser.username}</Link>
+
+                                            <div className={'review-user-row'}>
+                                            <Link to={`/BookSite/Profile/${(aReview.user)}`} className={"review-user"}>{aReview.fullUser.username}</Link>
                                              <SlSpeech/>
-
-                                             <div className={"review-body speech-bubble"}>{aReview.review}</div>
-                                             <div className={"speech-bubble:after"}></div>
-
-                                         </>
+                                            </div>
+                                             <div className={"review-body"}>{aReview.review}</div>
                                          </div>
                                      ))}
 

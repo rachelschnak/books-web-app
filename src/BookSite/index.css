@@ -101,8 +101,9 @@ padding: 10px;
 }
 
 .bookStatusBtn:hover {
-    background-color: #ffe2b9;
+    background-color: white;
     border-color: #7f4c5d;
+    color: #7f4c5d;
 }
 
 .book-title{
@@ -113,12 +114,12 @@ padding: 10px;
 }
 
 .review-box-and-buttons {
-    background-color: #ffe2b9;
     border-style: solid;
     border-color: #7f4c5d;
     margin:5px;
-    border-radius: 20px;
+    border-radius: 15px;
 }
+
 .review-text{
     margin: 5px;
 }
@@ -130,3 +131,67 @@ padding: 10px;
 
 .modal{z-index: 1060;}
 
+.one-book-review {
+    border-width: 0px;
+    padding: 3px;
+
+}
+
+.one-book-review :first-child {
+    border-radius: 0px;
+}
+
+
+.one-book-review :last-child {
+    border-radius: 0px;
+}
+
+.review-user {
+    padding: 10px;
+    text-decoration: none;
+    color: white;
+    font-size: 1.2em;
+}
+
+.review-body {
+    padding: 10px;
+    background-color: #ffe2b9;
+}
+
+.review-user-row{
+    background-color: #f1a629;
+}
+
+.review-edit-btn {
+    background-color: #217675;
+    border-color: #062409;
+}
+
+.review-edit-btn:hover {
+    background-color: #5a949d;
+    border-color: #062409;
+}
+
+.review-delete-btn {
+    background-color: #720c10;
+    border-color: #720c10;
+}
+
+.review-delete-btn:hover {
+    color: #720c10;
+    background-color: #fde2f0;
+    border-color: #720c10;
+}
+
+.rmv-btn {
+    margin-top: 15px;
+    color: red;
+    background-color: white;
+    max-width: 250px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.modal-body{
+    align-content: center;
+}
