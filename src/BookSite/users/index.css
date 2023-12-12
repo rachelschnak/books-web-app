@@ -20,7 +20,7 @@
 .list-group-item.false {
     padding-left: 16px;
     border: 0px;
-    color: darkgreen;
+    color: #217675;
     text-decoration: none;
     border-top-left-radius: 0px;
     border-bottom-left-radius: 0px;
@@ -30,7 +30,7 @@
     border: 0px;
     padding-top: 10px;
     padding-bottom: 10px;
-    background-color: darkgreen;
+    background-color: #f1a629;
     color: white;
     border-radius: 0px;
 
@@ -53,7 +53,7 @@
 }
 
 .book-scroll {
-    color: darkgreen;
+    color: #7f4c5d;
 }
 
 .book-account-info {}
@@ -66,7 +66,7 @@
 .books-users-link{
     padding-left: 16px;
     border: 0px;
-    color: darkseagreen;
+    color: #217675;
     text-decoration: none;
     border-top-left-radius: 0px;
     border-bottom-left-radius: 0px;
@@ -76,7 +76,7 @@
     border: 0px;
     padding-top: 10px;
     padding-bottom: 10px;
-    background-color: darkseagreen;
+    background-color: #f1a629;
     color: white;
     border-radius: 0px;
 }
@@ -85,7 +85,7 @@
     border: 0px;
     padding-top: 10px;
     padding-bottom: 10px;
-    background-color: darkseagreen;
+    background-color: #f1a629;
     color: white;
     border-radius: 0px;
 }
@@ -93,7 +93,7 @@
 .books-profile-link {
     padding-left: 16px;
     border: 0px;
-    color: darkseagreen;
+    color: #217675;
     text-decoration: none;
     border-top-left-radius: 0px;
     border-bottom-left-radius: 0px;
@@ -112,9 +112,10 @@
 }
 
 .book-signin-block{
-    background-color: darkseagreen;
+    background-color: #217675;
     padding: 30px;
     color: white;
+    margin-top:30px;
 
 }
 
@@ -160,7 +161,7 @@ div.book-user-list-header {
     font-family: Georgia;
     font-size: 3em;
     padding: 5px;
-    background-color: darkseagreen;
+    background-color: #217675;
     border-radius: 10px;
     border-bottom-left-radius: 0px;
     border-bottom-right-radius: 0px;
@@ -199,7 +200,7 @@ width: 500px;
 }
 
 .profile-header {
-    background-color: darkseagreen;
+    background-color: #217675;
     font-size: 2em;
     text-align: center;
     font-family: Georgia;
@@ -213,7 +214,7 @@ width: 500px;
     font-size: 1.5em;
     border-bottom-width: 5px;
     border-style: double;
-    border-color: darkseagreen;
+    border-color: #7f4c5d;
     max-width: 850px;
     margin-left: auto;
     margin-right: auto;
@@ -235,20 +236,18 @@ width: 500px;
     align-content: center;
     justify-content: center;
     margin-bottom: 5px;
-    background-color: #f3fff1;
+    background-color: white;
     align-content: center;
     margin-right: auto;
     margin-left:auto;
     border-radius:10px;
     border-width: 3px;
     border-style: double;
-    border-color: darkgreen;
+    border-color: #217675;
 }
 
 
-.profile-list .list-group-item h4{
-color: #062409;
-}
+
 
 .list-group.profile-list{
     align-content: center;
@@ -260,25 +259,45 @@ color: #062409;
 }
 
 .profile-button-1 {
-    position: fixed;
-    right:20px;
-    top: 80px;
+    max-width: 80px;
+    color: white;
+    background-color: #f1a629;
+}
+
+.profile-button-1:hover {
     max-width: 80px;
     color: white;
 }
+
 .profile-button-2 {
-    background-color: darkgreen;
-    border-color: darkgreen;
-    position: fixed;
-    right:105px;
-    top: 80px;
+    background-color: #7f4c5d;
+    border-color: #7f4c5d;
     max-width: 120px;
+}
+
+.profile-button-2:hover {
+    color: #7f4c5d;
+    border-color: #7f4c5d;
+   background-color: white;
 }
 
 .btn-followers {
     background-color: white;
-    border-color: #062409;
-    color: #062409;
+    border-color:#4a6459;
+    color: #4a6459;
+}
+
+.btn-followers:hover {
+    background-color: #4a6459;
+    border-color: #4a6459;
+    color: white;
+}
+
+.profile-header {
+    color: white;
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 .profile-header.follow-list {
@@ -312,4 +331,12 @@ color: #062409;
 .profile-header.follow-list a {
     text-decoration: none;
     color: darkgreen;
+}
+
+.prof-btn {
+    margin: 5px;
+}
+
+.user-list-all {
+    margin-top:30px;
 }

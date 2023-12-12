@@ -55,9 +55,9 @@ useEffect(() => {fetchUser()},[])
                     {link}
                 </Link>
             ))}
-
                     </ul>
-                    <form className="d-flex" role="search">
+
+                    <form className="d-flex nav-seach-bar" role="search">
                         <input
                             type="text"
                             className="form-control me-2"

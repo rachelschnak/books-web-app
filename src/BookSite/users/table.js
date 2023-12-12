@@ -89,7 +89,7 @@ function UserTable() {
             Users
         </Link>
     </div>
-        <div className={""}>
+        <div className={"user-list-all"}>
             <div className={'book-user-list-header'}>User List</div>
             <div className={'book-users-table-all'}>
             <table className="book-users-table table table-striped table-hover table-sm">

@@ -210,6 +210,11 @@ function Book() {
         fetchReviews(bookId);
     };
 
+    const adminDeleteReview = async() => {
+        await reviewsClient.deleteUserReviewsBook(currentUser._id, bookId);
+        fetchReviews(bookId);
+    }
+
     function filterDescription(description) {
         document.getElementById('desc-html').innerHTML = description;
     }
@@ -232,7 +237,7 @@ function Book() {
 
 
     return (
-        <div>
+        <div className={'book-page-all'}>
             <div className="modal fade" id="exampleModalCenter" tabIndex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                 <div className="modal-dialog modal-dialog-centered" role="document">
                     <div className="modal-content">
@@ -376,7 +381,7 @@ function Book() {
                                     <div className={'review-box-and-buttons'}>
                                     <textarea className={"form-control review-text"} value={review} placeholder="Enter a review..."
                                            onChange={(e) => setReview(e.target.value)}/>
-                                    <button className={"btn btn-success review-buttons float-end"} onClick={save}>
+                                    <button className={"btn btn-success review-buttons review-edit-btn float-end"} onClick={save}>
                                         Submit
                                     </button>
 
@@ -411,8 +416,18 @@ function Book() {
                                             <div className={'review-user-row'}>
                                             <Link to={`/BookSite/Profile/${(aReview.user)}`} className={"review-user"}>{aReview.fullUser.username}</Link>
                                              <SlSpeech/>
+                                                {currentUser && currentUser.role === 'ADMIN' &&(
+                                                    <button className={"btn btn-danger btn-admin float-end"} onClick={adminDeleteReview}>
+                                                        Delete
+                                                    </button>
+                                                )}
                                             </div>
-                                             <div className={"review-body"}>{aReview.review}</div>
+                                             <div className={"review-body"}>{aReview.review}
+
+                                             </div>
+
+
+
                                          </div>
                                      ))}
 

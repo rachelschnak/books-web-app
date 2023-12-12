@@ -157,26 +157,27 @@ function Profile() {
 
             {profile && (
                 <>
-                    {account && id === account._id && (
-                        <>
-                            <button className={"btn btn-warning profile-button-1"} onClick={signout}>
-                                Signout
-                            </button>
-                            <button className={"btn btn-primary profile-button-2"} onClick={() => navigate(`/BookSite/account/${account._id}`)}>
-                                Edit Account
-                            </button>
 
-                        </>  )}
             <div className=" col wd-kanbas-user-content d-block">
 
                     <div className={'row'}>
                         <div className={'col-auto'}>
-                            <div className={'profile-header profile-header-main'}>{profile.username}'s Profile
+                            <div className={'profile-header profile-header-main'}>{profile.username}'s Profile</div>
+                            {account && id === account._id && (
+                                <>
+                                    <button className={"btn btn-warning prof-btn profile-button-1 float-end"} onClick={signout}>
+                                        Signout
+                                    </button>
+                                    <button className={"btn btn-primary prof-btn profile-button-2 float-end"} onClick={() => navigate(`/BookSite/account/${account._id}`)}>
+                                        Edit Account
+                                    </button>
 
-                            </div>
-                            <button className={'btn btn-success btn-followers inline float-end'} onClick={() => navigate(`/BookSite/Profile/${profile._id}/followList`)}>
+                                </>  )}
+
+                            <button className={'btn btn-success prof-btn btn-followers inline float-end'} onClick={() => navigate(`/BookSite/Profile/${profile._id}/followList`)}>
                                 Follows
                             </button>
+
                             <h5>Username: {profile.username}</h5>
                             <h5>Email: {profile.email}</h5>
                             <h5>Role: {profile.role}</h5>

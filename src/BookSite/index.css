@@ -198,3 +198,11 @@ padding: 10px;
 .modal-body{
     align-content: center;
 }
+
+.book-page-all {
+    padding-top: 30px;
+}
+
+.btn-admin {
+    max-height: 29px;
+}
