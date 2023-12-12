@@ -339,6 +339,7 @@ function Book() {
                     </div>
 
                     <div className={"d-none d-lg-block book-spacer-lg"}></div>
+                    <div className={"d-none d-sm-block d-lg-none book-spacer-sm"}></div>
                     <div className={"col wd-book-detail"}>
                         <div className={"book-details list-group"}>
                             <li className={"list-group-item"}>
