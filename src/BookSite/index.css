@@ -10,7 +10,7 @@
     font-family: Georgia, serif;
     margin-left: auto;
     margin-right: auto;
-    width: 80%;
+    width: 85%;
 
 }
 
@@ -78,7 +78,7 @@ padding: 10px;
 
 .book-details.list-group .list-group-item{
     border-bottom-width: 1px;
-    border-color: darkseagreen;
+    border-color: #4a6459;
     border-left-width: 0;
     border-right-width: 0;
     border-radius: 0;
@@ -95,6 +95,15 @@ padding: 10px;
 }
 
 
+.bookStatusBtn {
+    background-color: #7f4c5d;
+    border-color: #ffe2b9;
+}
+
+.bookStatusBtn:hover {
+    background-color: #ffe2b9;
+    border-color: #7f4c5d;
+}
 
 .book-title{
     font-size: 2vw;
@@ -104,9 +113,9 @@ padding: 10px;
 }
 
 .review-box-and-buttons {
-    background-color: darkseagreen;
-    border-style: double;
-    border-color: #062409;
+    background-color: #ffe2b9;
+    border-style: solid;
+    border-color: #7f4c5d;
     margin:5px;
     border-radius: 20px;
 }
@@ -119,7 +128,5 @@ padding: 10px;
     width: 90px;
 }
 
-.modal-backdrop{
-   }
 .modal{z-index: 1060;}
 

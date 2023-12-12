@@ -7,47 +7,66 @@ body {
 
 
 .booksy-navbar{
-    background-color: darkseagreen;
+    background-color: #7f4c5d;
     padding-top: 0px;
     padding-bottom: 0px;
-
-
-
-
+    color: #217675;
+    text-align: center;
+    vertical-align: middle;
 }
 
 .booksy-navbar a.list-group-item.false{
     color: white;
-    background-color: darkseagreen;
+    background-color: #7f4c5d;
     border-width: 0px;
     margin-bottom: 10px;
     font-size: 0.8em;
     text-align: center;
+    vertical-align: middle;
+}
+
+
+.booksy-navbar a #text{
+    font-size: 3em;
+    text-align: center;
+    vertical-align: middle;
 }
 
 .booksy-navbar a.list-group-item.active {
-    color: darkseagreen;
-    background-color: white;
+    color:  white;
+    background-color: #217675;
     border-width: 0px;
     padding: 10px;
     font-size: 0.8em;
     text-align: center;
     margin: 0px;
-    bottom-margin: 5px;
     border-radius: 0px;
+    vertical-align: middle;
 }
 
 .booksy-navbar a.list-group-item .wd-icon {
-    color: darkgreen;
+    color: #ffe2b9;
     font-size: 2.5em;
-    margin-bottom: 5px;
     margin-left: 10px;
     margin-right: 10px;
+    margin-top: 5px;
 }
 
 
+.btn-search-navbar {
+    color:white;
+    border-color: white;
+}
 
+.btn-search-navbar:hover {
+    background-color: #ffe2b9;
+    border-color: white;
+}
 
-
+.navbar-title {
+    color: white;
+    font-size: 2em;
+    padding-right: 50px;
+}
 
 

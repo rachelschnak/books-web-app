@@ -36,7 +36,7 @@ useEffect(() => {fetchUser()},[])
     return (
         <nav className="navbar navbar-expand-lg bg-light fixed-top booksy-navbar">
             <div className="container-fluid booksy-navbar">
-                <a className="navbar-brand">Booksy</a>
+                <div className="navbar-title">Booksy</div>
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbarSupportedContent"
                         aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -69,7 +69,7 @@ useEffect(() => {fetchUser()},[])
                         />
                         <button
                             onClick={() => navigate(`/BookSite/search/${searchTerm}`)}
-                            className="btn btn-outline-success"
+                            className="btn btn-outline-success btn-search-navbar"
                         >Search</button>
 
                     </form>

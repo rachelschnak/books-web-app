@@ -277,7 +277,7 @@ function Book() {
                         {currentUser &&(
                             <div className={'readerBookStatus'}>
 
-                                <button id={"bookStatusBtn"} type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">
+                                <button id={"bookStatusBtn"} type="button" className="btn btn-primary bookStatusBtn" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">
                                     {bookStatus &&(
                                         <>{bookStatus.bookStatus}</>
                                     )}
@@ -312,7 +312,7 @@ function Book() {
                             <div className={'readerBookStatus'}>
 
 
-                                <button id={"bookStatusBtn"} type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">
+                                <button id={"bookStatusBtn"} type="button" className="btn btn-primary bookStatusBtn" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">
                                     {bookStatus &&(
                                         <>{bookStatus.bookStatus}</>
                                     )}
