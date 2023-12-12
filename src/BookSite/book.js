@@ -57,7 +57,6 @@ function Book() {
         try{
             const bookStat = await statusClient.getBookStatusOfUser(userId, bookId);
             setBookStatus(bookStat);
-            console.log(bookStat)
             if (bookStat.length > 0 ) {
                 setStatusExists(true)
             }
@@ -203,19 +202,6 @@ function Book() {
         document.getElementById('desc-html').innerHTML = description;
     }
 
-    const updateBtn = () => {
-        const button = document.getElementById('bookStatusBtn')
-        if (button) {
-            if (bookStatus.length > 0) {
-                console.log(bookStatus)
-                button.textContent = bookStatus[0].bookStatus
-            } else {
-                button.textContent = "add to bookshelf"
-            }
-        }
-        updateBtn()
-    }
-
     useEffect(() => {
         fetchReviews(bookId);
         if(count.current == null) {
@@ -239,7 +225,7 @@ function Book() {
                 <div className="modal-dialog modal-dialog-centered" role="document">
                     <div className="modal-content">
                         <div className="modal-header">
-                            <h5 className="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                            <h5 className="modal-title" id="exampleModalLongTitle">Update Bookshelf</h5>
                             <button type="button" className="close" data-bs-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -254,7 +240,7 @@ function Book() {
                                 <option value="DNF">DNF</option>
                             </select>
 
-                            <button type="button" className="btn btn-danger" onClick={currentUserRemovesBookStatus}> <FaRegTrashAlt /> Remove from Bookshelf</button>
+                            <button type="button" className="btn btn-danger" onClick={currentUserRemovesBookStatus} data-bs-dismiss="modal"> <FaRegTrashAlt /> Remove from Bookshelf</button>
 
                         </div>
                         <div className="modal-footer">
@@ -279,7 +265,14 @@ function Book() {
                         {currentUser &&(
                             <div className={'readerBookStatus'}>
 
-                                <button id={"bookStatusBtn"} type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModalCenter"></button>
+                                <button id={"bookStatusBtn"} type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">
+                                    {bookStatus &&(
+                                        <>{bookStatus.bookStatus}</>
+                                    )}
+                                    {!bookStatus &&(
+                                        <>Add to Bookshelf</>
+                                    )}
+                                </button>
 
                             </div>
                         )}
