@@ -210,8 +210,8 @@ function Book() {
         fetchReviews(bookId);
     };
 
-    const adminDeleteReview = async() => {
-        await reviewsClient.deleteUserReviewsBook(currentUser._id, bookId);
+    const adminDeleteReview = async(userId) => {
+        await reviewsClient.deleteUserReviewsBook(userId, bookId);
         fetchReviews(bookId);
     }
 
@@ -417,7 +417,7 @@ function Book() {
                                             <Link to={`/BookSite/Profile/${(aReview.user)}`} className={"review-user"}>{aReview.fullUser.username}</Link>
                                              <SlSpeech/>
                                                 {currentUser && currentUser.role === 'ADMIN' &&(
-                                                    <button className={"btn btn-danger btn-admin float-end"} onClick={adminDeleteReview}>
+                                                    <button className={"btn btn-danger btn-admin float-end"} onClick={adminDeleteReview(aReview.user)}>
                                                         Delete
                                                     </button>
                                                 )}
