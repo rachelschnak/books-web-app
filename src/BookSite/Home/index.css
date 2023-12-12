@@ -1,11 +1,4 @@
-.wd-project-home-dashboard {
-    background-color: white;
-    list-style: none;
-    padding:10px;
-    margin: 10px;
-    margin-left: 30px;
 
-}
 
 .wd-kanbas-dashboard-title {
     color: gray;
@@ -102,7 +95,7 @@
 }
 
 .book-h-list-item{
-    max-width: 120px;
+    max-width: 100px;
     min-width: 80px;
 }
 
@@ -120,19 +113,20 @@
 
 .home-header {
     border-width: 0px;
-    border-bottom-width: 10px;
+    border-bottom-width: 5px;
     border-bottom-right-radius: 0px;
     border-bottom-left-radius: 0px;
-    border-style: ridge;
-    border-color: darkseagreen;
-    color: darkgreen;
-    font-size: 2.5vw;
+    border-style: double;
+    border-color: #ffe2b9;
+    color: #217675;
+    font-size: 2em;
     text-align: center;
     font-family: Georgia;
-    margin:5px;
+
 }
 
 .book-top-grid {
+    margin-top: 30px;
     margin-bottom: 20px;
 }
 
@@ -141,30 +135,34 @@
     justify-content: center;
 }
 
-.home-side-header {
-    border-width: 0px;
-    border-style: ridge;
-    border-color: #062409;
-    color: white;
-    font-size: 1em;
-    text-align: center;
-    font-family: Georgia;
-    margin:5px;
-    border-top-left-radius: 30px;
-    border-top-right-radius: 30px;
+.home-book-shelf {
+    padding-top: 30px;
+    overflow-x: hidden;
+    align-content: center;
 
 }
 
-.home-side-content {
-    border-top-left-radius: 30px;
-    border-top-right-radius: 30px;
-    background-color: darkgreen;
-    display: flex;
-    border-width: 10px;
-    color: darkgreen;
-    font-size: 1.5vw;
-    text-align: center;
-    font-family: Georgia;
-    margin:5px;
-    height: 87vh;
+.home-book-shelf .list-group-item{
+    overflow-x: hidden;
+    align-content: center;
+    border-width: 0px;
+    color: #7f4c5d;
+}
+
+.home-book-shelf-title {
+    color: #217675;
+    font-size: 1.7em;
+    border-width: 0px;
+    border-bottom-width: 1px;
+    border-style: solid;
+    border-color: #217675;
+}
+
+.home-trending-liked{
+    padding-top: 30px;
+}
+
+.home-book-shelf h5 {
+    color:#7f4c5d;
+    padding: 2px;
 }

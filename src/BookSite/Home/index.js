@@ -25,7 +25,10 @@ function Home() {
     const count = useRef(null);
     const topCount = useRef(0);
     const [loading, setLoading] = useState(false);
-    const [booksStatus, setBooksStatus] = useState([])
+    const [booksStatus, setBooksStatus] = useState([]);
+    const [readBooks, setReadBooks] = useState([]);
+    const [readingBooks, setReadingBooks] = useState([]);
+    const [wantReadBooks, setWantReadBooks] = useState([]);
 
 
     const fetchAccount = async () => {
@@ -85,8 +88,24 @@ function Home() {
                 bookStat[each].book = await fetchBookById(bookStat[each].bookId)
             }
             setBooksStatus(bookStat);
+            getReadBooks(bookStat)
         } catch (error) {
             console.log("Error getting book status")
+        }
+    }
+
+    const getReadBooks = async (booksStatus) => {
+        for( const each in booksStatus) {
+            if (booksStatus[each].bookStatus === 'READ') {
+                setReadBooks(readBooks => [...readBooks, booksStatus[each]])
+            }
+            if (booksStatus[each].bookStatus === 'WANT TO READ') {
+                setWantReadBooks(wantReadBooks => [...wantReadBooks, booksStatus[each]])
+            }
+            if (booksStatus[each].bookStatus === 'READING') {
+                setReadingBooks(readingBooks => [...readingBooks, booksStatus[each]])
+            }
+
         }
     }
 
@@ -134,36 +153,76 @@ function Home() {
     return (
         <div className="wd-project-home-dashboard container">
             <div className={'row'}>
-            <div className={'col-md-2 home-side-content'}>
-                <div className={'home-side-header'}>Book Shelf</div>
-                {booksStatus &&
-                 booksStatus.map((book, index) => (
+                <div className={'col-2 home-book-shelf d-none d-lg-block'}>
+                {account && (
+                    <>
+                <div className={'home-book-shelf-title'}>Book Shelf</div>
+            <div className={'row'}>
+                <h5>Reading</h5>
+                <ul  className={'list-group'}>
+                    {readingBooks &&
+                     readingBooks.map((book, index)=> (
 
-                     <Link to={`/BookSite/book/${(book.bookId)}`}>
-                         <h1>{book.book.volumeInfo.title}</h1>
-                         <h1>{book.bookStatus}</h1>
-                     </Link>
+                         <li className={'list-group-item'}>
+                             <Link to={`/BookSite/book/${(book.bookId)}`}>
+                                 <h6>{book.book.volumeInfo.title}</h6>
+                             </Link>
+                         </li>
+
+                     ))}
+                </ul>
+            </div>
+                <div className={'row'}>
+                <h5>Read Books</h5>
+                <ul  className={'list-group'}>
+                {readBooks &&
+                 readBooks.map((book, index)=> (
+
+                    <li className={'list-group-item'}>
+                    <Link to={`/BookSite/book/${(book.bookId)}`}>
+                    <h6>{book.book.volumeInfo.title}</h6>
+                    </Link>
+                    </li>
 
                  ))}
+                </ul>
+                </div>
+                <div className={'row'}>
+                <h5>Want to Read</h5>
+                <ul  className={'list-group'}>
+                    {wantReadBooks &&
+                     wantReadBooks.map((book, index)=> (
 
+                         <li className={'list-group-item'}>
+                             <Link to={`/BookSite/book/${(book.bookId)}`}>
+                                 <h6>{book.book.volumeInfo.title}</h6>
+                             </Link>
+                         </li>
 
-            </div>
-            <div className={'col-md-8'}>
+                     ))}
+                </ul>
+                </div>
+
+            </>
+                         )}
+                </div>
+            <div className={'col-lg-9 col-md-auto home-trending-liked'}>
 
             <div className={'home-header'}>Trending</div>
-<>
-    {loading && (
-        <div className={'top-loading'}>
-            <RotatingLines
-                strokeWidth="5"
-                animationDuration="2"
-                width="96"
-                visible={true}
-            />
-        </div>
+                <>
+                    {loading && (
+                        <div className={'top-loading'}>
+                            <RotatingLines
+                                strokeWidth="5"
+                                animationDuration="2"
+                                width="96"
+                                visible={true}
+                                strokeColor={'#7f4c5d'}
+                            />
+                        </div>
 
-    )}
-            <div className="card-deck wd-kanbas-dashboard-grid book-top-grid">
+                    )}
+             <div className="card-deck wd-kanbas-dashboard-grid book-top-grid">
                 <div className="book-deck row row-cols-3 row-cols-sm-5 row-cols-lg-5 row-cols-xxl-5" >
 
                     {bestNYT &&
@@ -178,8 +237,8 @@ function Home() {
                      ))}
                 </div>
 
-            </div>
-</>
+                </div>
+                </>
 
 
             {account && (
@@ -210,7 +269,62 @@ function Home() {
                 )}
 
             </div>
-                <div className={'col-md-2 home-side-content'}> <div className={'home-side-header'}>Recent Reviews</div></div>
+
+                <div className={'col home-book-shelf d-block d-lg-none'}>
+                    {account && (
+                        <>
+                            <div className={'home-book-shelf-title'}>Book Shelf</div>
+                            <div className={'row'}>
+                                <h5>Reading</h5>
+                                <ul  className={'list-group'}>
+                                    {readingBooks &&
+                                     readingBooks.map((book, index)=> (
+
+                                         <li className={'list-group-item'}>
+                                             <Link to={`/BookSite/book/${(book.bookId)}`}>
+                                                 <h6>{book.book.volumeInfo.title}</h6>
+                                             </Link>
+                                         </li>
+
+                                     ))}
+                                </ul>
+                            </div>
+                            <div className={'row'}>
+                                <h5>Read Books</h5>
+                                <ul  className={'list-group'}>
+                                    {readBooks &&
+                                     readBooks.map((book, index)=> (
+
+                                         <li className={'list-group-item'}>
+                                             <Link to={`/BookSite/book/${(book.bookId)}`}>
+                                                 <h6>{book.book.volumeInfo.title}</h6>
+                                             </Link>
+                                         </li>
+
+                                     ))}
+                                </ul>
+                            </div>
+                            <div className={'row'}>
+                                <h5>Want to Read</h5>
+                                <ul  className={'list-group'}>
+                                    {wantReadBooks &&
+                                     wantReadBooks.map((book, index)=> (
+
+                                         <li className={'list-group-item'}>
+                                             <Link to={`/BookSite/book/${(book.bookId)}`}>
+                                                 <h6>{book.book.volumeInfo.title}</h6>
+                                             </Link>
+                                         </li>
+
+                                     ))}
+                                </ul>
+                            </div>
+
+                        </>
+                    )}
+                </div>
+
+
             </div>
         </div>
     ); }
