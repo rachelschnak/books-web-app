@@ -53,6 +53,18 @@ function Book() {
         }
     };
 
+    const fetchStatusTransfer = async () => {
+        try{
+            const bookStat = await statusClient.getBookStatusOfUser(currentUser._id, bookId);
+            setBookStatus(bookStat);
+            if (bookStat.length > 0 ) {
+                setStatusExists(true)
+            }
+        } catch (error) {
+            console.log("Error getting book status")
+        }
+    }
+
     const fetchBookStatus = async(userId) => {
         try{
             const bookStat = await statusClient.getBookStatusOfUser(userId, bookId);
@@ -244,7 +256,7 @@ function Book() {
 
                         </div>
                         <div className="modal-footer">
-                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" onClick={fetchStatusTransfer}>Close</button>
                             <button type="button" className="btn btn-primary" onClick={currentUserSetsBookStatus} data-bs-dismiss="modal">Save changes</button>
                         </div>
                     </div>
