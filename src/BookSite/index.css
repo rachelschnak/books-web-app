@@ -118,3 +118,8 @@ padding: 10px;
     margin: 5px;
     width: 90px;
 }
+
+.modal-backdrop{
+   }
+.modal{z-index: 1060;}
+

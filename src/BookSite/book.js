@@ -8,6 +8,7 @@ import * as statusClient from "./BookStatus/client";
 import {FaHeart, FaRegTrashAlt} from "react-icons/fa";
 import {IoHeartDislike} from "react-icons/io5";
 import {SlSpeech} from "react-icons/sl";
+import backdrop from "bootstrap/js/src/util/backdrop";
 
 function Book() {
     const { bookId } = useParams();
@@ -232,9 +233,38 @@ function Book() {
     }, [book, review, statusExists, bookStatus]);
 
 
-
     return (
         <div>
+            <div className="modal fade" id="exampleModalCenter" tabIndex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div className="modal-dialog modal-dialog-centered" role="document">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <h5 className="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                            <button type="button" className="close" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div className="modal-body">
+                            <select className={"book-status-fields form-control"}
+                                    onChange={(e) => setBookStatus({...bookStatus,
+                                                                       bookStatus: e.target.value })}>
+                                <option value="READ">Read</option>
+                                <option value="WANT TO READ">Want to Read</option>
+                                <option value="READING">Reading</option>
+                                <option value="DNF">DNF</option>
+                            </select>
+
+                            <button type="button" className="btn btn-danger" onClick={currentUserRemovesBookStatus}> <FaRegTrashAlt /> Remove from Bookshelf</button>
+
+                        </div>
+                        <div className="modal-footer">
+                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" className="btn btn-primary" onClick={currentUserSetsBookStatus} data-bs-dismiss="modal">Save changes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
 
             {book && (
                 <div className={"row"}>
@@ -249,7 +279,7 @@ function Book() {
                         {currentUser &&(
                             <div className={'readerBookStatus'}>
 
-                                <h1>Need to add</h1>
+                                <button id={"bookStatusBtn"} type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModalCenter"></button>
 
                             </div>
                         )}
@@ -277,37 +307,6 @@ function Book() {
                             <div className={'readerBookStatus'}>
 
                                 <button id={"bookStatusBtn"} type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModalCenter"></button>
-
-
-                                <div className="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                                    <div className="modal-dialog modal-dialog-centered" role="document">
-                                        <div className="modal-content">
-                                            <div className="modal-header">
-                                                <h5 className="modal-title" id="exampleModalLongTitle">Modal title</h5>
-                                                <button type="button" className="close" data-bs-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div className="modal-body">
-                                                <select className={"book-status-fields form-control"}
-                                                        onChange={(e) => setBookStatus({...bookStatus,
-                                                                                           bookStatus: e.target.value })}>
-                                                    <option value="READ">Read</option>
-                                                    <option value="WANT TO READ">Want to Read</option>
-                                                    <option value="READING">Reading</option>
-                                                    <option value="DNF">DNF</option>
-                                                </select>
-
-                                                <button type="button" className="btn btn-danger" onClick={currentUserRemovesBookStatus}> <FaRegTrashAlt /> Remove from Bookshelf</button>
-
-                                            </div>
-                                            <div className="modal-footer">
-                                                <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                <button type="button" className="btn btn-primary" onClick={currentUserSetsBookStatus} data-bs-dismiss="modal">Save changes</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
 
                             </div>
                         )}
