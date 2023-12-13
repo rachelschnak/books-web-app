@@ -6,6 +6,8 @@ export const NYTBOOKS_KEY = 'xaJwBmmDuBXHEAn6ALWrAnhLCoHq4MzT';//process.env.NYT
 
 export const NYTBOOKS_API = `https://api.nytimes.com/svc/books/v3/lists/current/hardcover-fiction.json?api-key=${NYTBOOKS_KEY}`;
 
+export const NYTBOOKSREVIEWS_API = `https://api.nytimes.com/svc/books/v3/reviews.json?`;
+
 export const findBooks = async (searchTerm) => {
     const response = await axios.get(
         //`${OPENLIB_API}/search.json?title=${searchTerm}`
@@ -49,6 +51,14 @@ export const findFirstBookByTitle = async(bookTitle) => {
     )
     return response.data.items[0];
 };
+
+
+export const findNYTBookReviews = async(bookTitle) => {
+    const response = await axios.get(
+        `${NYTBOOKSREVIEWS_API}title=${bookTitle}&api-key=${NYTBOOKS_KEY}`
+    );
+    return response.data;
+}
 
 
 

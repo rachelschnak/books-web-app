@@ -116,12 +116,15 @@ padding: 10px;
 .review-box-and-buttons {
     border-style: solid;
     border-color: #7f4c5d;
-    margin:5px;
+    margin:10px;
     border-radius: 15px;
+    margin-bottom: 50px;
 }
 
 .review-text{
-    margin: 5px;
+    margin: 15px;
+    max-width: 705px;
+
 }
 
 .review-buttons {
@@ -134,6 +137,11 @@ padding: 10px;
 .one-book-review {
     border-width: 0px;
     padding: 3px;
+
+}
+
+.NYT-reviews a{
+    text-decoration: none;
 
 }
 
@@ -158,8 +166,24 @@ padding: 10px;
     background-color: #ffe2b9;
 }
 
+.NYT-review-user {
+    padding: 10px;
+    text-decoration: none;
+    color: white;
+    font-size: 1em;
+}
+
+.NYT-review-body {
+    padding: 10px;
+    background-color: #eaeef1;
+}
+
 .review-user-row{
     background-color: #f1a629;
+}
+
+.NYT-review-user-row {
+    background-color: #217675;
 }
 
 .review-edit-btn {

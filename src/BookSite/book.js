@@ -26,6 +26,7 @@ function Book() {
     const count = useRef(null);
     const [userReviews, setUsersReviews] = useState(null);
     const [statusExists, setStatusExists] = useState(false);
+    const [NYTreviews, setNYTReviews] = useState(null);
 
 
 
@@ -47,6 +48,8 @@ function Book() {
         try {
             const thisBook = await client.findBookById(bookId)
             setBook(thisBook);
+            console.log(thisBook.volumeInfo)
+            fetchNYTReviews(thisBook.volumeInfo.title)
         } catch (error) {
             console.log("didnt fetch a book")
             console.log(error)
@@ -107,6 +110,20 @@ function Book() {
             setLikes(null);
         }
     };
+
+    const fetchNYTReviews = async (bookTitle) => {
+        try{
+            const NYTBReviews = await client.findNYTBookReviews(bookTitle);
+            if (NYTBReviews.results.length > 0 ) {
+
+                setNYTReviews(NYTBReviews.results[0]);
+                console.log(NYTBReviews);
+                console.log(NYTBReviews.results);
+            }
+        }catch (error) {
+            console.log('failed to fetch NYT reviews')
+        }
+    }
 
     const fetchLikes = async () => {
         try {
@@ -376,7 +393,40 @@ function Book() {
                         </div>
 
                         <div className={"row "}>
-                            <h4>User Reviews </h4>
+                            <h4>Reviews </h4>
+
+                                <div className={'NYT-reviews'}>
+
+                                    <div className={"book-review-container list-group"}>
+
+                                        {NYTreviews && (
+                                            <Link to={NYTreviews.url}>
+                                            <div className={"list-group-item one-book-review"}>
+                                                <div className={'NYT-review-user-row NYT-review-user'}>
+                                                    New York Times - {NYTreviews.byline}
+                                                </div>
+                                                <div className={"NYT-review-body"}>
+                                                    {NYTreviews.summary}
+                                                </div>
+
+                                            </div>
+                                            </Link>
+                                        )}
+
+                                        {!NYTreviews && (
+                                            <div className={"list-group-item one-book-review"}>
+                                                <div className={'NYT-review-user-row'}> </div>
+                                                    <div className={"NYT-review-body"}>
+                                        No New York Times review</div>
+                                            </div>
+                                        )}
+
+
+                                    </div>
+                                </div>
+
+
+                            <div className={'user-reviews'}>
                             {currentUser && !userReviewedBook &&(
                                 <>
                                     <div className={'review-box-and-buttons'}>
@@ -385,7 +435,6 @@ function Book() {
                                     <button className={"btn btn-success review-buttons review-edit-btn float-end"} onClick={save}>
                                         Submit
                                     </button>
-
                                     </div>
                                 </>
                             )}
@@ -408,6 +457,7 @@ function Book() {
                                     </div>
                                 </>
                             )}
+                                <div>
                             <div className={"book-review-container list-group"}>
 
                                     {reviews &&
@@ -431,13 +481,12 @@ function Book() {
 
                                          </div>
                                      ))}
-
-
-                            </div>
                         </div>
+                            </div>
                     </div>
 
-
+                    </div>
+                    </div>
                 </div>
             )}
         </div>
