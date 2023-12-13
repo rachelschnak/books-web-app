@@ -226,7 +226,7 @@ function Profile() {
                             <h5>Role: {profile.role}</h5>
 
 
-                            {account && id != account._id && (
+                            {account && id !== account._id && (
                                 <>
                                     <button className={"btn btn-warning profile-button-3"} onClick={follow}>
                                         Follow

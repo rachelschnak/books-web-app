@@ -1,12 +1,12 @@
 import {React, useEffect, useRef, useState} from "react";
-import {Link, useLocation, useNavigate, useParams} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import "./index.css";
 import * as client from "../users/client";
 import * as likesClient from "../likes/client";
 import * as bookClient from "../client";
 import {findBookById, findFirstBookByTitle} from "../client";
 import {MdChevronLeft, MdChevronRight} from "react-icons/md";
-import {Audio, RotatingLines} from 'react-loader-spinner'
+import {RotatingLines} from 'react-loader-spinner'
 import * as statusClient from "../BookStatus/client";
 
 function Loader() {
@@ -29,6 +29,7 @@ function Home() {
     const [readBooks, setReadBooks] = useState([]);
     const [readingBooks, setReadingBooks] = useState([]);
     const [wantReadBooks, setWantReadBooks] = useState([]);
+    const [allLikes, setAllLikes] = useState();
 
 
     const fetchAccount = async () => {
@@ -45,6 +46,26 @@ function Home() {
         }
     };
 
+    const fetchAllLikes = async () => {
+        try {
+            const likes = await likesClient.findAllLikes();
+            console.log(likes)
+
+            if (likes) {
+                console.log('in if')
+                for (const each in likes) {
+                    likes[each].book = await fetchBookById(likes[each].bookId)
+                    console.log('in for loop')
+                    console.log(likes[each].book)
+                }
+            }
+            setAllLikes(likes);
+        } catch (error) {
+            console.log(error)
+        }
+    };
+
+
     const fetchNYTBest = async () => {
         try {
             setLoading(true);
@@ -52,7 +73,6 @@ function Home() {
             setBestNYT(bestNYT);
             setLoading(false);
         } catch (error) {
-            //setBest(null);
             console.log("Error in fetchNYTBest")
         }
     };
@@ -111,8 +131,7 @@ function Home() {
 
     const fetchBookById = async (bookId) => {
         try {
-            const book = await findBookById(bookId)
-            return book
+            return await findBookById(bookId)
         } catch (error) {
             console.log("didn't fetch any liked books")
         }
@@ -141,10 +160,11 @@ function Home() {
     useEffect(() => {
         if(count.current == null) {
             fetchAccount();
-            fetchNYTBest()
-
+            fetchNYTBest();
+            fetchAllLikes();
             return () => {count.current = 1;}
         }
+
         console.log("inside useEffect")
     }, []);
 
@@ -267,10 +287,37 @@ function Home() {
                     </div>
                     </>
                 )}
+                {!account && (
+                    <>
+                        <div className={'home-header'}>Books Liked By Users </div>
+
+                        <div  className={'liked-book-slider'}>
+                            <div className={'tw-relative tw-items-center tw-flex book-h-list'}>
+                                <MdChevronLeft onClick={slideLeft2} size={100} className={'tw-opacity-50 tw-cursor-pointer hover:tw-opacity-100 book-scroll '} />
+                                <div id={"slider2"} className={'tw-w-auto tw-h-full tw-overflow-scroll tw-scroll tw-whitespace-nowrap tw-scroll-smooth tw-scrollbar-hide'}>
+                                    {allLikes &&
+                                     allLikes.map((book, index) => (
+
+                                         <Link to={`/BookSite/book/${(book.book.id)}`}>
+                                             <img className={'tw-inline-block tw-cursor-pointer hover:tw-scale-105 tw-ease-in-out tw-duration-300 book-h-list-item'}
+                                                  src={`http://books.google.com/books/content?id=${book.book.id}&printsec=frontcover&img=1&zoom=1&source=gbs_api`}
+                                                  alt={``}
+                                             />
+                                         </Link>
+
+                                     ))}
+
+                                </div>
+                                <MdChevronRight size={100} onClick={slideRight2} className={'tw-opacity-50 tw-cursor-pointer hover:tw-opacity-100 '} />
+                            </div>
+                        </div>
+                    </>
+                )}
 
             </div>
 
                 <div className={'col home-book-shelf d-block d-lg-none'}>
+
                     {account && (
                         <>
                             <div className={'home-book-shelf-title'}>Book Shelf</div>

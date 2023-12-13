@@ -361,10 +361,14 @@ width: 500px;
 .home-book-shelf-profile .list-group-item {
     text-decoration: none;
     border-width: 0px;
-    padding-left: 30px;
+    padding-left: 40px;
 }
 
 .home-book-shelf-profile .list-group-item a {
     text-decoration: none;
     color: #7f4c5d;
+}
+
+.home-book-shelf-profile h5 {
+    margin-left: 20px;
 }

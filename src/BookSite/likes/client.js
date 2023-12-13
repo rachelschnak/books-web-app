@@ -7,7 +7,10 @@ export const API_BASE = process.env.REACT_APP_BASE_API_URL || "http://localhost:
 const USERS_API = `${API_BASE}/users`;
 const LIKES_API = `${API_BASE}/likes`;
 
-export const findAllLikes = async () => {};
+export const findAllLikes = async () => {
+    const response = await request.get(`${LIKES_API}`)
+    return response.data;
+};
 export const createUserLikesBook = async (userId, bookId) => {
     const response = await request.post(`${USERS_API}/${userId}/likes/${bookId}`);
     return response.data;
