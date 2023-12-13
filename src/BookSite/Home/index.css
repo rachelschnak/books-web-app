@@ -166,3 +166,8 @@
     color:#7f4c5d;
     padding: 2px;
 }
+
+.list-group-item {
+    padding-top: 3px;
+    padding-bottom: 3px;
+}

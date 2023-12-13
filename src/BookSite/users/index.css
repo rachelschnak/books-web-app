@@ -41,7 +41,7 @@
     padding-top: 25px;
     margin-left:auto;
     margin-right: auto;
-    width: 80%;
+    width: 70%;
 }
 
 .book-h-list {
@@ -246,6 +246,13 @@ width: 500px;
     border-color: #217675;
 }
 
+.profile-list .list-group-item h4 {
+    color: #7f4c5d;
+    border-width: 0px;
+    border-bottom-width: 1px;
+    border-style: solid;
+}
+
 
 
 
@@ -254,8 +261,8 @@ width: 500px;
     justify-content: center;
     margin-right: auto;
     margin-left:auto;
-    overflow-y: scroll;
-    max-height: 250px;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 .profile-button-1 {
@@ -339,4 +346,25 @@ width: 500px;
 
 .user-list-all {
     margin-top:30px;
+}
+
+.home-book-shelf-profile {
+    margin-left: auto;
+    margin-right: auto;
+    align-content: center;
+}
+
+.home-book-shelf-profile .list-group {
+    border-width: 0px;
+}
+
+.home-book-shelf-profile .list-group-item {
+    text-decoration: none;
+    border-width: 0px;
+    padding-left: 30px;
+}
+
+.home-book-shelf-profile .list-group-item a {
+    text-decoration: none;
+    color: #7f4c5d;
 }

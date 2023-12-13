@@ -236,6 +236,7 @@ function Book() {
     }, [book, review, statusExists, bookStatus]);
 
 
+
     return (
         <div className={'book-page-all'}>
             <div className="modal fade" id="exampleModalCenter" tabIndex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -277,7 +278,7 @@ function Book() {
                     <div className={"d-none d-lg-block col col-auto wd-book-authTit book-info-pane "}>
                         <img className={"book-cover"}
                              src={`http://books.google.com/books/content?id=${book.id}&printsec=frontcover&img=1&zoom=2&source=gbs_api`}
-                             alt={book.volumeInfo.title}
+                             alt={`http://books.google.com/books/content?id=${bookId}&printsec=frontcover&img=1&zoom=2&source=gbs_api`}
                         />
                         <div className={'book-title'}>{book.volumeInfo.title}</div>
                         <Link to={`/BookSite/Author/${book.volumeInfo.authors}`}><h4>{book.volumeInfo.authors}</h4></Link>

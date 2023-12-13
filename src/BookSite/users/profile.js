@@ -12,6 +12,7 @@ import {findBookById} from "../client";
 import {MdChevronLeft, MdChevronRight} from "react-icons/md";
 import * as reviewsClient from "../reviews/client";
 import {createUserReviewsBook} from "../reviews/client";
+import * as statusClient from "../BookStatus/client";
 
 function Profile() {
     const {id} = useParams();
@@ -24,6 +25,11 @@ function Profile() {
     const [followers, setFollowers] = useState(null)
     const [following, setFollowing] = useState(null)
     const count = useRef(null);
+    const [booksStatus, setBooksStatus] = useState([]);
+    const [readBooks, setReadBooks] = useState([]);
+    const [readingBooks, setReadingBooks] = useState([]);
+    const [wantReadBooks, setWantReadBooks] = useState([]);
+
     const fetchAccount = async () => {
         try {
             const account = await client.account();
@@ -41,7 +47,8 @@ function Profile() {
             if (!thisprofile) {
                 navigate("/BookSite/")
             } else {
-                fetchBooksUserLikes(thisprofile._id)
+                await fetchBooksUserLikes(thisprofile._id)
+                await fetchBooksStatus(thisprofile._id)
             }
         } catch (error) {
             console.log(error)
@@ -87,6 +94,42 @@ function Profile() {
             console.log("didn't fetch any liked books")
         }
     };
+
+    const fetchBookById = async (bookId) => {
+        try {
+            const book = await findBookById(bookId)
+            return book
+        } catch (error) {
+            console.log("didn't fetch any liked books")
+        }
+    };
+
+    const fetchBooksStatus = async(userId) => {
+        try{
+            const bookStat = await statusClient.findBookStatusesOfUser(userId);
+            for (const each in bookStat) {
+                bookStat[each].book = await fetchBookById(bookStat[each].bookId)
+            }
+            setBooksStatus(bookStat);
+            getReadBooks(bookStat)
+        } catch (error) {
+            console.log("Error getting book status")
+        }
+    }
+
+    const getReadBooks = async (booksStatus) => {
+        for( const each in booksStatus) {
+            if (booksStatus[each].bookStatus === 'READ') {
+                setReadBooks(readBooks => [...readBooks, booksStatus[each]])
+            }
+            if (booksStatus[each].bookStatus === 'WANT TO READ') {
+                setWantReadBooks(wantReadBooks => [...wantReadBooks, booksStatus[each]])
+            }
+            if (booksStatus[each].bookStatus === 'READING') {
+                setReadingBooks(readingBooks => [...readingBooks, booksStatus[each]])
+            }
+        }
+    }
 
     const fetchReviews = async(userId) => {
         try{
@@ -161,7 +204,7 @@ function Profile() {
             <div className=" col wd-kanbas-user-content d-block">
 
                     <div className={'row'}>
-                        <div className={'col-auto'}>
+                        <div className={'col-12'}>
                             <div className={'profile-header profile-header-main'}>{profile.username}'s Profile</div>
                             {account && id === account._id && (
                                 <>
@@ -215,12 +258,67 @@ function Profile() {
                             </div>
                             </div>
                         </div>
-                        <div className={'col-auto'}>
 
-                            <div className={'profile-header'}>Book Lists</div>
+
+                        <div className={'col-5'}>
+
+                            <div className={'profile-header'}>Book Shelf</div>
+
+                            <div className={'home-book-shelf-profile'}>
+                                {account && (
+                                    <>
+                                        <div className={'row'}>
+                                            <h5>Reading</h5>
+                                            <ul  className={'list-group'}>
+                                                {readingBooks &&
+                                                 readingBooks.map((book, index)=> (
+
+                                                     <li className={'list-group-item'}>
+                                                         <Link to={`/BookSite/book/${(book.bookId)}`}>
+                                                             <h6>{book.book.volumeInfo.title}</h6>
+                                                         </Link>
+                                                     </li>
+
+                                                 ))}
+                                            </ul>
+                                        </div>
+                                        <div className={'row'}>
+                                            <h5>Read Books</h5>
+                                            <ul  className={'list-group'}>
+                                                {readBooks &&
+                                                 readBooks.map((book, index)=> (
+
+                                                     <li className={'list-group-item'}>
+                                                         <Link to={`/BookSite/book/${(book.bookId)}`}>
+                                                             <h6>{book.book.volumeInfo.title}</h6>
+                                                         </Link>
+                                                     </li>
+
+                                                 ))}
+                                            </ul>
+                                        </div>
+                                        <div className={'row'}>
+                                            <h5>Want to Read</h5>
+                                            <ul  className={'list-group'}>
+                                                {wantReadBooks &&
+                                                 wantReadBooks.map((book, index)=> (
+
+                                                     <li className={'list-group-item'}>
+                                                         <Link to={`/BookSite/book/${(book.bookId)}`}>
+                                                             <h6>{book.book.volumeInfo.title}</h6>
+                                                         </Link>
+                                                     </li>
+
+                                                 ))}
+                                            </ul>
+                                        </div>
+
+                                    </>
+                                )}
+                            </div>
 
                         </div>
-                        <div className={'col-auto'}>
+                        <div className={'col-7'}>
                             <div className={'profile-header'}>Reviews</div>
                             <div className={'list-group profile-list'}>
                                 {usersReviews &&
@@ -228,7 +326,7 @@ function Profile() {
 
                                      <Link to={`/BookSite/book/${(review.bookId)}`} className={'profile-list list-group-item'}>
                                         <h4>{review.book.volumeInfo.title} </h4>
-                                          "{review.review}"
+                                          {review.review}
                                      </Link>
 
                                  ))}
