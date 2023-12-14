@@ -99,7 +99,7 @@ function Register() {
 
 
 
-            <button className={'btn btn-success'} onClick={signup}>
+            <button className={'btn btn-success btn-sign'} onClick={signup}>
                 signup
             </button>
         </div>

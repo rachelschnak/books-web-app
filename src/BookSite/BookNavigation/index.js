@@ -29,7 +29,9 @@ function BookNavigation() {
     };
 
 
-useEffect(() => {fetchUser()},[])
+useEffect(() => {
+    fetchUser()
+},[currentUser])
 
 
     return (

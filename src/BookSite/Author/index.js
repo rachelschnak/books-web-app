@@ -96,11 +96,6 @@ function Author() {
             )}
 
             <div className={'authorpage-authorName'}>{author}</div>
-            <div className={'authorHighlight'}>
-                <div className={'highlightHeader'}>Author's Highlights</div>
-
-            </div>
-
 
                 {currentUser && (<>
                     <div className={'likedBooksByAuth'}>

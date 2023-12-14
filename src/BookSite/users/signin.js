@@ -7,13 +7,14 @@ function SignIn() {
     const [account, setAccount] = useState(null);
     const [error, setError] = useState(null);
     const navigate = useNavigate();
-    const links = ["Account", "Signin", "Register"];
-    const { pathname } = useLocation();
+
     const signIn = async () => {
         try {
             const credentials = {username: username, password: password};
             const user = await client.signin(credentials);
-            navigate("/BookSite/account");
+            if (user) {
+                navigate(`/BookSite/profile/${user._id}`);
+            }
         } catch (error) {
             setError(error);
         }
@@ -78,7 +79,7 @@ function SignIn() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
             />
-            <button onClick={signIn} className="btn btn-success">
+            <button onClick={signIn} className="btn btn-success btn-sign">
                 submit
             </button>
         </div>

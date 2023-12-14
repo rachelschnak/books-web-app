@@ -35,6 +35,7 @@ function BookSite() {
                     <Route path="/admin/users" element={<UserTable />} />
                     <Route path="/users" element={<UserList />} />
                     <Route path="/users/:id" element={<UserDetails />} />
+                    <Route path="/profile/" element={<Navigate to="profile/:id"/>} />
                     <Route path="/profile/:id" element={<Profile />} />
                     <Route path="/account" element={<Account />} />
                     <Route path="/account/:id" element={<AccountEdit />} />
