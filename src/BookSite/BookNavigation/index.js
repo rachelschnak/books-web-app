@@ -17,7 +17,6 @@ function BookNavigation() {
     const { pathname } = useLocation();
     const navigate = useNavigate();
     const [searchTerm, setSearchTerm] = useState( "");
-
     const [currentUser, setCurrentUser] = useState(null);
 
     const fetchUser = async () => {
@@ -46,15 +45,30 @@ useEffect(() => {fetchUser()},[])
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul className="navbar-nav me-auto mb-2 mb-lg-0 list-group">
 
-            {links.map((link, index) => (
-                <Link
-                    key={index}
-                    to={`/BookSite/${link}`}
-                    className={`list-group-item ${pathname.includes(link) && "active"}`}>
-                    {linkToIconMap[link]}
-                    {link}
-                </Link>
-            ))}
+                        <Link
+                            to={`/BookSite`}
+                            className={`list-group-item ${pathname.includes('Home') && "active"}`}>
+                            <FaHome/>
+                            Home
+                        </Link>
+                        {currentUser && (
+                            <Link
+                                to={`/BookSite/Profile/${currentUser._id}`}
+                                className={`list-group-item ${pathname.includes('Profile') && "active"}`}>
+                                <BiSolidUserCircle/>
+                                Account
+                            </Link>
+                        )}
+                        {!currentUser && (
+                            <Link
+                                to={`/BookSite/Signin`}
+                                className={`list-group-item ${pathname.includes('Profile') && "active"}`}>
+                                <BiSolidUserCircle/>
+                                Account
+                            </Link>
+
+                        )}
+
                     </ul>
 
                     <form className="d-flex nav-seach-bar" role="search">

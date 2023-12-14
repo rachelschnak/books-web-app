@@ -220,8 +220,15 @@ function Profile() {
                             </button>
 
                             <h5>Username: {profile.username}</h5>
-                            <h5>Email: {profile.email}</h5>
-                            <h5>Role: {profile.role}</h5>
+                            <h5>First Name: {profile.firstName}</h5>
+                            {account && id === account._id && (
+                                <>
+                                    <h5>Last Name: {profile.lastName}</h5>
+                                    <h5>Email: {profile.email}</h5>
+                                    <h5>Role: {profile.role}</h5>
+                                </>  )}
+
+
 
 
                             {account && id !== account._id && (
