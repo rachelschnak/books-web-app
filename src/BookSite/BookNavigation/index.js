@@ -22,11 +22,11 @@ function BookNavigation() {
 
     const fetchUser = async () => {
         try {
-            console.log('nav bar fetching user')
             const user = await userClient.account();
-            console.log(user)
-            console.log('is that right?')
-            setCurrentUser(user);
+            if (user) {
+                setCurrentUser(user);
+            }
+
         } catch (error) {
             setCurrentUser(null);
         }
@@ -69,6 +69,7 @@ useEffect(() => {
                         {!currentUser && (
                             <Link
                                 to={`/BookSite/Signin`}
+
                                 className={`list-group-item ${pathname.includes('Signin') && "active"}`}>
                                 <BiSolidUserCircle/>
                                 Account
@@ -88,11 +89,11 @@ useEffect(() => {
                         </Link>
 
                         {currentUser && currentUser.role === "ADMIN" && (
-                            <>
-                                <Link to="/BookSite/admin/users" className="list-group-item books-users-link ">
+
+                                <Link to="/BookSite/admin/users" className={`list-group-item ${pathname.includes('Users') && "active"}`}>
                                     Users
                                 </Link>
-                            </>)}
+                            )}
 
                     </ul>
 

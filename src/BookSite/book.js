@@ -98,13 +98,13 @@ function Book() {
     const fetchReviews = async (bookId) => {
         try {
             const bookReviews = await reviewsClient.findBookReviews(bookId);
-            console.log(bookReviews)
-            console.log('Why you break?')
-            for (const each in bookReviews) {
-                bookReviews[each].fullUser = await findUserById(bookReviews[each].user)
-            }
+            if (bookReviews) {
+                for (const each in bookReviews) {
+                    bookReviews[each].fullUser = await findUserById(bookReviews[each].user)
+                }
 
-            setReviews(bookReviews);
+                setReviews(bookReviews);
+            }
 
         } catch (error) {
             console.log("didnt fetch reviews")
@@ -257,13 +257,11 @@ function Book() {
     };
 
     const deleteReview = async () => {
-        console.log('Howd I get here')
         await reviewsClient.deleteUserReviewsBook(currentUser._id, bookId);
         fetchReviews(bookId);
     };
 
     const adminDeleteReview = async(userId) => {
-        console.log('admin delete review')
         await reviewsClient.deleteUserReviewsBook(userId, bookId);
         fetchReviews(bookId);
     }
@@ -550,15 +548,14 @@ function Book() {
                                             <div className={'review-user-row'}>
                                             <Link to={`/BookSite/Profile/${(aReview.user)}`} className={"review-user"}>{aReview.fullUser.username}</Link>
                                              <SlSpeech/>
-                                                {currentUser && currentUser.role === 'ADMIN' &&(
-                                                    <button className={"btn btn-danger btn-admin float-end"} onClick={adminDeleteReview(aReview.user)}>
-                                                        Delete
-                                                    </button>
+                                                {currentUser && currentUser.role === 'ADMIN' && (
+                                                    <button className={'btn btn-danger Areview-delete-btn float-end'} onClick={function(){adminDeleteReview(aReview.user)}}>Delete User Review</button>
                                                 )}
+
                                             </div>
                                              <div className={"review-body"}>{aReview.review}
-
                                              </div>
+
 
                                          </div>
 

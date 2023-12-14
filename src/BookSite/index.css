@@ -234,7 +234,6 @@ padding: 10px;
     border-width: 5px;
     border-color: #f1a629;
     padding: 10px;
-    min-height: 210px;
 }
 
 .AuthorCommentBlock button {
@@ -247,4 +246,16 @@ padding: 10px;
 
 .AuthorCommentBlock textarea{
   max-width: 680px;
+}
+
+.Areview-delete-btn {
+    background-color: #720c10;
+    border-color: #720c10;
+    max-height: 29px;
+}
+
+.Areview-delete-btn:hover {
+    color: #720c10;
+    background-color: #fde2f0;
+    border-color: #720c10;
 }
