@@ -40,24 +40,24 @@ function Search() {
 
     return (
         <div>
-            <h1>Search</h1>
-            <button
-                onClick={() => navigate(`/BookSite/search/${searchTerm}`)}
-                className="btn btn-primary float-end"
-            >
-                Search
-            </button>
+            <div className={'searchTitle'}>Search</div>
+<div className={'row searchbarbutton'}>
             <input
                 type="text"
-                className="form-control w-75"
+                className="col-8 form-control-55"
                 placeholder="Search..."
                 value={searchTerm}
                 onChange={(event) => {
                     setSearchTerm(event.target.value);
                 }}
-            />
+            /><button
+            onClick={() => navigate(`/BookSite/search/${searchTerm}`)}
+            className="btn btn-primary review-edit-btn float-end col-1">
+            Search
+            </button>
+</div>
 
-            <h2>Results</h2>
+            <div className={'searchResultsHeader'}>Results</div>
 
 
             <ul className="list-group books-search-list">

@@ -29,7 +29,7 @@ function Home() {
     const [readBooks, setReadBooks] = useState([]);
     const [readingBooks, setReadingBooks] = useState([]);
     const [wantReadBooks, setWantReadBooks] = useState([]);
-    const [allLikes, setAllLikes] = useState();
+    const [allLikes, setAllLikes] = useState(null);
 
 
     const fetchAccount = async () => {
@@ -48,15 +48,11 @@ function Home() {
 
     const fetchAllLikes = async () => {
         try {
-            const likes = await likesClient.findAllLikes();
-            console.log(likes)
-
+            //const likes = await likesClient.findAllLikes();
+            const likes = await likesClient.findMostRecentLikes();
             if (likes) {
-                console.log('in if')
                 for (const each in likes) {
                     likes[each].book = await fetchBookById(likes[each].bookId)
-                    console.log('in for loop')
-                    console.log(likes[each].book)
                 }
             }
             setAllLikes(likes);
@@ -289,19 +285,19 @@ function Home() {
                 )}
                 {!account && (
                     <>
-                        <div className={'home-header'}>Books Liked By Users </div>
+                        <div className={'home-header'}>Most Recent Likes By Users </div>
 
                         <div  className={'liked-book-slider'}>
                             <div className={'tw-relative tw-items-center tw-flex book-h-list'}>
                                 <MdChevronLeft onClick={slideLeft2} size={100} className={'tw-opacity-50 tw-cursor-pointer hover:tw-opacity-100 book-scroll '} />
                                 <div id={"slider2"} className={'tw-w-auto tw-h-full tw-overflow-scroll tw-scroll tw-whitespace-nowrap tw-scroll-smooth tw-scrollbar-hide'}>
-                                    {allLikes &&
-                                     allLikes.map((book, index) => (
+                                    {allLikes&&
+                                     allLikes.map((book,index)=>(
 
                                          <Link to={`/BookSite/book/${(book.book.id)}`}>
                                              <img className={'tw-inline-block tw-cursor-pointer hover:tw-scale-105 tw-ease-in-out tw-duration-300 book-h-list-item'}
-                                                  src={`http://books.google.com/books/content?id=${book.book.id}&printsec=frontcover&img=1&zoom=1&source=gbs_api`}
-                                                  alt={``}
+                                                           src={`http://books.google.com/books/content?id=${book.book.id}&printsec=frontcover&img=1&zoom=1&source=gbs_api`}
+                                                           alt={``}
                                              />
                                          </Link>
 

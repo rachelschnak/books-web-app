@@ -28,3 +28,8 @@ export const findBooksThatUserLikes = async (userId) => {
     const response = await request.get(`${USERS_API}/${userId}/likes`);
     return response.data;
 };
+
+export const findMostRecentLikes = async () => {
+    const response = await request.get(`${LIKES_API}/mostRecent`)
+    return response.data;
+};
