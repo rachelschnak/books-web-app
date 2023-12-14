@@ -169,7 +169,7 @@ function Home() {
     return (
         <div className="wd-project-home-dashboard container">
             <div className={'row'}>
-                <div className={'col-2 home-book-shelf d-none d-lg-block'}>
+                <div className={'col-2 home-book-shelf d-none d-lg-block home-book-shelf-large-screen'}>
                 {account && (
                     <>
                 <div className={'home-book-shelf-title'}>Book Shelf</div>
@@ -257,33 +257,6 @@ function Home() {
                 </>
 
 
-            {account && (
-                <>
-            <div className={'home-header'}>Your Liked Books </div>
-
-                    <div  className={'liked-book-slider'}>
-                    <div className={'tw-relative tw-items-center tw-flex book-h-list'}>
-                        <MdChevronLeft onClick={slideLeft2} size={100} className={'tw-opacity-50 tw-cursor-pointer hover:tw-opacity-100 book-scroll '} />
-                        <div id={"slider2"} className={'tw-w-auto tw-h-full tw-overflow-scroll tw-scroll tw-whitespace-nowrap tw-scroll-smooth tw-scrollbar-hide'}>
-                            {likedBooks &&
-                             likedBooks.map((book, index) => (
-
-                                 <Link to={`/BookSite/book/${(book.id)}`}>
-                                     <img className={'tw-inline-block tw-cursor-pointer hover:tw-scale-105 tw-ease-in-out tw-duration-300 book-h-list-item'}
-                                          src={`http://books.google.com/books/content?id=${book.id}&printsec=frontcover&img=1&zoom=1&source=gbs_api`}
-                                          alt={``}
-                                     />
-                                 </Link>
-
-                             ))}
-
-                        </div>
-                        <MdChevronRight size={100} onClick={slideRight2} className={'tw-opacity-50 tw-cursor-pointer hover:tw-opacity-100 '} />
-                    </div>
-                    </div>
-                    </>
-                )}
-                {!account && (
                     <>
                         <div className={'home-header'}>Most Recent Likes By Users </div>
 
@@ -308,7 +281,7 @@ function Home() {
                             </div>
                         </div>
                     </>
-                )}
+
 
             </div>
 
