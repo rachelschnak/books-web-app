@@ -5,6 +5,7 @@ import {Link, useParams} from "react-router-dom";
 import {MdChevronLeft, MdChevronRight} from "react-icons/md";
 import * as likesClient from "../likes/client";
 import {findBookById} from "../client";
+import "./index.css"
 
 
 function Author() {
@@ -94,9 +95,16 @@ function Author() {
 
             )}
 
-            <h2>{author}</h2>
+            <div className={'authorpage-authorName'}>{author}</div>
+            <div className={'authorHighlight'}>
+                <div className={'highlightHeader'}>Author's Highlights</div>
+
+            </div>
+
+
                 {currentUser && (<>
-                    <h3>Books you like by {author}</h3>
+                    <div className={'likedBooksByAuth'}>
+                    <h3>Books you like by author</h3>
                         <div  className={'liked-book-slider'}>
                             <div className={'tw-relative tw-items-center tw-flex book-h-list'}>
                             <MdChevronLeft onClick={slideLeft2} size={100} className={'tw-opacity-50 tw-cursor-pointer hover:tw-opacity-100 book-scroll '} />
@@ -117,11 +125,13 @@ function Author() {
                             <MdChevronRight size={100} onClick={slideRight2} className={'tw-opacity-50 tw-cursor-pointer hover:tw-opacity-100 '} />
                             </div>
                         </div>
+                    </div>
                 </>)}
 
-            <h3>All books</h3>
-            <div className={"tw-scroll"}>
-            <ul className="list-group books-search-list tw-h-[70%] tw-overflow-y-scroll">
+            <div className={'fullBookList'}>
+            <div className={'allBooksHeader'}><h3>All books</h3></div>
+            <div>
+            <ul className="list-group books-search-list tw-h-[70%] ">
                 {booksByAuthor &&
                  booksByAuthor.map((book, index) => (
                      <li key={index} className="list-group-item">
@@ -142,6 +152,7 @@ function Author() {
                  ))}
 
             </ul>
+            </div>
             </div>
         </div>
     )

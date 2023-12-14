@@ -5,6 +5,7 @@ import * as userClient from "./users/client";
 import * as likesClient from "./likes/client";
 import * as reviewsClient from "./reviews/client";
 import * as statusClient from "./BookStatus/client";
+import * as authorCommentClient from "./Author/client";
 import {FaHeart, FaPencilAlt, FaRegTrashAlt} from "react-icons/fa";
 import {IoHeartDislike} from "react-icons/io5";
 import {SlSpeech} from "react-icons/sl";
@@ -27,7 +28,7 @@ function Book() {
     const [userReviews, setUsersReviews] = useState(null);
     const [statusExists, setStatusExists] = useState(false);
     const [NYTreviews, setNYTReviews] = useState(null);
-
+    const [authorComment, setAuthorComment] = useState(null);
 
 
     const fetchUser = async () => {
@@ -62,6 +63,19 @@ function Book() {
             setBookStatus(bookStat);
             if (bookStat.length > 0 ) {
                 setStatusExists(true)
+            }
+        } catch (error) {
+            console.log("Error getting book status")
+        }
+    }
+
+    const fetchAuthorComment = async(bookId) => {
+        try{
+            const aComment = await authorCommentClient.findAuthorComment(bookId);
+            console.log('fetching author comment')
+            console.log(aComment)
+            if (aComment) {
+                setAuthorComment(aComment)
             }
         } catch (error) {
             console.log("Error getting book status")
@@ -214,6 +228,27 @@ function Book() {
         if (review) {
             await reviewsClient.createUserReviewsBook(currentUser._id, bookId, review);
             fetchReviews(bookId);
+        }
+    };
+
+    const saveAuthorComment = async () => {
+        if (authorComment) {
+            await authorCommentClient.createAuthorComment(currentUser._id, bookId, authorComment);
+            fetchAuthorComment(bookId);
+        }
+    };
+
+    const editAuthorComment = async () => {
+        if (authorComment) {
+            await authorCommentClient.updateAuthorComment(currentUser._id, bookId, authorComment);
+            fetchAuthorComment(bookId);
+        }
+    };
+
+    const deleteAuthorComment = async () => {
+        if (authorComment) {
+            await authorCommentClient.deleteAuthorComment(currentUser._id, bookId);
+            fetchAuthorComment(bookId);
         }
     };
 
@@ -392,6 +427,21 @@ function Book() {
                             </li>
                         </div>
 
+
+                        {currentUser && currentUser.role === 'AUTHOR' && (
+
+                            <div className={'AuthorCommentBlock'}>
+                                <h4>Author Comment</h4>
+                                <textarea className={"form-control review-text"} value={authorComment} placeholder="Enter your comment..."
+                                          onChange={(e) => setAuthorComment(e.target.value)}/>
+
+                                <button className={"btn btn-success review-buttons review-edit-btn float-end"} onClick={saveAuthorComment}>
+                                    Submit
+                                </button>
+
+                            </div>
+                        )}
+
                         <div className={"row "}>
                             <h4>Reviews </h4>
 
@@ -427,7 +477,7 @@ function Book() {
 
 
                             <div className={'user-reviews'}>
-                            {currentUser && !userReviewedBook &&(
+                            {currentUser && !userReviewedBook && (currentUser.role !== "AUTHOR" &&  book.volumeInfo.authors[0].includes(currentUser.firstName) && book.volumeInfo.authors[0].includes(currentUser.lastName)) && (
                                 <>
                                     <div className={'review-box-and-buttons'}>
                                     <textarea className={"form-control review-text"} value={review} placeholder="Enter a review..."

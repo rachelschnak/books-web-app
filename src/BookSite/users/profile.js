@@ -22,8 +22,6 @@ function Profile() {
     const [likes, setLikes] = useState([]);
     const [likedBooks, setLikedBooks] = useState([]);
     const [usersReviews, setUsersReviews] = useState(null)
-    const [followers, setFollowers] = useState(null)
-    const [following, setFollowing] = useState(null)
     const count = useRef(null);
     const [booksStatus, setBooksStatus] = useState([]);
     const [readBooks, setReadBooks] = useState([]);
@@ -218,7 +216,7 @@ function Profile() {
                                 </>  )}
 
                             <button className={'btn btn-success prof-btn btn-followers inline float-end'} onClick={() => navigate(`/BookSite/Profile/${profile._id}/followList`)}>
-                                Follows
+                                Following
                             </button>
 
                             <h5>Username: {profile.username}</h5>
