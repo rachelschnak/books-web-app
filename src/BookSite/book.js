@@ -9,7 +9,7 @@ import * as authorCommentClient from "./Author/client";
 import {FaHeart, FaPencilAlt, FaRegTrashAlt} from "react-icons/fa";
 import {IoHeartDislike} from "react-icons/io5";
 import {SlSpeech} from "react-icons/sl";
-import backdrop from "bootstrap/js/src/util/backdrop";
+
 
 function Book() {
     const { bookId } = useParams();
@@ -29,6 +29,7 @@ function Book() {
     const [statusExists, setStatusExists] = useState(false);
     const [NYTreviews, setNYTReviews] = useState(null);
     const [authorComment, setAuthorComment] = useState(null);
+    const [aCommentExists, setACommentExists] = useState(false);
 
 
     const fetchUser = async () => {
@@ -49,7 +50,6 @@ function Book() {
         try {
             const thisBook = await client.findBookById(bookId)
             setBook(thisBook);
-            console.log(thisBook.volumeInfo)
             fetchNYTReviews(thisBook.volumeInfo.title)
         } catch (error) {
             console.log("didnt fetch a book")
@@ -72,10 +72,9 @@ function Book() {
     const fetchAuthorComment = async(bookId) => {
         try{
             const aComment = await authorCommentClient.findAuthorComment(bookId);
-            console.log('fetching author comment')
-            console.log(aComment)
             if (aComment) {
                 setAuthorComment(aComment)
+                setACommentExists(true)
             }
         } catch (error) {
             console.log("Error getting book status")
@@ -99,9 +98,12 @@ function Book() {
     const fetchReviews = async (bookId) => {
         try {
             const bookReviews = await reviewsClient.findBookReviews(bookId);
+            console.log(bookReviews)
+            console.log('Why you break?')
             for (const each in bookReviews) {
                 bookReviews[each].fullUser = await findUserById(bookReviews[each].user)
             }
+
             setReviews(bookReviews);
 
         } catch (error) {
@@ -131,8 +133,6 @@ function Book() {
             if (NYTBReviews.results.length > 0 ) {
 
                 setNYTReviews(NYTBReviews.results[0]);
-                console.log(NYTBReviews);
-                console.log(NYTBReviews.results);
             }
         }catch (error) {
             console.log('failed to fetch NYT reviews')
@@ -202,11 +202,9 @@ function Book() {
     const currentUserSetsBookStatus = async() => {
         console.log(statusExists)
         if (currentUser && statusExists) {
-            console.log('updating status')
             await statusClient.updateBookStatus(currentUser._id, bookId, bookStatus)
 
         } else if (currentUser && !statusExists) {
-            console.log('creating status')
             await statusClient.createUserBookStatus(currentUser._id, bookId, bookStatus)
         setStatusExists(true)
         }
@@ -234,21 +232,22 @@ function Book() {
     const saveAuthorComment = async () => {
         if (authorComment) {
             await authorCommentClient.createAuthorComment(currentUser._id, bookId, authorComment);
-            fetchAuthorComment(bookId);
+            await fetchAuthorComment(bookId);
         }
     };
 
     const editAuthorComment = async () => {
         if (authorComment) {
             await authorCommentClient.updateAuthorComment(currentUser._id, bookId, authorComment);
-            fetchAuthorComment(bookId);
+            await fetchAuthorComment(bookId);
         }
     };
 
     const deleteAuthorComment = async () => {
         if (authorComment) {
             await authorCommentClient.deleteAuthorComment(currentUser._id, bookId);
-            fetchAuthorComment(bookId);
+            await fetchAuthorComment(bookId);
+            setACommentExists(false)
         }
     };
 
@@ -273,6 +272,7 @@ function Book() {
 
     useEffect(() => {
         fetchReviews(bookId);
+        fetchAuthorComment(bookId);
         if(count.current == null) {
             fetchBook(bookId);
             fetchUser();
@@ -428,17 +428,48 @@ function Book() {
                         </div>
 
 
-                        {currentUser && currentUser.role === 'AUTHOR' && (
+                        {!aCommentExists && currentUser && currentUser.role === 'AUTHOR' && book.volumeInfo.authors[0].includes(currentUser.firstName) && book.volumeInfo.authors[0].includes(currentUser.lastName) && (
 
                             <div className={'AuthorCommentBlock'}>
                                 <h4>Author Comment</h4>
-                                <textarea className={"form-control review-text"} value={authorComment} placeholder="Enter your comment..."
+                                <textarea className={"form-control review-text"} placeholder="Enter your comment..."
                                           onChange={(e) => setAuthorComment(e.target.value)}/>
-
                                 <button className={"btn btn-success review-buttons review-edit-btn float-end"} onClick={saveAuthorComment}>
                                     Submit
                                 </button>
 
+                            </div>
+                        )}
+
+                        {aCommentExists && currentUser && currentUser.role === 'AUTHOR' && book.volumeInfo.authors[0].includes(currentUser.firstName) && book.volumeInfo.authors[0].includes(currentUser.lastName) && (
+
+                            <div className={'AuthorCommentBlock'}>
+                                <h4>Author Comment</h4>
+                                <textarea className={"form-control review-text"} value={authorComment.comment} placeholder="Enter your comment..."
+                                          onChange={(e) => setAuthorComment(e.target.value)}/>
+
+                                <button className={"btn btn-success review-buttons review-edit-btn float-end"} onClick={editAuthorComment}>
+                                    Edit
+                                </button>
+                                <button className={"btn btn-danger review-buttons review-delete-btn float-end"} onClick={deleteAuthorComment}>
+                                    Delete
+                                </button>
+
+                            </div>
+                        )}
+
+                        {aCommentExists && currentUser && !book.volumeInfo.authors[0].includes(currentUser.firstName) && !book.volumeInfo.authors[0].includes(currentUser.lastName) && (
+                            <div className={'AuthorCommentBlock'}>
+                                <h4>Author's Comment</h4>
+                                <div className={'authorCommentBlock'}>{authorComment.comment}</div>
+                            </div>
+                        )}
+
+                        {aCommentExists && !currentUser && (
+
+                            <div className={'AuthorCommentBlock'}>
+                                <h4>Author's Comment</h4>
+                                <div className={'authorCommentBlock'}>{authorComment.comment}</div>
                             </div>
                         )}
 
@@ -477,7 +508,7 @@ function Book() {
 
 
                             <div className={'user-reviews'}>
-                            {currentUser && !userReviewedBook && (currentUser.role !== "AUTHOR" &&  book.volumeInfo.authors[0].includes(currentUser.firstName) && book.volumeInfo.authors[0].includes(currentUser.lastName)) && (
+                            {currentUser && !userReviewedBook && (currentUser.role !== "AUTHOR" &&  !book.volumeInfo.authors[0].includes(currentUser.firstName) && !book.volumeInfo.authors[0].includes(currentUser.lastName)) && (
                                 <>
                                     <div className={'review-box-and-buttons'}>
                                     <textarea className={"form-control review-text"} value={review} placeholder="Enter a review..."
@@ -527,10 +558,21 @@ function Book() {
 
                                              </div>
 
-
+                                             <h2>HUH</h2>
 
                                          </div>
+
                                      ))}
+
+                                {!reviews && (
+                                    <div className={"list-group-item one-book-review"}>
+                                        <div className={'review-user-row'}>
+                                            No user reviews...yet!
+                                        </div>
+                                    </div>
+
+                                )}
+
                         </div>
                             </div>
                     </div>

@@ -1,5 +1,4 @@
 import axios from "axios";
-import {USERS_API} from "../users/client";
 
 const request = axios.create({withCredentials: true,});
 
@@ -9,12 +8,12 @@ export const AUTHOR_API = `${BASE_API}/author`;
 export const BOOKS_API = `${BASE_API}/book`;
 
 export const createAuthorComment = async (userId, bookId, comment) => {
-    const response = await request.post(`${AUTHOR_API}/${userId}/comment/${bookId}`, comment);
+    const response = await request.post(`${AUTHOR_API}/${userId}/comment/${bookId}/${comment}`);
     return response.data;
 };
 
 export const deleteAuthorComment = async (userId, bookId) => {
-    const response = await request.delete(`${AUTHOR_API}/${userId}/comment/${bookId}`);
+    const response = await request.delete(`${BASE_API}/comment/${bookId}`);
     return response.data;
 };
 
@@ -24,6 +23,6 @@ export const findAuthorComment = async (bookId) => {
 };
 
 export const updateAuthorComment = async (userId, bookId, comment) => {
-    const response = await request.put(`${AUTHOR_API}/${userId}/comment/${bookId}`, comment);
+    const response = await request.put(`${AUTHOR_API}/${userId}/comment/${bookId}/${comment}`);
     return response.data;
 };
