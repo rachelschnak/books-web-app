@@ -62,12 +62,30 @@ useEffect(() => {fetchUser()},[])
                         {!currentUser && (
                             <Link
                                 to={`/BookSite/Signin`}
-                                className={`list-group-item ${pathname.includes('Profile') && "active"}`}>
+                                className={`list-group-item ${pathname.includes('Signin') && "active"}`}>
                                 <BiSolidUserCircle/>
                                 Account
                             </Link>
-
                         )}
+                    </ul>
+                    <ul className="navbar-nav me-auto d-block d-md-block d-lg-none mb-lg-0 list-group">
+                            <Link
+                                to={`/BookSite/Signin`}
+                                className={`list-group-item ${pathname.includes('SignIn') && "active"}`}>
+                                SignIn
+                            </Link>
+                        <Link
+                            to={`/BookSite/Register`}
+                            className={`list-group-item ${pathname.includes('Register') && "active"}`}>
+                            Register
+                        </Link>
+
+                        {currentUser && currentUser.role === "ADMIN" && (
+                            <>
+                                <Link to="/BookSite/admin/users" className="list-group-item books-users-link ">
+                                    Users
+                                </Link>
+                            </>)}
 
                     </ul>
 
