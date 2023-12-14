@@ -4,6 +4,8 @@
     border-bottom-width: 10px;
     border-style: double;
     color: #217675;
+    margin-top: 30px;
+    margin-bottom: 10px;
 }
 
 .likedBooksByAuth {
