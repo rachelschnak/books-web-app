@@ -233,6 +233,10 @@ width: 500px;
     justify-content: center;
 }
 
+.profile-list-profile {
+    text-decoration: none;
+}
+
 .profile-list a {
     display: flow;
     text-decoration: none;
@@ -243,6 +247,7 @@ width: 500px;
 
 .profile-list .list-group-item{
 display: flex;
+    flex-direction: column;
     text-decoration: none;
     color: black;
     align-content: center;
@@ -263,8 +268,17 @@ display: flex;
     border-width: 0px;
     border-bottom-width: 1px;
     border-style: solid;
+    text-decoration: none;
+
 }
 
+.profile-list .list-group-item a {
+    color: #7f4c5d;
+    border-width: 0px;
+    border-bottom-width: 1px;
+    border-style: solid;
+    text-decoration: none;
+}
 
 
 

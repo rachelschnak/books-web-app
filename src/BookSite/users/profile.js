@@ -163,11 +163,6 @@ function Profile() {
 
     }, []);
 
-    const links = ["Account", "Signin", "Register"];
-    const { pathname } = useLocation();
-
-
-
 
     return (
 
@@ -271,10 +266,11 @@ function Profile() {
                             <div className={'profile-header'}>Book Shelf</div>
 
                             <div className={'home-book-shelf-profile'}>
-                                {account && (
+                                {account && readingBooks &&(
                                     <>
                                         <div className={'row'}>
                                             <h5>Reading</h5>
+
                                             <ul  className={'list-group'}>
                                                 {readingBooks &&
                                                  readingBooks.map((book, index)=> (
@@ -330,9 +326,9 @@ function Profile() {
                                 {usersReviews &&
                                  usersReviews.map((review, index) => (
 
-                                     <Link to={`/BookSite/book/${(review.bookId)}`} className={'profile-list list-group-item'}>
+                                     <Link to={`/BookSite/book/${(review.bookId)}`} className={'profile-list-profile list-group-item'}>
                                         <h4>{review.book.volumeInfo.title} </h4>
-                                          {review.review}
+                                         <div className={'reviewText'}>{review.review}</div>
                                      </Link>
 
                                  ))}
