@@ -269,6 +269,7 @@ width: 500px;
     max-width: 80px;
     color: white;
     background-color: #f1a629;
+    margin-top: 10px;
 }
 
 .profile-button-1:hover {
@@ -280,6 +281,7 @@ width: 500px;
     background-color: #7f4c5d;
     border-color: #7f4c5d;
     max-width: 120px;
+    margin-top: 10px;
 }
 
 .profile-button-2:hover {

@@ -171,23 +171,24 @@ function FollowList() {
             {profile && (
                 <>
                     {account && id === account._id && (
-                        <>
-                            <button className={"btn btn-warning profile-button-1"} onClick={signout}>
+                        <div className={'account-btns-followerList tw-inline'}>
+
+                            <button className={"btn btn-warning profile-button-1 float-end"} onClick={signout}>
                                 Signout
                             </button>
-                            <button className={"btn btn-primary profile-button-2"} onClick={() => navigate(`/BookSite/account/${account._id}`)}>
+                            <button className={"btn btn-primary profile-button-2 float-end"} onClick={() => navigate(`/BookSite/account/${account._id}`)}>
                                 Edit Account
                             </button>
 
-                        </>  )}
+                        </div>  )}
 
             <div className=" col wd-kanbas-user-content d-block">
 
                 <div className={'row'}>
 
                         <div className={'profile-header follow-list'}><Link to={`/Booksite/Profile/${profile._id}`}>{profile.username}'s</Link> Following List</div>
-                        <div className={'follow-list-groups'}>
-                            <div className={'col-5 follow-list-group'}>
+                        <div className={'follow-list-groups flex-wrap'}>
+                            <div className={'follow-list-group flex-wrap'}>
                                 <div className={'profile-header'}>
                                     Following </div>
                                         <div className={'list-group profile-list'}>
@@ -203,7 +204,7 @@ function FollowList() {
                                 </div>
 
 
-                                <div className={'col-5 follow-list-group'}>
+                                <div className={'follow-list-group flex-wrap'}>
                                     <div className={'profile-header'}>Followers</div>
                                     <div className={'list-group profile-list'}>
                                     {followers &&

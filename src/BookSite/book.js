@@ -257,11 +257,13 @@ function Book() {
     };
 
     const deleteReview = async () => {
+        console.log('Howd I get here')
         await reviewsClient.deleteUserReviewsBook(currentUser._id, bookId);
         fetchReviews(bookId);
     };
 
     const adminDeleteReview = async(userId) => {
+        console.log('admin delete review')
         await reviewsClient.deleteUserReviewsBook(userId, bookId);
         fetchReviews(bookId);
     }
@@ -557,8 +559,6 @@ function Book() {
                                              <div className={"review-body"}>{aReview.review}
 
                                              </div>
-
-                                             <h2>HUH</h2>
 
                                          </div>
 

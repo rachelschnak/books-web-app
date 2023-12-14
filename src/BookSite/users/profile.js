@@ -258,7 +258,7 @@ function Profile() {
                         </div>
 
 
-                        <div className={'col-5'}>
+                        <div className={'flex-wrap col-lg'}>
 
                             <div className={'profile-header'}>Book Shelf</div>
 
@@ -316,7 +316,7 @@ function Profile() {
                             </div>
 
                         </div>
-                        <div className={'col-7'}>
+                        <div className={'flex-wrap col-lg-7'}>
                             <div className={'profile-header'}>Reviews</div>
                             <div className={'list-group profile-list'}>
                                 {usersReviews &&
