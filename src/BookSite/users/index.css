@@ -231,11 +231,18 @@ width: 500px;
     color: black;
     align-content: center;
     justify-content: center;
+}
 
+.profile-list a {
+    display: flow;
+    text-decoration: none;
+    color: black;
+    align-content: center;
+    justify-content: center;
 }
 
 .profile-list .list-group-item{
-
+display: flex;
     text-decoration: none;
     color: black;
     align-content: center;
@@ -315,7 +322,7 @@ width: 500px;
 }
 
 .profile-header.follow-list {
-    max-width: 900px;
+    max-width: 800px;
     margin-right: auto;
     margin-left:auto;
     align-content: center;
@@ -336,6 +343,10 @@ width: 500px;
 
 .follow-list-group {
     padding: 20px;
+    background-color: #ffe2b9;
+    border-style: solid;
+    border-radius: 10px;
+    margin: 10px;
 }
 
 .profile-header-main {
@@ -344,7 +355,10 @@ width: 500px;
 
 .profile-header.follow-list a {
     text-decoration: none;
-    color: darkgreen;
+    color: #ffe2b9;
+    align-content: center;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .prof-btn {

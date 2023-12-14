@@ -152,14 +152,15 @@ function FollowList() {
                         </Link>
                     </>
                 )}
-                {links.map((link, index) => (
-                    <Link
-                        key={index}
-                        to={`/BookSite/${link}`}
-                        className={`list-group-item ${pathname.includes(link) && "active"}`}>
-                        {link}
-                    </Link>
-                ))}
+
+                <Link to={`/BookSite/Signin`} className="list-group-item books-profile-link">
+                    Signin
+                </Link>
+
+                <Link to={`/BookSite/Register`} className="list-group-item books-profile-link">
+                    Register
+                </Link>
+
                 {account && account.role === "ADMIN" && (
                     <>
                         <Link to="/BookSite/admin/users" className="list-group-item books-users-link">
@@ -188,7 +189,7 @@ function FollowList() {
 
                         <div className={'profile-header follow-list'}><Link to={`/Booksite/Profile/${profile._id}`}>{profile.username}'s</Link> Following List</div>
                         <div className={'follow-list-groups flex-wrap'}>
-                            <div className={'follow-list-group flex-wrap'}>
+                            <div className={'follow-list-group flex-wrap col-lg-5'}>
                                 <div className={'profile-header'}>
                                     Following </div>
                                         <div className={'list-group profile-list'}>
@@ -204,7 +205,7 @@ function FollowList() {
                                 </div>
 
 
-                                <div className={'follow-list-group flex-wrap'}>
+                                <div className={'follow-list-group flex-wrap col-lg-5'}>
                                     <div className={'profile-header'}>Followers</div>
                                     <div className={'list-group profile-list'}>
                                     {followers &&
