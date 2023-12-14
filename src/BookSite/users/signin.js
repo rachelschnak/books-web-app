@@ -1,12 +1,14 @@
 import * as client from "./client";
 import { useEffect, useState } from "react";
 import {Link, useLocation, useNavigate} from "react-router-dom";
+
 function SignIn() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [account, setAccount] = useState(null);
     const [error, setError] = useState(null);
     const navigate = useNavigate();
+
 
     const signIn = async () => {
         try {
@@ -24,7 +26,6 @@ function SignIn() {
         try {
             const account = await client.account();
             setAccount(account);
-
         } catch (error) {
             console.log(error)
         }

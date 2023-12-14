@@ -19,9 +19,13 @@ function BookNavigation() {
     const [searchTerm, setSearchTerm] = useState( "");
     const [currentUser, setCurrentUser] = useState(null);
 
+
     const fetchUser = async () => {
         try {
+            console.log('nav bar fetching user')
             const user = await userClient.account();
+            console.log(user)
+            console.log('is that right?')
             setCurrentUser(user);
         } catch (error) {
             setCurrentUser(null);
@@ -31,7 +35,7 @@ function BookNavigation() {
 
 useEffect(() => {
     fetchUser()
-},[currentUser])
+},[])
 
 
     return (
@@ -56,7 +60,8 @@ useEffect(() => {
                         {currentUser && (
                             <Link
                                 to={`/BookSite/Profile/${currentUser._id}`}
-                                className={`list-group-item ${pathname.includes('Profile') && "active"} `}>
+                                onClick={fetchUser}
+                                className={`list-group-item ${pathname.includes('Profile') && "active"}`}>
                                 <BiSolidUserCircle/>
                                 Account
                             </Link>
