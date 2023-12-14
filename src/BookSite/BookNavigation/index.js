@@ -43,7 +43,7 @@ useEffect(() => {fetchUser()},[])
                     <span className="navbar-toggler-icon"></span>
                 </button>
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul className="navbar-nav me-auto mb-2 mb-lg-0 list-group">
+                    <ul className="navbar-nav me-auto mb-2 mb-lg-0 list-group navbarlinks">
 
                         <Link
                             to={`/BookSite`}
@@ -54,7 +54,7 @@ useEffect(() => {fetchUser()},[])
                         {currentUser && (
                             <Link
                                 to={`/BookSite/Profile/${currentUser._id}`}
-                                className={`list-group-item ${pathname.includes('Profile') && "active"}`}>
+                                className={`list-group-item ${pathname.includes('Profile') && "active"} `}>
                                 <BiSolidUserCircle/>
                                 Account
                             </Link>
