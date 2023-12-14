@@ -40,7 +40,7 @@ function Search() {
 
     return (
         <div>
-            <div className={'searchTitle'}>Search</div>
+
 <div className={'row searchbarbutton'}>
             <input
                 type="text"
@@ -57,7 +57,7 @@ function Search() {
             </button>
 </div>
 
-            <div className={'searchResultsHeader'}>Results</div>
+            <div className={'searchResultsHeader'}>Search Results</div>
 
 
             <ul className="list-group books-search-list">
@@ -72,9 +72,9 @@ function Search() {
                                  alt={``}
                              />
                                  </div>
-                                 <div className={"col"}>
-                             <h3>{book.volumeInfo.title}</h3>
-                             {book.volumeInfo.authors}
+                                 <div className={"bookInfo col"}>
+                             <div className={'bookTitle row-lg-10'}>{book.volumeInfo.title}</div>
+                             <div className={'bookAuth row'}><Link to={`/BookSite/author/${(book.volumeInfo.authors)}`}>{book.volumeInfo.authors}</Link></div>
                                  </div>
                              </div>
 

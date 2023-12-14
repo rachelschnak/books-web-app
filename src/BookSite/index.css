@@ -52,15 +52,42 @@
 }
 
 .books-search-list .list-group-item{
+    display: flex;
     border-width: 0px;
     border-bottom-width: 1px;
     text-decoration: none;
+    padding: 10px;
+    margin-bottom: auto;
+    margin-top: auto;
+    vertical-align: middle;
+}
 
+.bookInfo {
+   display: flex-wrap;
+
+    margin-bottom: auto;
+    margin-top: auto;
+}
+
+.bookInfo .bookTitle{
+    font-size: 2em;
+    padding: 5px;
+    padding-bottom: 0px;
+}
+
+.bookInfo .bookAuth{
+    font-size: 1.5em;
+    padding-top: 0px;
+    padding-left: 20px;
+    color: #217675;
 }
 
 .books-search-list .list-group-item a{
     text-decoration: none;
     color: black;
+    margin-bottom: auto;
+    margin-top: auto;
+    vertical-align: middle;
 }
 
 .like-icon {
@@ -261,10 +288,13 @@ padding: 10px;
 }
 
 .searchTitle {
+    display: flex;
     margin-top: 30px;
     margin-bottom: 10px;
     font-size: 2em;
     color: #217675;
+    align-content: center;
+    justify-content: center;
 }
 
 .searchResultsHeader {
@@ -274,10 +304,20 @@ padding: 10px;
     font-size: 2.5em;
     background-color: #f1a629;
     color: white;
+    border-radius: 10px;
+    align-content: center;
+  text-align: center;
+    justify-content: center;
 }
 
 .searchbarbutton {
+    margin-top: 30px;
+    display: flex;
     padding: 5px;
+    margin-left: auto;
+    margin-right: auto;
+    align-content: center;
+    justify-content: center;
 
 }
 

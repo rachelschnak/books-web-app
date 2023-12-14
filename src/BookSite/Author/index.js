@@ -138,7 +138,7 @@ function Author() {
                                          alt={``}
                                      />
                                  </div>
-                                 <div className={"col"}>
+                                 <div className={"col bookInfo"}>
                                      <h3>{book.volumeInfo.title}</h3>
                                  </div>
                              </div>
