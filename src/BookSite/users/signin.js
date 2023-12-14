@@ -35,6 +35,7 @@ function SignIn() {
 
     return (
         <div className={"row wd-kanbas-user-content"}>
+
             <div className="list-group wd-kanbas-user-navigation col-auto d-none d-lg-block">
                 {account && (
                     <>
@@ -43,14 +44,15 @@ function SignIn() {
                         </Link>
                     </>
                 )}
-                {links.map((link, index) => (
-                    <Link
-                        key={index}
-                        to={`/BookSite/${link}`}
-                        className={`list-group-item ${pathname.includes(link) && "active"}`}>
-                        {link}
-                    </Link>
-                ))}
+
+                <Link to={`/BookSite/Signin`} className="list-group-item books-profile-link-active">
+                    Signin
+                </Link>
+
+                <Link to={`/BookSite/Register`} className="list-group-item books-profile-link">
+                    Register
+                </Link>
+
                 {account && account.role === "ADMIN" && (
                     <>
                         <Link to="/BookSite/admin/users" className="list-group-item books-users-link">
@@ -58,6 +60,7 @@ function SignIn() {
                         </Link>
                     </>)}
             </div>
+
         <div className={"book-user-fields book-signin-block"}>
             <div className={'book-signin-title'}>Sign In</div>
             {error && <div className="alert alert-danger">{error.message}</div>}

@@ -70,24 +70,30 @@ function UserTable() {
     return (
 <div className={''}>
     <div className="list-group wd-kanbas-user-navigation col-auto d-none d-lg-block">
-        {account && (
-            <>
-                <Link to={`/BookSite/Profile/${account._id}`} className="list-group-item books-profile-link">
-                    Profile
-                </Link>
-            </>
-        )}
-        {links.map((link, index) => (
-            <Link
-                key={index}
-                to={`/BookSite/${link}`}
-                className={`list-group-item ${pathname.includes(link) && "active"}`}>
-                {link}
+
+            {account && (
+                <>
+                    <Link to={`/BookSite/Profile/${account._id}`} className="list-group-item books-profile-link">
+                        Profile
+                    </Link>
+                </>
+            )}
+
+            <Link to={`/BookSite/Signin`} className="list-group-item books-profile-link">
+                Signin
             </Link>
-        ))}
-        <Link to="/BookSite/admin/users" className="list-group-item books-users-link-active">
-            Users
-        </Link>
+
+            <Link to={`/BookSite/Register`} className="list-group-item books-profile-link">
+                Register
+            </Link>
+
+            {account && account.role === "ADMIN" && (
+                <>
+                    <Link to="/BookSite/admin/users" className="list-group-item books-users-link-active">
+                        Users
+                    </Link>
+                </>)}
+
     </div>
         <div className={"user-list-all"}>
             <div className={'book-user-list-header'}>User List</div>

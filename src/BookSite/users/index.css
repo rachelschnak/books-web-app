@@ -13,7 +13,7 @@
     height: 100vh;
     position: fixed;
     left:0px;
-    top: 60px;
+    top: 57px;
 
 }
 
@@ -88,6 +88,11 @@
     background-color: #f1a629;
     color: white;
     border-radius: 0px;
+}
+
+.books-profile-link.list-group-item {
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 .books-profile-link {

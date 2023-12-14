@@ -180,14 +180,15 @@ function Profile() {
                         </Link>
                     </>
                 )}
-                {links.map((link, index) => (
-                    <Link
-                        key={index}
-                        to={`/BookSite/${link}`}
-                        className={`list-group-item ${pathname.includes(link) && "active"}`}>
-                        {link}
-                    </Link>
-                ))}
+
+                <Link to={`/BookSite/Signin`} className="list-group-item books-profile-link">
+                            Signin
+                </Link>
+
+                <Link to={`/BookSite/Register`} className="list-group-item books-profile-link">
+                    Register
+                </Link>
+
                 {account && account.role === "ADMIN" && (
                     <>
                         <Link to="/BookSite/admin/users" className="list-group-item books-users-link">

@@ -34,29 +34,30 @@ function Register() {
 
     return (
         <div className={"row"}>
-        <div className="list-group wd-kanbas-user-navigation col-auto d-none d-lg-block">
-            {account && (
-                <>
-                    <Link to={`/BookSite/Profile/${account._id}`} className="list-group-item books-profile-link">
-                        Profile
-                    </Link>
-                </>
-            )}
-            {links.map((link, index) => (
-                <Link
-                    key={index}
-                    to={`/BookSite/${link}`}
-                    className={`list-group-item ${pathname.includes(link) && "active"}`}>
-                    {link}
+            <div className="list-group wd-kanbas-user-navigation col-auto d-none d-lg-block">
+                {account && (
+                    <>
+                        <Link to={`/BookSite/Profile/${account._id}`} className="list-group-item books-profile-link">
+                            Profile
+                        </Link>
+                    </>
+                )}
+
+                <Link to={`/BookSite/Signin`} className="list-group-item books-profile-link">
+                    Signin
                 </Link>
-            ))}
-            {account && account.role === "ADMIN" && (
-                <>
-                    <Link to="/BookSite/admin/users" className="list-group-item books-users-link ">
-                        Users
-                    </Link>
-                </>)}
-        </div>
+
+                <Link to={`/BookSite/Register`} className="list-group-item books-profile-link-active">
+                    Register
+                </Link>
+
+                {account && account.role === "ADMIN" && (
+                    <>
+                        <Link to="/BookSite/admin/users" className="list-group-item books-users-link">
+                            Users
+                        </Link>
+                    </>)}
+            </div>
 
         <div className={"col book-user-fields book-signin-block"}>
             <div className={'book-signin-title'}>Register</div>
